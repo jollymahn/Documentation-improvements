@@ -1,0 +1,27 @@
+# Sensitive credentials
+.env
+.env.*
+!.env.example
+
+# Local config
+.mcp.json
+.claude/
+CLAUDE.md
+AGENTS.md
+
+# Playwright automation scripts & dependencies
+screenshots/
+package.json
+package-lock.json
+.env.example
+c-bootstrapping/screenshot-plan.md
+
+# Screenshots (working directory — large binary files)
+documentation-improvements-screenshots/
+
+# Node
+node_modules/
+.next/
+
+# OS
+.DS_Store

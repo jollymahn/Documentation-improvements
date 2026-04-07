@@ -1,0 +1,1267 @@
+{
+  "version": 1,
+  "last_updated": "2026-04-01T01:59:59.083148+00:00",
+  "sources": [
+    {
+      "url": "https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/use-panorama-based-software-firewall-license-management",
+      "project": "c-bootstrapping",
+      "tags": [],
+      "local_path": "docs/vm-series/11-1/use-panorama-based-software-firewall-license-management.md",
+      "title": "Use Panorama-Based Software Firewall License Management",
+      "status": "ok",
+      "last_fetched": "2026-03-31T18:04:40.489782+00:00",
+      "content_hash": "efc7a45b2646d484"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/vm-series-firewall-licensing",
+      "project": "c-bootstrapping",
+      "tags": [],
+      "local_path": "docs/vm-series/11-1/vm-series-firewall-licensing.md",
+      "title": "VM-Series Firewall Licensing",
+      "status": "ok",
+      "last_fetched": "2026-03-31T18:04:41.658959+00:00",
+      "content_hash": "09312e2781f4c10b"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/software-ngfw/create-a-deployment-profile-vm-series",
+      "project": "c-bootstrapping",
+      "tags": [],
+      "local_path": "docs/vm-series/11-1/create-a-deployment-profile-vm-series.md",
+      "title": "Create a Deployment Profile",
+      "status": "ok",
+      "last_fetched": "2026-03-31T18:04:42.683643+00:00",
+      "content_hash": "589d0ee40976e89a"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/vm-series/10-1/vm-series-deployment/license-the-vm-series-firewall/software-ngfw/manage-a-deployment-profile",
+      "project": "c-bootstrapping",
+      "tags": [],
+      "local_path": "docs/vm-series/10-1/manage-a-deployment-profile.md",
+      "title": "Manage a Deployment Profile",
+      "status": "ok",
+      "last_fetched": "2026-03-31T18:04:43.788590+00:00",
+      "content_hash": "10ff27298880dbc9"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/set-up-the-vm-series-firewall-on-nsx/set-up-the-vm-series-firewall-on-nsx-t-east-west/deploy-the-vm-series-using-the-security-centric-workflow/create-templates-and-device-groups-nsx-t-ew-security-centric",
+      "project": "c-bootstrapping",
+      "tags": [],
+      "local_path": "docs/vm-series/11-1/create-templates-and-device-groups-nsx-t-ew-security-centric.md",
+      "title": "Create Template Stacks and Device Groups on Panorama",
+      "status": "ok",
+      "last_fetched": "2026-03-31T18:04:44.900025+00:00",
+      "content_hash": "aa052a34ee299add"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall",
+      "project": "c-bootstrapping",
+      "tags": [],
+      "local_path": "docs/vm-series/11-1/bootstrap-the-vm-series-firewall.md",
+      "title": "Bootstrap the VM-Series Firewall",
+      "status": "ok",
+      "last_fetched": "2026-03-31T18:04:45.966317+00:00",
+      "content_hash": "c475d10439715579"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/choose-a-bootstrap-method",
+      "project": "c-bootstrapping",
+      "tags": [],
+      "local_path": "docs/vm-series/11-1/choose-a-bootstrap-method.md",
+      "title": "Choose a Bootstrap Method",
+      "status": "ok",
+      "last_fetched": "2026-03-31T18:04:47.005609+00:00",
+      "content_hash": "fce6873f06e0ab58"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/vm-series-firewall-bootstrap-workflow",
+      "project": "c-bootstrapping",
+      "tags": [],
+      "local_path": "docs/vm-series/11-1/vm-series-firewall-bootstrap-workflow.md",
+      "title": "VM-Series Firewall Bootstrap Workflow",
+      "status": "ok",
+      "last_fetched": "2026-03-31T18:04:48.098037+00:00",
+      "content_hash": "66b530ad4db1c563"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/bootstrap-package",
+      "project": "c-bootstrapping",
+      "tags": [],
+      "local_path": "docs/vm-series/11-1/bootstrap-package.md",
+      "title": "Bootstrap Package",
+      "status": "ok",
+      "last_fetched": "2026-03-31T18:04:49.196882+00:00",
+      "content_hash": "86ad64c1eb3ad080"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/bootstrap-configuration-files",
+      "project": "c-bootstrapping",
+      "tags": [],
+      "local_path": "docs/vm-series/11-1/bootstrap-configuration-files.md",
+      "title": "Bootstrap Configuration Files",
+      "status": "ok",
+      "last_fetched": "2026-03-31T18:04:50.583426+00:00",
+      "content_hash": "d5d01f343fd630e3"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/generate-the-vm-auth-key-on-panorama",
+      "project": "c-bootstrapping",
+      "tags": [],
+      "local_path": "docs/vm-series/11-1/generate-the-vm-auth-key-on-panorama.md",
+      "title": "Generate the VM Auth Key on Panorama",
+      "status": "ok",
+      "last_fetched": "2026-03-31T18:04:51.717835+00:00",
+      "content_hash": "591b86692a049986"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/create-the-init-cfgtxt-file",
+      "project": "c-bootstrapping",
+      "tags": [],
+      "local_path": "docs/vm-series/11-1/create-the-init-cfgtxt-file.md",
+      "title": "Create the init-cfg.txt File",
+      "status": "ok",
+      "last_fetched": "2026-03-31T18:04:52.777350+00:00",
+      "content_hash": "4782b7ab156c4f25"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/create-the-bootstrapxml-file",
+      "project": "c-bootstrapping",
+      "tags": [],
+      "local_path": "docs/vm-series/11-1/create-the-bootstrapxml-file.md",
+      "title": "Create the bootstrap.xml File",
+      "status": "ok",
+      "last_fetched": "2026-03-31T18:04:53.836115+00:00",
+      "content_hash": "0754a56b076b2bb2"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/prepare-the-licenses-for-bootstrapping",
+      "project": "c-bootstrapping",
+      "tags": [],
+      "local_path": "docs/vm-series/11-1/prepare-the-licenses-for-bootstrapping.md",
+      "title": "Prepare the Licenses for Bootstrapping",
+      "status": "ok",
+      "last_fetched": "2026-03-31T18:04:54.887551+00:00",
+      "content_hash": "c6639389c06e9efd"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/prepare-the-bootstrap-package",
+      "project": "c-bootstrapping",
+      "tags": [],
+      "local_path": "docs/vm-series/11-1/prepare-the-bootstrap-package.md",
+      "title": "Prepare the Bootstrap Package",
+      "status": "ok",
+      "last_fetched": "2026-03-31T18:04:56.064510+00:00",
+      "content_hash": "b484219c34f191d8"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/about-the-vm-series-firewall/vm-series-plugin",
+      "project": "c-bootstrapping",
+      "tags": [],
+      "local_path": "docs/vm-series/11-1/vm-series-plugin.md",
+      "title": "VM-Series Plugin",
+      "status": "ok",
+      "last_fetched": "2026-03-31T18:04:57.121445+00:00",
+      "content_hash": "c7cb9f54e26175e5"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/about-the-vm-series-firewall/vm-series-plugin/configure-the-vm-series-plugin-on-the-firewall",
+      "project": "c-bootstrapping",
+      "tags": [],
+      "local_path": "docs/vm-series/11-1/configure-the-vm-series-plugin-on-the-firewall.md",
+      "title": "Configure the VM-Series Plugin on the Firewall",
+      "status": "ok",
+      "last_fetched": "2026-03-31T18:04:58.188588+00:00",
+      "content_hash": "6ecb5e2838a65009"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/about-the-vm-series-firewall/vm-series-plugin/upgrade-the-vm-series-plugin",
+      "project": "c-bootstrapping",
+      "tags": [],
+      "local_path": "docs/vm-series/11-1/upgrade-the-vm-series-plugin.md",
+      "title": "Upgrade the VM-Series Plugin",
+      "status": "ok",
+      "last_fetched": "2026-03-31T18:04:59.254999+00:00",
+      "content_hash": "3a49281bf5f15530"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/panorama/11-1/panorama-admin/panorama-plugins",
+      "project": "c-bootstrapping",
+      "tags": [],
+      "local_path": "docs/panorama/11-1/panorama-plugins.md",
+      "title": "Panorama Plugins",
+      "status": "ok",
+      "last_fetched": "2026-03-31T18:05:00.274151+00:00",
+      "content_hash": "8bdd2c0d0b5d3a8a"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/bootstrap-the-vm-series-firewall-in-azure",
+      "project": "c-bootstrapping",
+      "tags": [],
+      "local_path": "docs/vm-series/11-1/bootstrap-the-vm-series-firewall-in-azure.md",
+      "title": "Bootstrap the VM-Series Firewall on Azure",
+      "status": "ok",
+      "last_fetched": "2026-03-31T18:05:01.314695+00:00",
+      "content_hash": "957865d781e61d3e"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/verify-bootstrap-completion",
+      "project": "c-bootstrapping",
+      "tags": [],
+      "local_path": "docs/vm-series/11-1/verify-bootstrap-completion.md",
+      "title": "Verify Bootstrap Completion",
+      "status": "ok",
+      "last_fetched": "2026-03-31T18:05:02.359791+00:00",
+      "content_hash": "9c5423345d7d014a"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/bootstrap-errors",
+      "project": "c-bootstrapping",
+      "tags": [],
+      "local_path": "docs/vm-series/11-1/bootstrap-errors.md",
+      "title": "Bootstrap\nErrors",
+      "status": "ok",
+      "last_fetched": "2026-03-31T18:05:03.453806+00:00",
+      "content_hash": "58e5181eef48eb38"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/strata-cloud-manager-prerequisites",
+      "project": "c-docs-scm",
+      "tags": [],
+      "local_path": "docs/strata-cloud-manager/activation-and-onboarding/strata-cloud-manager-prerequisites.md",
+      "title": "Strata Cloud Manager Prerequisites",
+      "status": "ok",
+      "last_fetched": "2026-03-31T18:59:41.312320+00:00",
+      "content_hash": "9abab46e3db2b533"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/strata-cloud-manager/aiops/about/aiops-plugin-for-panorama",
+      "project": "c-docs-scm",
+      "tags": [],
+      "local_path": "docs/strata-cloud-manager/aiops/aiops-plugin-for-panorama.md",
+      "title": "Panorama CloudConnector Plugin",
+      "status": "ok",
+      "last_fetched": "2026-04-01T01:59:36.573472+00:00",
+      "content_hash": "6e6e8cf8fe085774"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/strata-cloud-manager/aiops/about-metrics",
+      "project": "c-docs-scm",
+      "tags": [],
+      "local_path": "docs/strata-cloud-manager/aiops/about-metrics.md",
+      "title": "Device Telemetry for AIOps",
+      "status": "ok",
+      "last_fetched": "2026-03-31T18:59:42.232785+00:00",
+      "content_hash": "2092a5f00fb6b70c"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/onboard-to-strata-cloud-manager",
+      "project": "c-docs-scm",
+      "tags": [],
+      "local_path": "docs/strata-cloud-manager/activation-and-onboarding/onboard-to-strata-cloud-manager.md",
+      "title": "Onboard to Strata Cloud Manager",
+      "status": "ok",
+      "last_fetched": "2026-04-01T01:57:05.340808+00:00",
+      "content_hash": "3732534e4b2df87c"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/ngfw/administration/certificate-management/certificate-deployment/install-device-certificate",
+      "project": "c-docs-scm",
+      "tags": [],
+      "local_path": "docs/ngfw/administration/install-device-certificate.md",
+      "title": "Install or Restore a Device Certificate",
+      "status": "ok",
+      "last_fetched": "2026-03-31T20:05:41.457421+00:00",
+      "content_hash": "5ed535987423406e"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/panorama/11-1/panorama-admin/manage-firewalls/install-the-device-certificate-for-managed-firewalls/install-the-device-certificate-for-a-managed-firewall",
+      "project": "c-docs-scm",
+      "tags": [],
+      "local_path": "docs/panorama/11-1/install-the-device-certificate-for-a-managed-firewall.md",
+      "title": "Install the Device Certificate for a Managed Firewall",
+      "status": "ok",
+      "last_fetched": "2026-03-31T18:05:09.052430+00:00",
+      "content_hash": "0e74265cca0aee31"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/strata-logging-service/activation-and-onboarding/planning/ports-and-fqdns",
+      "project": "c-docs-scm",
+      "tags": [],
+      "local_path": "docs/strata-logging-service/activation-and-onboarding/ports-and-fqdns.md",
+      "title": "TCP Ports and FQDNs Required for Strata Logging Service",
+      "status": "ok",
+      "last_fetched": "2026-03-31T18:05:09.789493+00:00",
+      "content_hash": "2b8e3a4cdb2acd39"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/strata-cloud-manager-licenses-and-support",
+      "project": "c-docs-scm",
+      "tags": [],
+      "local_path": "docs/strata-cloud-manager/activation-and-onboarding/strata-cloud-manager-licenses-and-support.md",
+      "title": "Strata Cloud Manager Licenses",
+      "status": "ok",
+      "last_fetched": "2026-04-01T01:59:35.717285+00:00",
+      "content_hash": "b0218590ce7cdae7"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/common-services/device-associations/hardware-model-compatibility",
+      "project": "c-docs-scm",
+      "tags": [],
+      "local_path": "docs/common-services/device-associations/hardware-model-compatibility.md",
+      "title": "Device Model Compatibility",
+      "status": "ok",
+      "last_fetched": "2026-03-31T18:05:11.343510+00:00",
+      "content_hash": "8776b9cf8b4605a8"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/software-ngfw/activate-the-deployment-profile",
+      "project": "c-bootstrapping",
+      "tags": [
+        "vm-series",
+        "deployment-profile"
+      ],
+      "local_path": "docs/vm-series/11-1/activate-the-deployment-profile.md",
+      "title": "Activate the Deployment Profile",
+      "status": "ok",
+      "last_fetched": "2026-04-01T01:52:23.067506+00:00",
+      "content_hash": "375de8998f433c69"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall",
+      "project": "c-bootstrapping",
+      "tags": [
+        "vm-series",
+        "licensing"
+      ],
+      "local_path": "docs/vm-series/11-1/license-the-vm-series-firewall.md",
+      "title": "License the VM-Series Firewall",
+      "status": "ok",
+      "last_fetched": "2026-03-31T18:05:18.605633+00:00",
+      "content_hash": "e74ea65c8542b748"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment",
+      "project": "c-bootstrapping",
+      "tags": [
+        "vm-series",
+        "overview"
+      ],
+      "local_path": "docs/vm-series/11-1/vm-series-deployment.md",
+      "title": "VM-Series Deployment Guide",
+      "status": "ok",
+      "last_fetched": "2026-03-31T18:05:20.119901+00:00",
+      "content_hash": "0325ad0e744b7ed2"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/common-services/device-associations/get-started/associate-devices-with-a-tenant",
+      "project": "c-docs-scm",
+      "tags": [
+        "common-services",
+        "tenants"
+      ],
+      "local_path": "docs/common-services/device-associations/associate-devices-with-a-tenant.md",
+      "title": "Associate Devices with a Tenant",
+      "status": "ok",
+      "last_fetched": "2026-04-01T01:59:13.288396+00:00",
+      "content_hash": "9b5b5347beef852a"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/common-services/device-associations/get-started/associate-apps-with-devices",
+      "project": "c-docs-scm",
+      "tags": [
+        "common-services",
+        "devices"
+      ],
+      "local_path": "docs/common-services/device-associations/associate-apps-with-devices.md",
+      "title": "Associate Products with Devices",
+      "status": "ok",
+      "last_fetched": "2026-04-01T01:59:12.448480+00:00",
+      "content_hash": "2eb6dc6a91207fba"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/strata-logging-service/administration/overview",
+      "project": "c-docs-scm",
+      "tags": [
+        "sls",
+        "logging"
+      ],
+      "local_path": "docs/strata-logging-service/administration/overview.md",
+      "title": "Introduction to  Strata Logging Service",
+      "status": "ok",
+      "last_fetched": "2026-03-31T18:05:28.875388+00:00",
+      "content_hash": "1d5cb05962dd8f54"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/strata-logging-service/activation-and-onboarding/activate",
+      "project": "c-docs-scm",
+      "tags": [
+        "sls",
+        "activation"
+      ],
+      "local_path": "docs/strata-logging-service/activation-and-onboarding/activate.md",
+      "title": "Activate Strata Logging Service",
+      "status": "ok",
+      "last_fetched": "2026-03-31T18:05:29.742392+00:00",
+      "content_hash": "10d9553633b0b857"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/cloud-identity/cloud-identity-engine-getting-started",
+      "project": "c-docs-scm",
+      "tags": [
+        "identity",
+        "cie"
+      ],
+      "local_path": "docs/cloud-identity/cloud-identity-engine-getting-started/cloud-identity-engine-getting-started.md",
+      "title": "Get Started with Cloud Identity Engine",
+      "status": "ok",
+      "last_fetched": "2026-03-31T18:05:31.139560+00:00",
+      "content_hash": "bc910873274b6c74"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/cloud-identity/cloud-identity-engine-getting-started/get-started-with-the-cloud-identity-engine/activate-the-cloud-identity-engine",
+      "project": "c-docs-scm",
+      "tags": [
+        "identity",
+        "cie",
+        "activation"
+      ],
+      "local_path": "docs/cloud-identity/cloud-identity-engine-getting-started/activate-the-cloud-identity-engine.md",
+      "title": "Activate the Cloud Identity Engine",
+      "status": "ok",
+      "last_fetched": "2026-04-01T01:59:07.129170+00:00",
+      "content_hash": "db49b9d0bc6d286c"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/common-services/subscription-and-tenant-management/manage-multitenants/add-tenants",
+      "project": "c-docs-scm",
+      "tags": [
+        "common-services",
+        "tenants"
+      ],
+      "local_path": "docs/common-services/subscription-and-tenant-management/add-tenants.md",
+      "title": "Add a Tenant Through Common Services",
+      "status": "ok",
+      "last_fetched": "2026-03-31T18:05:33.438863+00:00",
+      "content_hash": "a56257c9e69af1c3"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/common-services/subscription-and-tenant-management/manage-multitenants/what-is-a-tenant",
+      "project": "c-docs-scm",
+      "tags": [
+        "common-services",
+        "tenants"
+      ],
+      "local_path": "docs/common-services/subscription-and-tenant-management/what-is-a-tenant.md",
+      "title": "What is a Tenant?",
+      "status": "ok",
+      "last_fetched": "2026-03-31T18:05:34.416607+00:00",
+      "content_hash": "00e9ed761021f536"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/common-services/identity-and-access-access-management/manage-identity-and-access/about-roles-and-permissions",
+      "project": "c-docs-scm",
+      "tags": [
+        "common-services",
+        "iam"
+      ],
+      "local_path": "docs/common-services/identity-and-access-access-management/about-roles-and-permissions.md",
+      "title": "About Roles and Permissions Through Common Services",
+      "status": "ok",
+      "last_fetched": "2026-03-31T18:05:35.202289+00:00",
+      "content_hash": "c0f1d27d3614daf5"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/plugins/vm-series-and-panorama-plugins-release-notes/panorama-plugin-for-aiops/panorama-cloudconnector-plugin-3-0-0",
+      "project": "c-docs-scm",
+      "tags": [
+        "panorama",
+        "cloudconnector"
+      ],
+      "local_path": "docs/plugins/vm-series-and-panorama-plugins-release-notes/panorama-cloudconnector-plugin-3-0-0.md",
+      "title": "Panorama CloudConnector Plugin 3.0.0",
+      "status": "ok",
+      "last_fetched": "2026-03-31T18:05:36.352748+00:00",
+      "content_hash": "2392a26138329489"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/overview/whats-supported",
+      "project": "c-docs-scm",
+      "tags": [
+        "scm",
+        "compatibility"
+      ],
+      "local_path": "docs/strata-cloud-manager/getting-started/whats-supported.md",
+      "title": "Strata Cloud Manager Support",
+      "status": "ok",
+      "last_fetched": "2026-03-31T18:30:08.215483+00:00",
+      "content_hash": "dd85d3dd450ab652"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/device-associations-in-stata-cloud-manager/device-associations-associate-devices",
+      "project": "c-docs-scm",
+      "tags": [
+        "scm",
+        "device-associations"
+      ],
+      "local_path": "docs/strata-cloud-manager/activation-and-onboarding/device-associations-associate-devices.md",
+      "title": "Device Associations (Associate Devices with a Tenant)",
+      "status": "ok",
+      "last_fetched": "2026-03-31T18:30:08.936867+00:00",
+      "content_hash": "e38e93ba3f23e515"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/device-associations-in-stata-cloud-manager/device-associations-associate-product",
+      "project": "c-docs-scm",
+      "tags": [
+        "scm",
+        "device-associations"
+      ],
+      "local_path": "docs/strata-cloud-manager/activation-and-onboarding/device-associations-associate-product.md",
+      "title": "Device Associations (Associate Devices with a Product)",
+      "status": "ok",
+      "last_fetched": "2026-03-31T18:30:09.823178+00:00",
+      "content_hash": "04103da2c391874b"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/validate-strata-cloud-manager-onboarding",
+      "project": "c-docs-scm",
+      "tags": [
+        "scm",
+        "validation"
+      ],
+      "local_path": "docs/strata-cloud-manager/activation-and-onboarding/validate-strata-cloud-manager-onboarding.md",
+      "title": "Validate Strata Cloud Manager Onboarding",
+      "status": "ok",
+      "last_fetched": "2026-03-31T18:59:35.020294+00:00",
+      "content_hash": "2b5f2d0c7406eea4"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/operationalize-strata-cloud-manager",
+      "project": "c-docs-scm",
+      "tags": [
+        "scm",
+        "operations"
+      ],
+      "local_path": "docs/strata-cloud-manager/activation-and-onboarding/operationalize-strata-cloud-manager.md",
+      "title": "Operationalize Strata Cloud Manager",
+      "status": "ok",
+      "last_fetched": "2026-03-31T18:30:11.547395+00:00",
+      "content_hash": "b73420422a5333cb"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/migrate-from-panorama-to-strata-cloud-manager",
+      "project": "c-docs-scm",
+      "tags": [
+        "scm",
+        "migration",
+        "panorama"
+      ],
+      "local_path": "docs/strata-cloud-manager/activation-and-onboarding/migrate-from-panorama-to-strata-cloud-manager.md",
+      "title": "Migrate from Panorama to Strata Cloud Manager",
+      "status": "ok",
+      "last_fetched": "2026-03-31T18:30:12.493111+00:00",
+      "content_hash": "20a6a292efca0dde"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/upgrade-to-strata-cloud-manager-pro",
+      "project": "c-docs-scm",
+      "tags": [
+        "scm",
+        "upgrade"
+      ],
+      "local_path": "docs/strata-cloud-manager/activation-and-onboarding/upgrade-to-strata-cloud-manager-pro.md",
+      "title": "Upgrade to Strata Cloud Manager Pro, from Strata Cloud Manager Essentials",
+      "status": "ok",
+      "last_fetched": "2026-03-31T18:30:13.321800+00:00",
+      "content_hash": "cbf16d113ca24df2"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/activate-strata-cloud-manager/activate-strata-cloud-manager-pro/activate-vm-series-with-software-ngfw-credits",
+      "project": "c-docs-scm",
+      "tags": [
+        "scm",
+        "vm-series",
+        "activation"
+      ],
+      "local_path": "docs/strata-cloud-manager/activation-and-onboarding/activate-vm-series-with-software-ngfw-credits.md",
+      "title": "Activate Strata Cloud Manager Pro for VM-Series with Software NGFW Credits",
+      "status": "ok",
+      "last_fetched": "2026-03-31T18:30:14.278193+00:00",
+      "content_hash": "a81d892330126ac7"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/activate-strata-cloud-manager/activate-strata-cloud-manager-pro/activate-ngfw",
+      "project": "c-docs-scm",
+      "tags": [
+        "scm",
+        "ngfw",
+        "activation"
+      ],
+      "local_path": "docs/strata-cloud-manager/activation-and-onboarding/activate-ngfw.md",
+      "title": "Activate Strata Cloud Manager Pro for NGFW",
+      "status": "ok",
+      "last_fetched": "2026-03-31T18:30:15.080754+00:00",
+      "content_hash": "aeadf4b75a8663e2"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/ngfw/aiops/about-metrics/enable-telemetry",
+      "project": "c-docs-scm",
+      "tags": [
+        "ngfw",
+        "telemetry"
+      ],
+      "local_path": "docs/ngfw/aiops/enable-telemetry.md",
+      "title": "Device Telemetry for AIOps",
+      "status": "ok",
+      "last_fetched": "2026-03-31T18:30:16.349691+00:00",
+      "content_hash": "2092a5f00fb6b70c"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/vm-series/11-0/vm-series-deployment/license-the-vm-series-firewall/software-ngfw/create-a-deployment-profile-vm-series",
+      "project": "c-bootstrapping",
+      "tags": [
+        "vm-series",
+        "deployment-profile"
+      ],
+      "local_path": "docs/vm-series/11-0/create-a-deployment-profile-vm-series.md",
+      "title": "Create a Deployment Profile",
+      "status": "ok",
+      "last_fetched": "2026-04-01T01:59:40.772410+00:00",
+      "content_hash": "85fb31680db1af0f"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/software-ngfw",
+      "project": "c-bootstrapping",
+      "tags": [
+        "vm-series",
+        "licensing",
+        "software-ngfw"
+      ],
+      "local_path": "docs/vm-series/11-1/software-ngfw.md",
+      "title": "Software NGFW Credits",
+      "status": "ok",
+      "last_fetched": "2026-04-01T01:59:42.023768+00:00",
+      "content_hash": "d423c7ac36e549b4"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/create-the-init-cfgtxt-file/init-cfgtxt-file-components",
+      "project": "c-bootstrapping",
+      "tags": [
+        "vm-series",
+        "bootstrap",
+        "init-cfg"
+      ],
+      "local_path": "docs/vm-series/11-1/init-cfgtxt-file-components.md",
+      "title": "init-cfg.txt File Components",
+      "status": "ok",
+      "last_fetched": "2026-03-31T18:37:09.929174+00:00",
+      "content_hash": "1693afeae97847f0"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/software-ngfw/activate-credits",
+      "project": "c-bootstrapping",
+      "tags": [
+        "vm-series",
+        "licensing",
+        "credits"
+      ],
+      "local_path": "docs/vm-series/11-1/activate-credits.md",
+      "title": "Activate Credits",
+      "status": "ok",
+      "last_fetched": "2026-03-31T18:37:11.117989+00:00",
+      "content_hash": "e626a33785e49b84"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/software-ngfw/maximum-limits-based-on-memory",
+      "project": "c-bootstrapping",
+      "tags": [
+        "vm-series",
+        "capacity",
+        "limits"
+      ],
+      "local_path": "docs/vm-series/11-1/maximum-limits-based-on-memory.md",
+      "title": "Maximum Limits Based on Memory",
+      "status": "ok",
+      "last_fetched": "2026-03-31T18:37:12.499258+00:00",
+      "content_hash": "785954f19c167831"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-performance-capacity",
+      "project": "c-bootstrapping",
+      "tags": [
+        "vm-series",
+        "capacity"
+      ],
+      "local_path": "docs/vm-series/11-1/vm-series-performance-capacity.md",
+      "title": "VM-Series Performance &amp; Capacity",
+      "status": "ok",
+      "last_fetched": "2026-03-31T18:37:13.453330+00:00",
+      "content_hash": "8e9201ee8c790f0c"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/configuration-scm",
+      "project": "c-docs-scm",
+      "tags": [
+        "scm",
+        "regions",
+        "config"
+      ],
+      "local_path": "docs/strata-cloud-manager/getting-started/configuration-scm.md",
+      "title": "Configuration: Strata Cloud Manager",
+      "status": "ok",
+      "last_fetched": "2026-03-31T18:44:52.763844+00:00",
+      "content_hash": "d974aef694565bf1"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/configuration-scm/operations/push-config",
+      "project": "c-docs-scm",
+      "tags": [
+        "scm",
+        "config",
+        "push"
+      ],
+      "local_path": "docs/strata-cloud-manager/getting-started/push-config.md",
+      "title": "Configuration:\n        Push Config",
+      "status": "ok",
+      "last_fetched": "2026-03-31T18:59:35.873933+00:00",
+      "content_hash": "0c3bbf8c2346d285"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/ai-runtime-security/activation-and-onboarding/onboard-and-activate-cloud-account-in-scm",
+      "project": "c-docs-scm",
+      "tags": [
+        "scm",
+        "cloud-account",
+        "airs"
+      ],
+      "local_path": "docs/ai-runtime-security/activation-and-onboarding/onboard-and-activate-cloud-account-in-scm.md",
+      "title": "Onboard and Activate a Cloud Account in Strata Cloud Manager",
+      "status": "ok",
+      "last_fetched": "2026-03-31T18:59:39.437580+00:00",
+      "content_hash": "45ada3a8a1ccc15f"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/ai-runtime-security/administration/deploy-prisma-airs-runtime-firewalls-with-auto-execute",
+      "project": "c-docs-scm",
+      "tags": [
+        "scm",
+        "prisma-airs",
+        "deploy"
+      ],
+      "local_path": "docs/ai-runtime-security/administration/deploy-prisma-airs-runtime-firewalls-with-auto-execute.md",
+      "title": "Deploy Prisma AIRS Runtime and VM-Series Firewalls with Auto-Execute",
+      "status": "ok",
+      "last_fetched": "2026-03-31T18:59:37.717926+00:00",
+      "content_hash": "da06a17daa42eaf6"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/ai-runtime-security/administration/discover-your-cloud-resources",
+      "project": "c-docs-scm",
+      "tags": [
+        "scm",
+        "cloud-discovery"
+      ],
+      "local_path": "docs/ai-runtime-security/administration/discover-your-cloud-resources.md",
+      "title": "Discover Your Cloud Resources",
+      "status": "ok",
+      "last_fetched": "2026-03-31T18:59:38.586488+00:00",
+      "content_hash": "bf24c2206d8cbaa7"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/configuration-scm/configuration-onboarding",
+      "project": "c-docs-scm",
+      "tags": [
+        "scm",
+        "onboarding"
+      ],
+      "local_path": "docs/strata-cloud-manager/getting-started/configuration-onboarding.md",
+      "title": "Configuration: Onboarding with Strata Cloud Manager",
+      "status": "ok",
+      "last_fetched": "2026-03-31T18:44:57.103508+00:00",
+      "content_hash": "9878e1f20560894d"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/strata-cloud-manager/aiops/about-metrics/fqdns",
+      "project": "c-docs-scm",
+      "tags": [
+        "scm",
+        "networking",
+        "fqdns"
+      ],
+      "local_path": "docs/strata-cloud-manager/aiops/fqdns.md",
+      "title": "Domains Required for Strata Cloud Manager",
+      "status": "ok",
+      "last_fetched": "2026-03-31T18:59:34.101387+00:00",
+      "content_hash": "dfa046c31d0ace11"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/ai-runtime-security/activation-and-onboarding/manage-onboarded-cloud-accounts",
+      "project": "scm",
+      "tags": [
+        "airs",
+        "cloud-accounts",
+        "onboarding"
+      ],
+      "local_path": "docs/ai-runtime-security/activation-and-onboarding/manage-onboarded-cloud-accounts.md",
+      "title": "Manage Onboarded Cloud Accounts in Strata Cloud Manager",
+      "status": "ok",
+      "last_fetched": "2026-03-31T18:59:36.735391+00:00",
+      "content_hash": "bf1c00e86a4bb344"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/ngfw/getting-started/onboard-your-ngfws/onboard-a-firewall",
+      "project": "scm",
+      "tags": [
+        "ngfw",
+        "onboarding",
+        "firewall"
+      ],
+      "local_path": "docs/ngfw/getting-started/onboard-a-firewall.md",
+      "title": "Onboard a Firewall",
+      "status": "ok",
+      "last_fetched": "2026-03-31T18:59:40.397183+00:00",
+      "content_hash": "2ea3cfb736309f48"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/pan-os/11-1/pan-os-cli-quick-start/get-started-with-the-cli/access-the-cli",
+      "project": "ngfw",
+      "tags": [
+        "cli",
+        "management"
+      ],
+      "local_path": "docs/pan-os/11-1/access-the-cli.md",
+      "title": "Get Started with the CLI",
+      "status": "ok",
+      "last_fetched": "2026-03-31T20:05:42.832097+00:00",
+      "content_hash": "9d1226425b80d095"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/pan-os/11-1/pan-os-admin/firewall-administration/use-the-web-interface/launch-the-web-interface",
+      "project": "ngfw",
+      "tags": [
+        "web-ui",
+        "management"
+      ],
+      "local_path": "docs/pan-os/11-1/launch-the-web-interface.md",
+      "title": "Launch the Web Interface",
+      "status": "ok",
+      "last_fetched": "2026-03-31T20:05:43.659967+00:00",
+      "content_hash": "892455f52d51b35e"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/pan-os/11-1/pan-os-admin/subscriptions/activate-subscription-licenses",
+      "project": "ngfw",
+      "tags": [
+        "licenses",
+        "subscriptions"
+      ],
+      "local_path": "docs/pan-os/11-1/activate-subscription-licenses.md",
+      "title": "Activate Subscription Licenses",
+      "status": "ok",
+      "last_fetched": "2026-03-31T20:05:45.240058+00:00",
+      "content_hash": "e32d28c0568be812"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/resources/licensing-registration-activation",
+      "project": "ngfw",
+      "tags": [
+        "licenses",
+        "registration"
+      ],
+      "local_path": "docs/resources/licensing-registration-activation/licensing-registration-activation.md",
+      "title": "Licensing, Registration, and Activation",
+      "status": "ok",
+      "last_fetched": "2026-03-31T20:05:46.237509+00:00",
+      "content_hash": "0ba3c9681f7d078a"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/vm-series/11-0/vm-series-deployment/license-the-vm-series-firewall/software-ngfw/maximum-limits-based-on-memory",
+      "project": "scm",
+      "tags": [
+        "vm-series",
+        "capacity",
+        "limits"
+      ],
+      "local_path": "docs/vm-series/11-0/maximum-limits-based-on-memory.md",
+      "title": "Maximum Limits Based on Tier and Memory",
+      "status": "ok",
+      "last_fetched": "2026-04-01T01:56:20.811805+00:00",
+      "content_hash": "7afe63643a75722b"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/vm-series/11-0/vm-series-deployment/license-the-vm-series-firewall/create-a-support-account",
+      "project": "scm",
+      "tags": [
+        "vm-series",
+        "csp",
+        "account"
+      ],
+      "local_path": "docs/vm-series/11-0/create-a-support-account.md",
+      "title": "Create a Support Account",
+      "status": "ok",
+      "last_fetched": "2026-04-01T01:56:21.915515+00:00",
+      "content_hash": "df057d48f3be29e1"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/vm-series/11-0/vm-series-deployment/license-the-vm-series-firewall/software-ngfw/activate-credits",
+      "project": "scm",
+      "tags": [
+        "vm-series",
+        "credits",
+        "licensing"
+      ],
+      "local_path": "docs/vm-series/11-0/activate-credits.md",
+      "title": "Activate Credits",
+      "status": "ok",
+      "last_fetched": "2026-04-01T01:56:23.089574+00:00",
+      "content_hash": "de388587891e4e57"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/vm-series/11-0/vm-series-deployment/license-the-vm-series-firewall/vm-series-models",
+      "project": "scm",
+      "tags": [
+        "vm-series",
+        "models",
+        "licensing"
+      ],
+      "local_path": "docs/vm-series/11-0/vm-series-models.md",
+      "title": "VM-Series Models",
+      "status": "ok",
+      "last_fetched": "2026-04-01T01:56:24.313335+00:00",
+      "content_hash": "ad46ce078159ad7e"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/cloud-identity/cloud-identity-engine-getting-started/manage-the-cloud-identity-engine/cloud-identity-engine-user-context",
+      "project": "scm",
+      "tags": [
+        "cloud-identity",
+        "user-context"
+      ],
+      "local_path": "docs/cloud-identity/cloud-identity-engine-getting-started/cloud-identity-engine-user-context.md",
+      "title": "Cloud Identity Engine User Context",
+      "status": "ok",
+      "last_fetched": "2026-04-01T01:59:08.406318+00:00",
+      "content_hash": "b6b5404900f56ae6"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/cloud-management/administration/manage-configuration-ngfw-and-prisma-access/configuration-scope/snippets",
+      "project": "scm",
+      "tags": [
+        "cloud-management",
+        "config",
+        "snippets"
+      ],
+      "local_path": "docs/cloud-management/administration/snippets.md",
+      "title": "Configuration:\n        Snippets",
+      "status": "ok",
+      "last_fetched": "2026-04-01T01:59:10.099948+00:00",
+      "content_hash": "98831ec1acd88361"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/cloud-management/administration/workflows/workflows-ngfw-setup/folder-management",
+      "project": "scm",
+      "tags": [
+        "cloud-management",
+        "folders"
+      ],
+      "local_path": "docs/cloud-management/administration/folder-management.md",
+      "title": "System Settings: Folder Management",
+      "status": "ok",
+      "last_fetched": "2026-04-01T01:59:11.657597+00:00",
+      "content_hash": "724f7d668d028ab7"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/common-services/subscription-and-tenant-management/aiops-premium-activation",
+      "project": "scm",
+      "tags": [
+        "aiops",
+        "activation"
+      ],
+      "local_path": "docs/common-services/subscription-and-tenant-management/aiops-premium-activation.md",
+      "title": "Activate AIOps Premium",
+      "status": "ok",
+      "last_fetched": "2026-04-01T01:59:14.252952+00:00",
+      "content_hash": "aab1e999152994fc"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/common-services/subscription-and-tenant-management/cloud-managed-prisma-access-and-add-ons-license-activation",
+      "project": "scm",
+      "tags": [
+        "prisma-access",
+        "licensing"
+      ],
+      "local_path": "docs/common-services/subscription-and-tenant-management/cloud-managed-prisma-access-and-add-ons-license-activation.md",
+      "title": "Prisma Access (Managed by Strata Cloud Manager) and Add-Ons License Activation",
+      "status": "ok",
+      "last_fetched": "2026-04-01T01:59:15.560488+00:00",
+      "content_hash": "8b0e1e8a6e020833"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/ngfw/administration/onboard-devices-and-deployments/configure-the-firewall-general-settings",
+      "project": "scm",
+      "tags": [
+        "ngfw",
+        "onboarding",
+        "config"
+      ],
+      "local_path": "docs/ngfw/administration/configure-the-firewall-general-settings.md",
+      "title": "Configure the Firewall General Settings",
+      "status": "ok",
+      "last_fetched": "2026-04-01T01:59:16.991028+00:00",
+      "content_hash": "0977ad6e559840dc"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/ngfw/administration/onboard-devices-and-deployments/configure-the-firewall-session-settings",
+      "project": "scm",
+      "tags": [
+        "ngfw",
+        "onboarding",
+        "config"
+      ],
+      "local_path": "docs/ngfw/administration/configure-the-firewall-session-settings.md",
+      "title": "Session Settings and Timeouts",
+      "status": "ok",
+      "last_fetched": "2026-04-01T01:59:18.267315+00:00",
+      "content_hash": "5fb363c825d951b9"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/ngfw/administration/onboard-devices-and-deployments/local-configuration-management",
+      "project": "scm",
+      "tags": [
+        "ngfw",
+        "onboarding",
+        "local-config"
+      ],
+      "local_path": "docs/ngfw/administration/local-configuration-management.md",
+      "title": "Manage a Local Firewall Configuration",
+      "status": "ok",
+      "last_fetched": "2026-04-01T01:59:19.578027+00:00",
+      "content_hash": "307ff53a9fa709a3"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/ngfw/networking/advanced-routing/enable-advanced-routing",
+      "project": "scm",
+      "tags": [
+        "ngfw",
+        "routing"
+      ],
+      "local_path": "docs/ngfw/networking/enable-advanced-routing.md",
+      "title": "Enable Advanced Routing",
+      "status": "ok",
+      "last_fetched": "2026-04-01T01:59:20.477882+00:00",
+      "content_hash": "699c89e898349246"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/activate-strata-cloud-manager/activate-strata-cloud-manager-essentials",
+      "project": "scm",
+      "tags": [
+        "scm",
+        "activation",
+        "essentials"
+      ],
+      "local_path": "docs/strata-cloud-manager/activation-and-onboarding/activate-strata-cloud-manager-essentials.md",
+      "title": "Activate Strata Cloud Manager Essentials",
+      "status": "ok",
+      "last_fetched": "2026-04-01T01:59:21.357371+00:00",
+      "content_hash": "5f9f473589ad9e93"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/activate-strata-cloud-manager/activate-strata-cloud-manager-pro",
+      "project": "scm",
+      "tags": [
+        "scm",
+        "activation",
+        "pro"
+      ],
+      "local_path": "docs/strata-cloud-manager/activation-and-onboarding/activate-strata-cloud-manager-pro.md",
+      "title": "Activate Strata Cloud Manager Pro",
+      "status": "ok",
+      "last_fetched": "2026-04-01T01:59:22.295074+00:00",
+      "content_hash": "9b50eaa9b1d6342c"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/cortex/cortex-data-lake/cortex-data-lake-getting-started/activate-cortex-data-lake-toc/activate-cortex-data-lake-easy",
+      "project": "scm",
+      "tags": [
+        "cortex",
+        "data-lake",
+        "activation"
+      ],
+      "local_path": "docs/cortex/cortex-data-lake/activate-cortex-data-lake-easy.md",
+      "title": "Activate Strata Logging Service",
+      "status": "ok",
+      "last_fetched": "2026-04-01T01:59:23.974888+00:00",
+      "content_hash": "10d9553633b0b857"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/ngfw/administration/high-availability",
+      "project": "scm",
+      "tags": [
+        "ngfw",
+        "ha"
+      ],
+      "local_path": "docs/ngfw/administration/high-availability.md",
+      "title": "High Availability",
+      "status": "ok",
+      "last_fetched": "2026-04-01T01:59:24.898677+00:00",
+      "content_hash": "514bfa22323b43c0"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/pan-os/10-2/pan-os-admin/certificate-management/obtain-certificates/device-certificate",
+      "project": "scm",
+      "tags": [
+        "certificates",
+        "device-cert"
+      ],
+      "local_path": "docs/pan-os/10-2/device-certificate.md",
+      "title": "Install or Restore a Device Certificate",
+      "status": "ok",
+      "last_fetched": "2026-04-01T01:59:26.178008+00:00",
+      "content_hash": "5ed535987423406e"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/pan-os/10-2/pan-os-admin/getting-started/register-the-firewall",
+      "project": "scm",
+      "tags": [
+        "ngfw",
+        "registration"
+      ],
+      "local_path": "docs/pan-os/10-2/register-the-firewall.md",
+      "title": "Register Your NGFW",
+      "status": "ok",
+      "last_fetched": "2026-04-01T01:59:27.465923+00:00",
+      "content_hash": "0dfc14ce3bf66701"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/pan-os/10-2/pan-os-admin/subscriptions/activate-subscription-licenses",
+      "project": "scm",
+      "tags": [
+        "ngfw",
+        "licenses",
+        "subscriptions"
+      ],
+      "local_path": "docs/pan-os/10-2/activate-subscription-licenses.md",
+      "title": "Activate Subscription Licenses",
+      "status": "ok",
+      "last_fetched": "2026-04-01T01:59:28.737435+00:00",
+      "content_hash": "e32d28c0568be812"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/pan-os/10-2/pan-os-cli-quick-start/get-started-with-the-cli/access-the-cli",
+      "project": "scm",
+      "tags": [
+        "ngfw",
+        "cli"
+      ],
+      "local_path": "docs/pan-os/10-2/access-the-cli.md",
+      "title": "Get Started with the CLI",
+      "status": "ok",
+      "last_fetched": "2026-04-01T01:59:30.441538+00:00",
+      "content_hash": "9d1226425b80d095"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/pan-os/11-1/pan-os-admin/firewall-administration/reference-port-number-usage/ports-used-for-panorama",
+      "project": "scm",
+      "tags": [
+        "panorama",
+        "ports"
+      ],
+      "local_path": "docs/pan-os/11-1/ports-used-for-panorama.md",
+      "title": "Ports Used for Panorama",
+      "status": "ok",
+      "last_fetched": "2026-04-01T01:59:31.625041+00:00",
+      "content_hash": "773fed9199553d62"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/pan-os/11-1/pan-os-admin/getting-started",
+      "project": "scm",
+      "tags": [
+        "ngfw",
+        "getting-started"
+      ],
+      "local_path": "docs/pan-os/11-1/getting-started.md",
+      "title": "Get Started with NGFWs",
+      "status": "ok",
+      "last_fetched": "2026-04-01T01:59:32.949200+00:00",
+      "content_hash": "7d33252c7e4d738d"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/prisma-access/activation-and-onboarding/onboard-prisma-access",
+      "project": "scm",
+      "tags": [
+        "prisma-access",
+        "onboarding"
+      ],
+      "local_path": "docs/prisma-access/activation-and-onboarding/onboard-prisma-access.md",
+      "title": "Prisma Access Onboarding Workflow",
+      "status": "ok",
+      "last_fetched": "2026-04-01T01:59:33.791586+00:00",
+      "content_hash": "e374dcb079ee4b50"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/prisma-access/administration/prisma-access-overview/migrate-prisma-access-from-panorama-to-strata-cloud-manager",
+      "project": "scm",
+      "tags": [
+        "prisma-access",
+        "migration",
+        "panorama"
+      ],
+      "local_path": "docs/prisma-access/administration/migrate-prisma-access-from-panorama-to-strata-cloud-manager.md",
+      "title": "Migrate Prisma Access from Panorama to Strata Cloud Manager",
+      "status": "ok",
+      "last_fetched": "2026-04-01T01:59:34.717430+00:00",
+      "content_hash": "395966d1adfef8aa"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/command-center",
+      "project": "scm",
+      "tags": [
+        "scm",
+        "command-center"
+      ],
+      "local_path": "docs/strata-cloud-manager/getting-started/command-center.md",
+      "title": "Command Center: Strata Cloud Manager",
+      "status": "ok",
+      "last_fetched": "2026-04-01T01:59:37.484141+00:00",
+      "content_hash": "8d0b451cb1856b06"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/manage-configuration-ngfw-and-prisma-access",
+      "project": "scm",
+      "tags": [
+        "scm",
+        "config-management"
+      ],
+      "local_path": "docs/strata-cloud-manager/getting-started/manage-configuration-ngfw-and-prisma-access.md",
+      "title": "Configuration:\n        NGFW and Prisma Access",
+      "status": "ok",
+      "last_fetched": "2026-04-01T01:59:38.783430+00:00",
+      "content_hash": "e9f85811f7093e64"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/strata-logging-service/activation-and-onboarding/license-overview",
+      "project": "scm",
+      "tags": [
+        "sls",
+        "licensing"
+      ],
+      "local_path": "docs/strata-logging-service/activation-and-onboarding/license-overview.md",
+      "title": "Strata Logging Service License",
+      "status": "ok",
+      "last_fetched": "2026-04-01T01:59:39.646006+00:00",
+      "content_hash": "a0841383b3a0865b"
+    },
+    {
+      "url": "https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/activate-strata-cloud-manager",
+      "project": "scm",
+      "tags": [
+        "scm",
+        "activation"
+      ],
+      "local_path": "docs/strata-cloud-manager/activation-and-onboarding/activate-strata-cloud-manager.md",
+      "title": "Activate Your Strata Cloud Manager Licenses",
+      "status": "ok",
+      "last_fetched": "2026-04-01T01:59:59.082656+00:00",
+      "content_hash": "a84bf216eb9cd49d"
+    }
+  ]
+}

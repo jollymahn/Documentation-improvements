@@ -1,0 +1,3 @@
+auth-key=<YOUR-KEY>;dgname=<YOUR-DG>;dhcp-accept-server-domain=yes;dhcp-accept-server-hostname=yes;dhcp-send-client-id=yes;dhcp-send-hostname=yes;mgmt-interface-swap=enable;panorama-server=<YOUR-PANORAMA-SERVER>;plugin-op-commands=panorama-licensing-mode-on,aws-gwlb-inspect:enable,aws-gwlb-overlay-routing:enable;tplname=<YOUR-TEMPLATE-STACK>;vm-series-auto-registration-pin-id=<YOUR-PIN-ID>;vm-series-auto-registration-pin-value=<YOUR-PIN-VALUE> 
+
+

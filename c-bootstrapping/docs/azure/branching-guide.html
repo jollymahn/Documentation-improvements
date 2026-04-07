@@ -1,0 +1,1294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;600;700&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet">
+<title>VM-Series Bootstrap Guide (Azure) &mdash; Branching</title>
+<link rel="stylesheet" href="../shared/css/pan-guides.css">
+</head>
+<body>
+
+<!-- ── Header ─────────────────────────────────────────────────── -->
+<header class="site-header">
+  <button class="hamburger" onclick="document.querySelector('.sidebar').classList.toggle('open')" aria-label="Toggle navigation">&#9776;</button>
+  <div class="logo">
+    <span class="accent">IMPLEMENTATION</span> GUIDES <span style="font-weight:400;font-size:0.85rem;margin-left:0.5rem;">VM-Series Bootstrap</span>
+  </div>
+  <nav class="header-nav">
+    <a href="../index.html">Home</a>
+    <a href="../aws/branching-guide.html">AWS</a>
+    <a href="branching-guide.html" class="active">Azure</a>
+    <a href="../gcp/branching-guide.html">GCP</a>
+  </nav>
+</header>
+
+<!-- ── Layout ─────────────────────────────────────────────────── -->
+<div class="layout">
+
+<!-- ── Sidebar ────────────────────────────────────────────────── -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-section">
+    <div class="sidebar-section-title">Getting Started</div>
+    <a href="#prerequisites" data-section="prerequisites">Prerequisites</a>
+    <a href="#chooser" data-section="chooser">Choose Your Method</a>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-section-title">Bootstrap Methods</div>
+    <a href="#method1" data-section="method1">Method 1: Panorama Plugin</a>
+    <a href="#method2" data-section="method2">Method 2: Custom Data</a>
+    <a href="#method3" data-section="method3">Method 3: File Share Basic</a>
+    <a href="#method4" data-section="method4">Method 4: File Share Full</a>
+    <a href="#scm" data-section="scm">SCM Variant</a>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-section-title">Reference</div>
+    <a href="#reference" data-section="reference">Parameter Reference</a>
+    <a href="#verification" data-section="verification">Verification</a>
+    <a href="#troubleshooting" data-section="troubleshooting">Troubleshooting</a>
+  </div>
+</aside>
+
+<!-- ── Main Content ───────────────────────────────────────────── -->
+<main class="main-content">
+
+<div class="breadcrumb">
+  <a href="../index.html">Home</a>
+  <span class="sep">|</span>
+  <a href="branching-guide.html">Azure</a>
+  <span class="sep">|</span>
+  Branching Guide
+</div>
+
+<div class="article">
+
+<h1>VM-Series Firewall Bootstrap Guide</h1>
+<p class="subtitle">Choose your deployment scenario and get a tailored step-by-step path for Azure</p>
+
+<div class="cloud-links">
+  <a href="../aws/branching-guide.html">AWS Branching Guide</a>
+  <a href="../gcp/branching-guide.html">GCP Branching Guide</a>
+  <a href="linear-guide.html">Linear Guide (Azure)</a>
+</div>
+
+<!-- Quick Reference -->
+<div class="quick-ref">
+  <h3>Quick Reference: Which Method?</h3>
+  <table>
+    <tr><th>Scenario</th><th>Method</th></tr>
+    <tr><td>Auto-scaling, dynamic environments</td><td>Method 1 (Panorama licensing plugin)</td></tr>
+    <tr><td>One-off deployment, quick setup</td><td>Method 2 (Custom data with vm-auth-key + authcode)</td></tr>
+    <tr><td>Structured files, no software bundling</td><td>Method 3 (Azure File Share basic bootstrap)</td></tr>
+    <tr><td>Air-gapped or fully self-contained</td><td>Method 4 (Azure File Share full bootstrap with bootstrap.xml)</td></tr>
+    <tr><td>Strata Cloud Manager managed</td><td>SCM variant</td></tr>
+  </table>
+
+  <h3 style="margin-top: 1.5rem;">Bootstrap Package Directory Structure (Methods 3&ndash;4)</h3>
+  <div class="code-block">
+  <pre><code>/
+  config/           init-cfg.txt (required), bootstrap.xml (Method 4 only)
+  content/          Content update files (Method 4) or empty
+  license/          authcodes file
+  software/         PAN-OS images (Method 4) or empty
+  plugins/          VM-Series plugin (optional, Method 4)</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="prerequisites">Prerequisites Checklist (All Methods)</h2>
+
+<p>Complete all applicable items before bootstrapping. Each section includes setup instructions.</p>
+
+<ol class="checklist">
+  <li><a href="#prereq-credit-pool"><strong>1.</strong> Software NGFW Credit Pool</a> &mdash; activated and funded</li>
+  <li><a href="#prereq-deployment-profile"><strong>2.</strong> Deployment Profile</a> &mdash; created with auth code</li>
+  <li><a href="#prereq-device-group"><strong>3.</strong> Device Group</a> &mdash; created on Panorama</li>
+  <li><a href="#prereq-template-stack"><strong>4.</strong> Template Stack</a> &mdash; created on Panorama</li>
+  <li><a href="#prereq-auth-code"><strong>5.</strong> Auth Code</a> &mdash; obtained for bootstrap definitions</li>
+  <li><a href="#prereq-pin"><strong>6.</strong> Auto-Registration PIN ID &amp; PIN Value</a> &mdash; generated for device certificates</li>
+  <li><a href="#prereq-backhaul"><strong>7.</strong> Backhaul Connectivity</a> &mdash; ExpressRoute, VPN, or VNet peering established</li>
+  <li><a href="#prereq-nsg"><strong>8.</strong> Network Security Groups (NSGs)</a> &mdash; Panorama ports and management access configured</li>
+  <li><a href="#prereq-azure-marketplace"><strong>9.</strong> Azure Marketplace Subscription</a> &mdash; accepted for your license model</li>
+  <li><a href="#prereq-azure-image"><strong>10.</strong> VM-Series Azure Image</a> &mdash; identified for your region</li>
+  <li><a href="#prereq-network"><strong>11.</strong> Network Connectivity</a> &mdash; management interface can reach Panorama and licensing servers</li>
+  <li><a href="#prereq-api-key"><strong>12.</strong> Licensing API Key</a> &mdash; set on Panorama for license deactivation</li>
+</ol>
+
+<div class="collapsible">
+  <div class="collapsible-header">
+    <span class="chevron">&#9654;</span>
+    <span>Prerequisite Procedures</span>
+  </div>
+  <div class="collapsible-body">
+
+<!-- Prereq 1 -->
+<div class="collapsible">
+  <div class="collapsible-header">
+    <span class="chevron">&#9654;</span>
+    <span id="prereq-credit-pool">1. Activate Software NGFW Credits</span>
+  </div>
+  <div class="collapsible-body">
+    <p><strong>Palo Alto Docs:</strong> <a href="https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/software-ngfw/activate-credits">Activate Credits</a></p>
+    <ol>
+      <li>Log in to the <a href="https://support.paloaltonetworks.com">Customer Support Portal</a>.</li>
+      <li>Go to <strong>Assets &gt; Software NGFW Credits</strong>.</li>
+      <li>Locate your credit pool auth code (from your purchase order) and click <strong>Activate</strong>.</li>
+      <li>Verify the pool shows available credits for your VM-Series model and subscription tier.</li>
+    </ol>
+    <div class="callout callout-note">
+      <div class="callout-title">Note</div>
+      Credits are shared across your account. Each firewall consumes credits based on vCPU count and subscriptions in its deployment profile.
+    </div>
+  </div>
+</div>
+
+<!-- Prereq 2 -->
+<div class="collapsible">
+  <div class="collapsible-header">
+    <span class="chevron">&#9654;</span>
+    <span id="prereq-deployment-profile">2. Create a Deployment Profile</span>
+  </div>
+  <div class="collapsible-body">
+    <p><strong>Palo Alto Docs:</strong> <a href="https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/software-ngfw/create-a-deployment-profile-vm-series">Create a Deployment Profile</a> | <a href="https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/software-ngfw/manage-a-deployment-profile">Manage a Deployment Profile</a></p>
+    <ol>
+      <li>In the CSP, go to <strong>Assets &gt; Software NGFW Credits</strong> and select your credit pool.</li>
+      <li>Click <strong>Create Deployment Profile</strong> and configure:
+        <ul>
+          <li><strong>Profile Name</strong> &mdash; e.g., <code>azure-prod</code></li>
+          <li><strong>Firewall Model</strong> &mdash; e.g., VM-300, VM-500</li>
+          <li><strong>vCPU Count</strong> &mdash; number of vCPUs to allocate</li>
+          <li><strong>Subscriptions</strong> &mdash; Threat Prevention, WildFire, URL Filtering, DNS Security, etc.</li>
+          <li><strong>Token Count</strong> &mdash; number of firewalls this profile can license</li>
+        </ul>
+      </li>
+      <li>Click <strong>Create</strong>. Note the generated <strong>auth code</strong> (format: <code>D1234567</code>).</li>
+    </ol>
+    <div class="callout callout-note">
+      <div class="callout-title">Note</div>
+      <p>Deployment profiles are defined by <strong>licensing tier and vCPU count</strong>, not by region, cloud, or individual firewall. Multiple firewalls with the same licensing requirements and vCPU allocation can share a single deployment profile &mdash; there is no need to create one per firewall.</p>
+      <p>Group your deployment profiles by function and vCPU count (e.g., one profile for all 4-vCPU inspection firewalls, another for 8-vCPU firewalls with different subscriptions). You can always create additional profiles later if requirements diverge.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Prereq 3 -->
+<div class="collapsible">
+  <div class="collapsible-header">
+    <span class="chevron">&#9654;</span>
+    <span id="prereq-device-group">3. Create a Device Group on Panorama</span>
+  </div>
+  <div class="collapsible-body">
+    <p><strong>Palo Alto Docs:</strong> <a href="https://docs.paloaltonetworks.com/panorama/11-1/panorama-admin/manage-firewalls/manage-device-groups">Manage Device Groups</a></p>
+    <ol>
+      <li>Log in to Panorama and go to <strong>Panorama &gt; Device Groups</strong>.</li>
+      <li>Click <strong>Add</strong>:
+        <ul><li><strong>Name</strong> &mdash; e.g., <code>YOUR-DG-HERE</code> (this is your <code>dgname</code> value)</li></ul>
+      </li>
+      <li>Click <strong>OK</strong>, then <strong>Commit to Panorama</strong>.</li>
+    </ol>
+    <div class="callout callout-warning">
+      <div class="callout-title">Important</div>
+      The Device Group must exist <em>before</em> the firewall bootstraps. If the firewall cannot find its assigned DG, registration fails.
+    </div>
+  </div>
+</div>
+
+<!-- Prereq 4 -->
+<div class="collapsible">
+  <div class="collapsible-header">
+    <span class="chevron">&#9654;</span>
+    <span id="prereq-template-stack">4. Create a Template Stack on Panorama</span>
+  </div>
+  <div class="collapsible-body">
+    <p><strong>Palo Alto Docs:</strong> <a href="https://docs.paloaltonetworks.com/panorama/11-1/panorama-admin/manage-firewalls/manage-templates-and-template-stacks">Manage Templates and Template Stacks</a></p>
+    <ol>
+      <li>In Panorama, go to <strong>Panorama &gt; Templates</strong>.</li>
+      <li>Create a base template first (if none exist): click <strong>Add</strong>, name it (e.g., <code>TPL-BASE-AZURE</code>), click <strong>OK</strong>.</li>
+      <li>Click <strong>Add Stack</strong>:
+        <ul>
+          <li><strong>Name</strong> &mdash; e.g., <code>YOUR-STACK-HERE</code> (this is your <code>tplname</code> value)</li>
+          <li><strong>Templates</strong> &mdash; add your base template(s)</li>
+        </ul>
+      </li>
+      <li>Click <strong>OK</strong>, then <strong>Commit to Panorama</strong>.</li>
+    </ol>
+  </div>
+</div>
+
+<!-- Prereq 5 -->
+<div class="collapsible">
+  <div class="collapsible-header">
+    <span class="chevron">&#9654;</span>
+    <span id="prereq-auth-code">5. Obtain the Auth Code for Bootstrap Definitions</span>
+  </div>
+  <div class="collapsible-body">
+    <p><strong>Palo Alto Docs:</strong> <a href="https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/software-ngfw/manage-a-deployment-profile">Manage a Deployment Profile</a></p>
+    <ol>
+      <li>In the CSP, go to <strong>Assets &gt; Software NGFW Credits &gt; Deployment Profiles</strong>.</li>
+      <li>Locate your deployment profile and copy the <strong>Auth Code</strong>.</li>
+      <li>This code is entered in <strong>Panorama &gt; SW Firewall License &gt; Bootstrap Definitions</strong>.</li>
+    </ol>
+  </div>
+</div>
+
+<!-- Prereq 6 -->
+<div class="collapsible">
+  <div class="collapsible-header">
+    <span class="chevron">&#9654;</span>
+    <span id="prereq-pin">6. Generate Auto-Registration PIN ID and PIN Value</span>
+  </div>
+  <div class="collapsible-body">
+    <p><strong>Palo Alto Docs:</strong> <a href="https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/vm-series-models/install-a-device-certificate-on-the-vm-series-firewall">Install a Device Certificate on the VM-Series Firewall</a></p>
+    <p>The PIN allows the firewall to automatically pull a device certificate during initial boot, required for license activation and Panorama registration.</p>
+    <ol>
+      <li>In the CSP, go to <strong>Products &gt; VM-Series Auth-Codes</strong> (or <strong>Assets &gt; VM-Series Deployment</strong>).</li>
+      <li>Click <strong>Generate OTP</strong> or <strong>Create Registration PIN</strong>.</li>
+      <li>Copy both values:
+        <ul>
+          <li><strong>PIN ID</strong> &mdash; UUID format (e.g., <code>YOUR-PIN-ID-HERE</code>)</li>
+          <li><strong>PIN Value</strong> &mdash; hex string (e.g., <code>YOUR-PIN-VALUE-HERE</code>)</li>
+        </ul>
+      </li>
+    </ol>
+    <div class="callout callout-note">
+      <div class="callout-title">Note</div>
+      Without a valid PIN, the firewall cannot fetch a device certificate and will fail to authenticate with the licensing infrastructure.
+    </div>
+  </div>
+</div>
+
+<!-- Prereq 7 -->
+<div class="collapsible">
+  <div class="collapsible-header">
+    <span class="chevron">&#9654;</span>
+    <span id="prereq-backhaul">7. Establish Backhaul Connectivity to Panorama</span>
+  </div>
+  <div class="collapsible-body">
+    <p>The firewall management interfaces must have a network path to Panorama.</p>
+    <h4>If Panorama is on-premises:</h4>
+    <ul>
+      <li><strong>Azure ExpressRoute</strong> &mdash; dedicated private connection from your data center to Azure</li>
+      <li><strong>Point-to-Point VPN (IPsec)</strong> &mdash; site-to-site VPN tunnel to the VNet</li>
+    </ul>
+    <h4>If Panorama is in Azure:</h4>
+    <ul>
+      <li><strong>VNet Peering</strong> &mdash; direct peering between the firewall VNet and the Panorama VNet</li>
+      <li><strong>Azure Virtual WAN / vHub</strong> &mdash; attach both VNets to a shared Virtual WAN hub and configure route tables</li>
+    </ul>
+    <div class="callout callout-warning">
+      <div class="callout-title">Important</div>
+      Verify routing end-to-end. The firewall management subnet must have a route to Panorama, and Panorama must have a return route. Test with <code>nc -zv &lt;panorama-ip&gt; 3978</code> from a VM in the management subnet before deploying.
+    </div>
+  </div>
+</div>
+
+<!-- Prereq 8 -->
+<div class="collapsible">
+  <div class="collapsible-header">
+    <span class="chevron">&#9654;</span>
+    <span id="prereq-nsg">8. Configure Network Security Groups (NSGs)</span>
+  </div>
+  <div class="collapsible-body">
+    <p>Apply to <strong>all</strong> management subnets where firewalls will be deployed. For the full list of ports, see <a href="https://docs.paloaltonetworks.com/pan-os/11-0/pan-os-admin/firewall-administration/reference-port-number-usage/ports-used-for-panorama">Ports Used for Panorama</a>.</p>
+    <h4>Panorama Communication</h4>
+    <table>
+      <tr><th>Direction</th><th>Port</th><th>Purpose</th></tr>
+      <tr><td>Outbound to Panorama</td><td>TCP 3978</td><td>Device registration and config sync</td></tr>
+      <tr><td>Outbound to Panorama</td><td>TCP 28443</td><td>Panorama-to-device communication (PAN-OS 8.1+)</td></tr>
+      <tr><td>Inbound from Panorama</td><td>TCP 3978</td><td>Panorama-initiated connections</td></tr>
+      <tr><td>Inbound from Panorama</td><td>TCP 28443</td><td>Panorama-initiated connections</td></tr>
+    </table>
+    <h4>Management Access (UI/SSH)</h4>
+    <table>
+      <tr><th>Direction</th><th>Port</th><th>Purpose</th></tr>
+      <tr><td>Inbound from mgmt subnets</td><td>TCP 443</td><td>Web UI (HTTPS)</td></tr>
+      <tr><td>Inbound from mgmt subnets</td><td>TCP 22</td><td>SSH access</td></tr>
+    </table>
+    <div class="callout callout-note">
+      <div class="callout-title">Note</div>
+      Ensure the Panorama-side NSGs also allow inbound from firewall management subnets on 3978 and 28443. For VM Scale Sets, pre-configure rules on all subnets across availability zones.
+    </div>
+  </div>
+</div>
+
+<!-- Prereq 9 -->
+<div class="collapsible">
+  <div class="collapsible-header">
+    <span class="chevron">&#9654;</span>
+    <span id="prereq-azure-marketplace">9. Accept the Azure Marketplace Subscription</span>
+  </div>
+  <div class="collapsible-body">
+    <p>You must accept the Azure Marketplace terms before deploying VM-Series instances. This is a one-time action per Azure subscription per plan.</p>
+    <h4>Via Azure Portal</h4>
+    <ol>
+      <li>Navigate to the <a href="https://portal.azure.com/#view/Microsoft_Azure_Marketplace/MarketplaceOffersBlade/searchQuery/palo%20alto%20vm-series">Azure Marketplace &mdash; Palo Alto VM-Series</a>.</li>
+      <li>Select the <strong>VM-Series Next-Generation Firewall</strong> listing (publisher: Palo Alto Networks).</li>
+      <li>Choose your plan (BYOL, Bundle 1, or Bundle 2) and click <strong>Create</strong>.</li>
+      <li>Accept the terms on the first page of the deployment wizard. You do not need to complete the deployment.</li>
+    </ol>
+    <h4>Via Azure CLI</h4>
+    <p>Accept terms for each plan you intend to use:</p>
+    <div class="code-block">
+      <pre><code># BYOL
+az vm image terms accept \
+  --publisher paloaltonetworksgx \
+  --offer vmseries-flex \
+  --plan byol
+
+# Bundle 1 (PAYG)
+az vm image terms accept \
+  --publisher paloaltonetworksgx \
+  --offer vmseries-flex \
+  --plan bundle1
+
+# Bundle 2 (PAYG)
+az vm image terms accept \
+  --publisher paloaltonetworksgx \
+  --offer vmseries-flex \
+  --plan bundle2</code></pre>
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <p>Check if terms have already been accepted:</p>
+    <div class="code-block">
+      <pre><code>az vm image terms show \
+  --publisher paloaltonetworksgx \
+  --offer vmseries-flex \
+  --plan byol \
+  --query 'accepted'</code></pre>
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+  </div>
+</div>
+
+<!-- Prereq 10 -->
+<div class="collapsible">
+  <div class="collapsible-header">
+    <span class="chevron">&#9654;</span>
+    <span id="prereq-azure-image">10. Discover the VM-Series Azure Image</span>
+  </div>
+  <div class="collapsible-body">
+    <div class="code-block">
+      <pre><code># List all available VM-Series Flex images
+az vm image list \
+  --publisher paloaltonetworksgx \
+  --offer vmseries-flex \
+  --all \
+  --output table
+
+# List images for a specific plan (e.g., BYOL)
+az vm image list \
+  --publisher paloaltonetworksgx \
+  --offer vmseries-flex \
+  --sku byol \
+  --all \
+  --output table</code></pre>
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <table>
+      <tr><th>License Model</th><th>Plan</th></tr>
+      <tr><td>BYOL</td><td><code>byol</code></td></tr>
+      <tr><td>Bundle 1 (PAYG)</td><td><code>bundle1</code></td></tr>
+      <tr><td>Bundle 2 (PAYG)</td><td><code>bundle2</code></td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- Prereq 11 -->
+<div class="collapsible">
+  <div class="collapsible-header">
+    <span class="chevron">&#9654;</span>
+    <span id="prereq-network">11. Network Connectivity</span>
+  </div>
+  <div class="collapsible-body">
+    <p>The management interface needs outbound HTTPS (443) to:</p>
+    <ul>
+      <li>Panorama IP address(es)</li>
+      <li><code>updates.paloaltonetworks.com</code> (for license activation and device certificate retrieval)</li>
+      <li>DNS resolution capability</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Prereq 12 -->
+<div class="collapsible">
+  <div class="collapsible-header">
+    <span class="chevron">&#9654;</span>
+    <span id="prereq-api-key">12. Set the Licensing API Key on Panorama</span>
+  </div>
+  <div class="collapsible-body">
+    <p><strong>Palo Alto Docs:</strong> <a href="https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/vm-series-models/licensing-api/install-a-license-deactivation-api-key">Install a License Deactivation API Key</a></p>
+    <p>The licensing API key allows Panorama to communicate with the Palo Alto Networks licensing server for automatic license allocation and deactivation.</p>
+    <ol>
+      <li>Obtain the API key from the <a href="https://support.paloaltonetworks.com">Customer Support Portal</a> under <strong>Assets &gt; Licensing API</strong>.</li>
+      <li>SSH into Panorama and run: <code>request license api-key set key &lt;key&gt;</code></li>
+      <li>Verify the key is set: <code>request license api-key show</code></li>
+    </ol>
+    <div class="callout callout-note">
+      <div class="callout-title">Note</div>
+      This key is required for Method 1 (Panorama Licensing Plugin). Without it, the licensing plugin cannot allocate or reclaim licenses.
+    </div>
+  </div>
+</div>
+
+  </div><!-- .collapsible-body (Prerequisite Procedures) -->
+</div><!-- .collapsible (Prerequisite Procedures) -->
+
+<!-- ============================================================ -->
+<!-- DECISION TREE / CHOOSER -->
+<!-- ============================================================ -->
+<div class="decision-tree" id="chooser">
+  <h3>Choose Your Bootstrap Method</h3>
+  <p>Select the method that fits your deployment scenario. The guide below will show only the steps you need.</p>
+
+  <div class="callout callout-note" style="margin-top: 1rem;">
+    <div class="callout-title">Decision Tree</div>
+    <p>Do you use Panorama?</p>
+    <ul>
+      <li><strong>YES:</strong> Do you have the SW Firewall License plugin?
+        <ul>
+          <li><strong>YES</strong> &rarr; <strong>Method 1:</strong> Panorama Licensing Plugin (recommended)</li>
+          <li><strong>NO:</strong> Do you need full config at boot (no Panorama push)?
+            <ul>
+              <li><strong>YES</strong> &rarr; <strong>Method 4:</strong> Azure File Share full bootstrap with bootstrap.xml</li>
+              <li><strong>NO:</strong> Do you want to avoid Azure File Shares?
+                <ul>
+                  <li><strong>YES</strong> &rarr; <strong>Method 2:</strong> Simple Custom Data Bootstrap</li>
+                  <li><strong>NO</strong> &rarr; <strong>Method 3:</strong> Azure File Share basic bootstrap</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><strong>NO (using SCM):</strong> &rarr; <strong>SCM Bootstrap Variant</strong></li>
+    </ul>
+  </div>
+
+  <div class="method-cards">
+    <div class="method-card" onclick="selectMethod('method1')" id="card-method1">
+      <div class="card-title">Panorama Licensing Plugin <span class="badge badge-preferred">Preferred</span></div>
+      <p class="card-desc">VM Scale Sets, production environments. Panorama handles licensing automatically.</p>
+    </div>
+    <div class="method-card" onclick="selectMethod('method2')" id="card-method2">
+      <div class="card-title">Simple Custom Data <span class="badge badge-standard">Standard</span></div>
+      <p class="card-desc">Quick one-off deployments. No Azure File Share needed. Everything in custom data.</p>
+    </div>
+    <div class="method-card" onclick="selectMethod('method3')" id="card-method3">
+      <div class="card-title">Azure File Share Basic Bootstrap <span class="badge badge-standard">Standard</span></div>
+      <p class="card-desc">File Share with init-cfg and authcode. No bundled software or content.</p>
+    </div>
+    <div class="method-card" onclick="selectMethod('method4')" id="card-method4">
+      <div class="card-title">Azure File Share Full Bootstrap <span class="badge badge-standard">Standard</span></div>
+      <p class="card-desc">Full config via bootstrap.xml. For standalone firewalls without Panorama/SCM.</p>
+    </div>
+    <div class="method-card" onclick="selectMethod('scm')" id="card-scm">
+      <div class="card-title">SCM (Strata Cloud Manager) <span class="badge badge-scm">PAN-OS 11.0+</span></div>
+      <p class="card-desc">Bootstrap to Strata Cloud Manager instead of on-premises Panorama.</p>
+    </div>
+  </div>
+
+  <div class="chooser-controls">
+    <button class="chooser-btn" onclick="showAll()" id="show-all-btn">Show all methods</button>
+    <button class="chooser-btn reset" onclick="resetSelection()" id="reset-btn">Reset</button>
+  </div>
+</div>
+
+<!-- ================================================================== -->
+<!-- METHOD 1 -->
+<!-- ================================================================== -->
+<div class="method-section" id="section-method1">
+
+<h2 id="method1">Method 1: Panorama Licensing Plugin</h2>
+
+<div class="collapsible">
+  <div class="collapsible-header">
+    <span class="chevron">&#9654;</span>
+    <span>Preferred — Recommended for production and auto-scaling. Panorama handles licensing automatically.</span>
+  </div>
+  <div class="collapsible-body">
+
+<p><strong>Palo Alto Docs:</strong> <a href="https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/use-panorama-based-software-firewall-license-management">Use Panorama-Based Software Firewall License Management</a></p>
+
+<div class="callout callout-note">
+  <div class="callout-title">Internet Access</div>
+  This method does <strong>not</strong> require the firewalls to have direct internet access via the management interface &mdash; Panorama handles all licensing on their behalf. However, Panorama itself <strong>must</strong> have direct internet access to reach <code>updates.paloaltonetworks.com</code>.
+</div>
+
+<div class="callout callout-warning">
+  <div class="callout-title">PAYG Note</div>
+  If you are using a PAYG (pay-as-you-go) license from the Azure Marketplace, you do <strong>not</strong> need the SW Firewall License plugin. PAYG firewalls are licensed directly through the marketplace. Skip to Method 2 for PAYG deployments.
+</div>
+
+<div class="callout callout-note">
+  <div class="callout-title">NSX Note</div>
+  If deploying VM-Series for VMware NSX, the <code>sw_fw_license</code> plugin has a dependency on the VM-Series plugin for NSX (<code>vm_series</code>). Both plugins must be installed on Panorama. Install the VM-Series plugin for NSX first, then install <code>sw_fw_license</code>. See <a href="#plugin-ip-tag-issues">Troubleshooting: Plugin IP-Tag Issues</a> if you have multiple plugins installed.
+</div>
+
+<div class="callout callout-note">
+  <div class="callout-title">Azure VM-Series Plugin Note</div>
+  If the Azure VM-Series plugin (<code>azure</code>) is installed on Panorama alongside <code>sw_fw_license</code>, ensure the Azure plugin is fully configured and in a <strong>Registered</strong> or <strong>Success</strong> state. Unconfigured plugins can block IP-tag forwarding. See <a href="#plugin-ip-tag-issues">Troubleshooting: Plugin IP-Tag Issues</a>.
+</div>
+
+<h3>Step 1: Install the SW Firewall License Plugin on Panorama</h3>
+<ol>
+  <li>Log in to Panorama.</li>
+  <li>Navigate to <strong>Panorama &gt; Plugins</strong>.</li>
+  <li>Click <strong>Check Now</strong> to refresh the list of available plugins.</li>
+  <li>Locate <code>sw_fw_license</code> in the plugin list.</li>
+  <li>Click <strong>Download</strong> for the latest version.</li>
+  <li>Once downloaded, click <strong>Install</strong>.</li>
+  <li>Verify the plugin appears under <strong>Panorama &gt; SW Firewall License</strong> in the left navigation.</li>
+</ol>
+
+<p><strong>Requirements:</strong></p>
+<ul>
+  <li>Panorama 10.0.0 or later</li>
+  <li>VM-Series plugin 2.0.4 or later (if managing NSX-based firewalls)</li>
+  <li>VM-Series firewalls running PAN-OS 9.1.0 or later</li>
+  <li>Licensing API key already configured (see <a href="#prereq-api-key">&sect;12 Licensing API Key</a>)</li>
+</ul>
+
+<h3>Step 2: Create a Bootstrap Definition</h3>
+<ol>
+  <li>Go to <strong>Panorama &gt; SW Firewall License &gt; Bootstrap Definitions</strong>.</li>
+  <li>Click <strong>Add</strong>.</li>
+  <li>Enter a <strong>Name</strong> (e.g., <code>bsd-azure-prod</code>).</li>
+  <li>Enter the <strong>Auth Code</strong> from your <a href="#prereq-deployment-profile">deployment profile</a> (format: <code>D1234567</code>).</li>
+  <li>Optionally enter a <strong>Description</strong>.</li>
+  <li>Click <strong>OK</strong>.</li>
+</ol>
+
+<div class="callout callout-note">
+  <div class="callout-title">Note</div>
+  Each bootstrap definition maps to a single deployment profile auth code. Create a separate bootstrap definition for each deployment profile.
+</div>
+
+<h3>Step 3: Configure a License Manager</h3>
+<ol>
+  <li>Go to <strong>Panorama &gt; SW Firewall License &gt; License Managers</strong>.</li>
+  <li>Click <strong>Add</strong> and configure:
+    <ul>
+      <li><strong>Name</strong> &mdash; e.g., <code>lm-azure-prod</code></li>
+      <li><strong>Device Group</strong> &mdash; select the device group for the firewalls</li>
+      <li><strong>Template Stack</strong> &mdash; select the template stack</li>
+      <li><strong>Bootstrap Definition</strong> &mdash; select the definition from Step 2</li>
+      <li><strong>Auto Deactivate</strong> &mdash; timer for license reclamation (1&ndash;24 hours, or &ldquo;Never&rdquo;)</li>
+    </ul>
+  </li>
+  <li>Click <strong>OK</strong>, then <strong>Commit to Panorama</strong>.</li>
+</ol>
+
+<h3>Step 4: Get the Bootstrap Parameters</h3>
+<ol>
+  <li>In the <strong>License Managers</strong> screen, locate your license manager.</li>
+  <li>In the <strong>Action</strong> column, click <strong>Show Bootstrap Parameters</strong>.</li>
+  <li>Copy the generated values:
+    <ul>
+      <li><strong>auth-key</strong> &mdash; the Panorama-generated authentication key</li>
+      <li><strong>plugin-op-commands</strong> &mdash; always starts with <code>panorama-licensing-mode-on</code></li>
+    </ul>
+  </li>
+</ol>
+
+<div class="callout callout-danger">
+  <div class="callout-title">Important</div>
+  The <code>auth-key</code> here is generated by the licensing plugin and is <strong>different</strong> from a manually created VM auth key. Do not confuse the two.
+</div>
+
+<h3>Step 5a: Terraform Configuration</h3>
+
+<div class="callout callout-note">
+  <div class="callout-title">Note</div>
+  This example is for an <strong>Azure</strong> deployment. Azure does not use <code>mgmt-interface-swap</code> &mdash; the management interface is always the first interface. For <strong>AWS</strong> or <strong>GCP</strong> deployments, see the <a href="../aws/branching-guide.html">AWS Guide</a> or <a href="../gcp/branching-guide.html">GCP Guide</a>.
+</div>
+
+<div class="code-block">
+<pre><code>custom_data = base64encode(join(";", [
+  # ── Minimum required values ──────────────────────────────────────
+  "plugin-op-commands=panorama-licensing-mode-on",
+  "auth-key=YOUR-AUTH-KEY-HERE",
+  "panorama-server=YOUR-PANORAMA-SERVER-1-HERE",
+  "dgname=YOUR-DG-HERE",
+  "tplname=YOUR-STACK-HERE",
+
+  # ── Optional: secondary Panorama ─────────────────────────────────
+  "panorama-server-2=YOUR-PANORAMA-2-SERVER-HERE",
+
+  # ── Optional: DHCP settings ──────────────────────────────────────
+  "dhcp-send-hostname=yes",
+  "dhcp-send-client-id=yes",
+  "dhcp-accept-server-hostname=yes",
+  "dhcp-accept-server-domain=yes",
+
+  # ── Optional (best practice): device certificate auto-registration
+  "vm-series-auto-registration-pin-id=YOUR-PIN-ID-HERE",
+  "vm-series-auto-registration-pin-value=YOUR-PIN-VALUE-HERE",
+]))</code></pre>
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<p><strong>Minimum required values:</strong></p>
+<table>
+  <tr><th>Parameter</th><th>Description</th></tr>
+  <tr><td><code>plugin-op-commands</code></td><td>Must include <code>panorama-licensing-mode-on</code> as the first command</td></tr>
+  <tr><td><code>auth-key</code></td><td>Generated by the licensing plugin (from Step 4), <strong>not</strong> a manually created VM auth key</td></tr>
+  <tr><td><code>panorama-server</code></td><td>IP address of the primary Panorama</td></tr>
+  <tr><td><code>dgname</code></td><td>Device Group name on Panorama</td></tr>
+  <tr><td><code>tplname</code></td><td><strong>Template Stack</strong> name on Panorama (this refers to the Template Stack, <strong>not</strong> a Template)</td></tr>
+</table>
+
+<div class="callout callout-note">
+  <div class="callout-title">Best Practice</div>
+  The <code>vm-series-auto-registration-pin-id</code> and <code>vm-series-auto-registration-pin-value</code> parameters are optional but recommended for automatically installing a device certificate on the firewall during bootstrap.
+</div>
+
+<div class="callout callout-warning">
+  <div class="callout-title">Important</div>
+  <code>plugin-op-commands</code> must include <code>panorama-licensing-mode-on</code> as the first command. Do NOT include <code>authcodes</code> or <code>vm-auth-key</code> with this method. The plugin-generated <code>auth-key</code> replaces both. Azure does not use <code>mgmt-interface-swap</code> &mdash; the management interface is always the first interface.
+</div>
+
+<h3>Step 5b: Custom Data One-Liner</h3>
+<div class="code-block">
+<pre><code>plugin-op-commands=panorama-licensing-mode-on;auth-key=YOUR-AUTH-KEY-HERE;panorama-server=YOUR-PANORAMA-SERVER-1-HERE;panorama-server-2=YOUR-PANORAMA-2-SERVER-HERE;dgname=YOUR-DG-HERE;tplname=YOUR-STACK-HERE;dhcp-send-hostname=yes;dhcp-send-client-id=yes;dhcp-accept-server-hostname=yes;dhcp-accept-server-domain=yes;vm-series-auto-registration-pin-id=YOUR-PIN-ID-HERE;vm-series-auto-registration-pin-value=YOUR-PIN-VALUE-HERE</code></pre>
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<div class="callout callout-note">
+  <div class="callout-title">Note</div>
+  No spaces around <code>=</code>. Use semicolons as delimiters. Do <strong>not</strong> include <code>authcodes</code> or <code>vm-auth-key</code> with this method.
+</div>
+
+  </div>
+</div>
+
+</div>
+
+<!-- ================================================================== -->
+<!-- METHOD 2 -->
+<!-- ================================================================== -->
+<div class="method-section" id="section-method2">
+
+<h2 id="method2">Method 2: Simple Custom Data Bootstrap</h2>
+
+<div class="collapsible">
+  <div class="collapsible-header">
+    <span class="chevron">&#9654;</span>
+    <span>Standard — Quick deployment, no Azure File Share needed. Everything in custom data.</span>
+  </div>
+  <div class="collapsible-body">
+
+<div class="callout callout-warning">
+  <div class="callout-title">Internet Access</div>
+  This method <strong>requires</strong> the firewall management interfaces to have direct internet access to reach <code>updates.paloaltonetworks.com</code> for licensing. Use a <strong>NAT gateway</strong> (preferred) or public IP on the management interface (not recommended &mdash; lock down the NSG tightly).
+</div>
+
+<h3>Required Information</h3>
+<p>Gather the following before proceeding:</p>
+<table>
+  <tr><th>Information</th><th>Source</th><th>Example</th></tr>
+  <tr><td><strong>Auth Code</strong></td><td><a href="#prereq-deployment-profile">Deployment profile</a> in the Customer Support Portal</td><td><code>D1234567</code></td></tr>
+  <tr><td><strong>Panorama IP(s)</strong></td><td>Primary (and optional secondary) Panorama management IP</td><td><code>YOUR-PANORAMA-SERVER-1-HERE</code></td></tr>
+  <tr><td><strong>Device Group</strong></td><td><a href="#prereq-device-group">Device Group</a> name on Panorama</td><td><code>YOUR-DG-HERE</code></td></tr>
+  <tr><td><strong>Template Stack</strong></td><td><a href="#prereq-template-stack">Template Stack</a> name on Panorama (<strong>not</strong> a Template)</td><td><code>YOUR-STACK-HERE</code></td></tr>
+</table>
+
+<h3>Step 1: Generate a VM Auth Key on Panorama</h3>
+<div class="code-block">
+<pre><code>request bootstrap vm-auth-key generate lifetime 8760</code></pre>
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+<p>Output: <code>VM auth key YOUR-VM-AUTH-KEY-HERE generated. Expires at: 2026/03/30 12:00:00</code></p>
+<p>To view existing keys: <code>request bootstrap vm-auth-key show</code></p>
+<p>Lifetime range: 1&ndash;8760 hours (1 year max).</p>
+
+<h3>Step 2a: Terraform Configuration</h3>
+
+<div class="callout callout-note">
+  <div class="callout-title">Note</div>
+  This example is for an <strong>Azure</strong> deployment. Azure does not use <code>mgmt-interface-swap</code>. For <strong>AWS</strong> or <strong>GCP</strong> deployments, see the <a href="../aws/branching-guide.html">AWS Guide</a> or <a href="../gcp/branching-guide.html">GCP Guide</a>.
+</div>
+
+<div class="code-block">
+<pre><code>custom_data = base64encode(join(";", [
+  # ── Minimum required values ──────────────────────────────────────
+  "authcodes=D1234567",
+  "vm-auth-key=YOUR-VM-AUTH-KEY-HERE",
+  "panorama-server=YOUR-PANORAMA-SERVER-1-HERE",
+  "dgname=YOUR-DG-HERE",
+  "tplname=YOUR-STACK-HERE",
+
+  # ── Optional: secondary Panorama ─────────────────────────────────
+  "panorama-server-2=YOUR-PANORAMA-2-SERVER-HERE",
+
+  # ── Optional: DHCP settings ──────────────────────────────────────
+  "dhcp-send-hostname=yes",
+  "dhcp-send-client-id=yes",
+  "dhcp-accept-server-hostname=yes",
+  "dhcp-accept-server-domain=yes",
+
+  # ── Optional (best practice): device certificate auto-registration
+  "vm-series-auto-registration-pin-id=YOUR-PIN-ID-HERE",
+  "vm-series-auto-registration-pin-value=YOUR-PIN-VALUE-HERE",
+]))</code></pre>
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<p><strong>Minimum required values:</strong></p>
+<table>
+  <tr><th>Parameter</th><th>Description</th></tr>
+  <tr><td><code>authcodes</code></td><td>Auth code from your <a href="#prereq-deployment-profile">deployment profile</a></td></tr>
+  <tr><td><code>vm-auth-key</code></td><td>Manually generated VM auth key from Step 1</td></tr>
+  <tr><td><code>panorama-server</code></td><td>IP address of the primary Panorama</td></tr>
+  <tr><td><code>dgname</code></td><td>Device Group name on Panorama</td></tr>
+  <tr><td><code>tplname</code></td><td><strong>Template Stack</strong> name on Panorama (this refers to the Template Stack, <strong>not</strong> a Template)</td></tr>
+</table>
+
+<div class="callout callout-note">
+  <div class="callout-title">Best Practice</div>
+  The <code>vm-series-auto-registration-pin-id</code> and <code>vm-series-auto-registration-pin-value</code> parameters are optional but recommended for automatically installing a device certificate on the firewall during bootstrap.
+</div>
+
+<div class="callout callout-note">
+  <div class="callout-title">Key Differences from Method 1</div>
+  <code>plugin-op-commands</code> does <strong>not</strong> include <code>panorama-licensing-mode-on</code>. Uses <code>authcodes</code> + <code>vm-auth-key</code> instead of the plugin-generated <code>auth-key</code>.
+</div>
+
+<h3>Step 2b: Custom Data One-Liner</h3>
+<div class="code-block">
+<pre><code>authcodes=D1234567;vm-auth-key=YOUR-VM-AUTH-KEY-HERE;panorama-server=YOUR-PANORAMA-SERVER-1-HERE;dgname=YOUR-DG-HERE;tplname=YOUR-STACK-HERE;panorama-server-2=YOUR-PANORAMA-2-SERVER-HERE;dhcp-send-hostname=yes;dhcp-send-client-id=yes;dhcp-accept-server-hostname=yes;dhcp-accept-server-domain=yes;vm-series-auto-registration-pin-id=YOUR-PIN-ID-HERE;vm-series-auto-registration-pin-value=YOUR-PIN-VALUE-HERE</code></pre>
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<div class="callout callout-note">
+  <div class="callout-title">Note</div>
+  No spaces around <code>=</code>. Use semicolons as delimiters.
+</div>
+
+  </div>
+</div>
+
+</div>
+
+<!-- ================================================================== -->
+<!-- METHOD 3 -->
+<!-- ================================================================== -->
+<div class="method-section" id="section-method3">
+
+<h2 id="method3">Method 3: Azure File Share Basic Bootstrap</h2>
+
+<div class="collapsible">
+  <div class="collapsible-header">
+    <span class="chevron">&#9654;</span>
+    <span>Storage — Structured bootstrap with init-cfg and authcode. Uses Azure File Share.</span>
+  </div>
+  <div class="collapsible-body">
+
+<div class="callout callout-warning">
+  <div class="callout-title">Internet Access</div>
+  This method <strong>requires</strong> the firewall management interfaces to have direct internet access to reach <code>updates.paloaltonetworks.com</code> for licensing. Use a <strong>NAT gateway</strong> (preferred) or public IP on the management interface (not recommended).
+</div>
+
+<h3>Step 1: Azure File Share Directory Structure</h3>
+<p>The bootstrap Azure File Share requires the following five directories. All five <strong>must</strong> exist, even if empty &mdash; the firewall checks for this structure during bootstrap and will fail if any directory is missing.</p>
+
+<div class="code-block">
+<pre><code>&lt;storage-account&gt;/&lt;file-share&gt;/
+  config/
+  content/
+  license/
+  plugins/
+  software/</code></pre>
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h4>Creating the Storage Account, File Share, and Directory Structure</h4>
+<div class="code-block">
+<pre><code># Create a resource group (if needed)
+az group create \
+  --name your-bootstrap-rg \
+  --location eastus
+
+# Create the storage account
+az storage account create \
+  --name yourstorageaccount \
+  --resource-group your-bootstrap-rg \
+  --location eastus \
+  --sku Standard_LRS
+
+# Create the file share
+az storage share create \
+  --name bootstrap \
+  --account-name yourstorageaccount
+
+# Create the required directory structure
+az storage directory create --share-name bootstrap --name config --account-name yourstorageaccount
+az storage directory create --share-name bootstrap --name content --account-name yourstorageaccount
+az storage directory create --share-name bootstrap --name license --account-name yourstorageaccount
+az storage directory create --share-name bootstrap --name plugins --account-name yourstorageaccount
+az storage directory create --share-name bootstrap --name software --account-name yourstorageaccount</code></pre>
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<p>Alternatively, create the storage account and file share through the <a href="https://portal.azure.com">Azure Portal</a>.</p>
+
+<div class="callout callout-warning">
+  <div class="callout-title">Important</div>
+  Azure VM-Series bootstraps from an <strong>Azure File Share</strong> (SMB), not Blob Storage containers. Ensure you create a File Share, not a Blob container.
+</div>
+
+<div class="callout callout-note">
+  <div class="callout-title">Reference</div>
+  <strong>Azure Docs:</strong> <a href="https://learn.microsoft.com/en-us/azure/storage/files/storage-how-to-create-file-share">Create an Azure File Share</a>
+</div>
+
+<h4>Directory and Required Files</h4>
+<table>
+  <tr><th>Directory</th><th>Required File(s)</th><th>File Extension</th><th>Description</th></tr>
+  <tr><td><code>config/</code></td><td><code>init-cfg.txt</code></td><td><code>.txt</code></td><td>Bootstrap configuration parameters</td></tr>
+  <tr><td><code>content/</code></td><td><em>(empty)</em></td><td>&mdash;</td><td>Content update files (not used in this method)</td></tr>
+  <tr><td><code>license/</code></td><td><code>authcodes</code></td><td><strong>no extension</strong></td><td>License auth code(s), one per line</td></tr>
+  <tr><td><code>plugins/</code></td><td><em>(empty)</em></td><td>&mdash;</td><td>VM-Series plugin files (not used in this method)</td></tr>
+  <tr><td><code>software/</code></td><td><em>(empty)</em></td><td>&mdash;</td><td>PAN-OS image files (not used in this method)</td></tr>
+</table>
+
+<h3>Step 2: Create init-cfg.txt</h3>
+<div class="code-block">
+<pre><code>type=dhcp
+panorama-server=YOUR-PANORAMA-SERVER-1-HERE
+panorama-server-2=YOUR-PANORAMA-2-SERVER-HERE
+tplname=YOUR-STACK-HERE
+dgname=YOUR-DG-HERE
+vm-auth-key=YOUR-VM-AUTH-KEY-HERE
+hostname=fw-prod-01
+dns-primary=168.63.129.16
+vm-series-auto-registration-pin-id=YOUR-PIN-ID-HERE
+vm-series-auto-registration-pin-value=YOUR-PIN-VALUE-HERE</code></pre>
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<div class="callout callout-warning">
+  <div class="callout-title">Syntax Rules</div>
+  No spaces around <code>=</code>. One parameter per line. Use a plain text editor (no BOM, no rich text).
+</div>
+
+<h4>Required Parameters</h4>
+<table>
+  <tr><th>Parameter</th><th>Description</th><th>Example</th></tr>
+  <tr><td><code>type</code></td><td>IP assignment method</td><td><code>dhcp</code> or <code>static</code></td></tr>
+  <tr><td><code>panorama-server</code></td><td>Primary Panorama IP</td><td><code>YOUR-PANORAMA-SERVER-1-HERE</code></td></tr>
+  <tr><td><code>tplname</code></td><td>Template Stack name on Panorama (<strong>not</strong> a Template)</td><td><code>YOUR-STACK-HERE</code></td></tr>
+  <tr><td><code>dgname</code></td><td>Device Group name on Panorama</td><td><code>YOUR-DG-HERE</code></td></tr>
+  <tr><td><code>vm-auth-key</code></td><td>VM auth key generated on Panorama</td><td><code>YOUR-VM-AUTH-KEY-HERE</code></td></tr>
+</table>
+
+<h4>Optional Parameters</h4>
+<table>
+  <tr><th>Parameter</th><th>Description</th><th>Example</th></tr>
+  <tr><td><code>panorama-server-2</code></td><td>Secondary Panorama IP (HA pair)</td><td><code>YOUR-PANORAMA-2-SERVER-HERE</code></td></tr>
+  <tr><td><code>hostname</code></td><td>Desired firewall hostname</td><td><code>fw-prod-01</code></td></tr>
+  <tr><td><code>dns-primary</code></td><td>Primary DNS server</td><td><code>168.63.129.16</code></td></tr>
+  <tr><td><code>vm-series-auto-registration-pin-id</code></td><td>PIN ID for device certificate auto-registration</td><td><code>81a75f2a-...</code></td></tr>
+  <tr><td><code>vm-series-auto-registration-pin-value</code></td><td>PIN value for device certificate auto-registration</td><td><code>7059943c...</code></td></tr>
+</table>
+
+<h3>Step 3: Create the authcodes File</h3>
+<p>Place in <code>/license/authcodes</code>:</p>
+<div class="callout callout-danger">
+  <div class="callout-title">Important</div>
+  The file is named <code>authcodes</code> with <strong>no file extension</strong> &mdash; not <code>authcodes.txt</code>, not <code>authcodes.key</code>. The firewall expects this exact filename. The file must be plain text with no trailing whitespace or blank lines.
+</div>
+<div class="code-block">
+<pre><code>D1234567</code></pre>
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h4>Upload Files to the File Share</h4>
+<div class="code-block">
+<pre><code># Upload init-cfg.txt to the config directory
+az storage file upload \
+  --share-name bootstrap \
+  --source init-cfg.txt \
+  --path config/init-cfg.txt \
+  --account-name yourstorageaccount
+
+# Upload authcodes to the license directory
+az storage file upload \
+  --share-name bootstrap \
+  --source authcodes \
+  --path license/authcodes \
+  --account-name yourstorageaccount</code></pre>
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<p><strong>Palo Alto Docs:</strong> <a href="https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/prepare-the-bootstrap-package">Prepare the Bootstrap Package</a></p>
+
+<h3>Step 4: Get the Storage Account Access Key</h3>
+<p>The VM-Series firewall needs the storage account access key to authenticate to the Azure File Share during bootstrap.</p>
+<div class="code-block">
+<pre><code>az storage account keys list \
+  --resource-group your-bootstrap-rg \
+  --account-name yourstorageaccount \
+  --output table</code></pre>
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+<p>Copy the value of <code>key1</code> &mdash; this is used as the <code>access-key</code> bootstrap parameter.</p>
+
+<div class="callout callout-note">
+  <div class="callout-title">Alternative: Managed Identity</div>
+  Instead of using an access key, you can assign a <strong>Managed Identity</strong> to the VM with the <strong>Storage File Data SMB Share Reader</strong> role on the storage account. However, for Azure File Share-based bootstrap, the access key method is the standard approach.
+</div>
+
+<h3>Step 5: Point the Instance to the File Share</h3>
+<p>Set custom data to:</p>
+<div class="code-block">
+<pre><code>storage-account=yourstorageaccount;access-key=YOUR-ACCESS-KEY;file-share=bootstrap;share-directory=</code></pre>
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<p><strong>Terraform example:</strong></p>
+<div class="code-block">
+<pre><code>custom_data = base64encode(
+  "storage-account=yourstorageaccount;access-key=YOUR-ACCESS-KEY;file-share=bootstrap;share-directory="
+)</code></pre>
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+  </div>
+</div>
+
+</div>
+
+<!-- ================================================================== -->
+<!-- METHOD 4 -->
+<!-- ================================================================== -->
+<div class="method-section" id="section-method4">
+
+<h2 id="method4">Method 4: Azure File Share Full Bootstrap with bootstrap.xml</h2>
+
+<div class="collapsible">
+  <div class="collapsible-header">
+    <span class="chevron">&#9654;</span>
+    <span>Full — Zero-touch deployment with complete configuration via bootstrap.xml.</span>
+  </div>
+  <div class="collapsible-body">
+
+<div class="callout callout-note">
+  <div class="callout-title">Note</div>
+  The <code>bootstrap.xml</code> is a full VM-Series configuration file &mdash; the firewall applies it on first boot, including interfaces, security policies, NAT rules, and routing. This method is generally <strong>not used</strong> when Panorama or Strata Cloud Manager are managing the firewalls, since those platforms push configuration after bootstrap.
+</div>
+
+<div class="callout callout-warning">
+  <div class="callout-title">Internet Access</div>
+  This method <strong>requires</strong> the firewall management interfaces to have direct internet access to reach <code>updates.paloaltonetworks.com</code> for licensing. Use a <strong>NAT gateway</strong> (preferred) or public IP on the management interface (not recommended).
+</div>
+
+<h3>Step 1: Azure File Share Directory Structure</h3>
+<p>Same as Method 3. All five directories must exist. See <a href="#method3">Method 3 Step 1</a> for Azure CLI commands to create the storage account, file share, and directory structure.</p>
+
+<h4>Directory and Required Files</h4>
+<table>
+  <tr><th>Directory</th><th>Required File(s)</th><th>File Extension</th><th>Description</th></tr>
+  <tr><td><code>config/</code></td><td><code>init-cfg.txt</code>, <code>bootstrap.xml</code></td><td><code>.txt</code>, <code>.xml</code></td><td>Bootstrap parameters and full firewall configuration</td></tr>
+  <tr><td><code>content/</code></td><td>Content update file</td><td><em>(vendor filename)</em></td><td>e.g., <code>panupv2-all-contents-8776-8520</code></td></tr>
+  <tr><td><code>license/</code></td><td><code>authcodes</code></td><td><strong>no extension</strong></td><td>License auth code(s), one per line</td></tr>
+  <tr><td><code>plugins/</code></td><td>VM-Series plugin <em>(optional)</em></td><td><em>(vendor filename)</em></td><td>e.g., <code>PanGPS_vm-3.0.2</code></td></tr>
+  <tr><td><code>software/</code></td><td>PAN-OS image(s)</td><td><em>(vendor filename)</em></td><td>e.g., <code>PanOS_vm-11.1.4-h13</code></td></tr>
+</table>
+
+<h3>Step 2: Create init-cfg.txt</h3>
+<p>Same format as Method 3. See the <a href="#reference">Parameter Reference</a> below.</p>
+
+<h3>Step 3: Create the authcodes File</h3>
+<p>Same as <a href="#method3">Method 3</a>.</p>
+
+<h3>Step 4: Get the Storage Account Access Key</h3>
+<p>Same as <a href="#method3">Method 3</a>.</p>
+
+<h3>Step 5: Launch the Instance</h3>
+<p>Same as <a href="#method3">Method 3</a>.</p>
+
+<h3>Step 6: Create bootstrap.xml</h3>
+<p>The <code>bootstrap.xml</code> is a complete PAN-OS configuration file that the firewall applies on first boot. The typical approach is to export the running configuration from a known-working reference firewall and use it as a seed configuration for new deployments.</p>
+
+<h4>Exporting the Configuration from a Reference Firewall</h4>
+
+<p><strong>Option A: Using the Web UI</strong></p>
+<ol>
+  <li>Log in to a VM-Series firewall that has the desired configuration.</li>
+  <li>Navigate to <strong>Device &gt; Setup &gt; Operations</strong>.</li>
+  <li>Click <strong>Export named configuration snapshot</strong>.</li>
+  <li>Select <code>running-config.xml</code> and save the file.</li>
+  <li>Rename the downloaded file to exactly <code>bootstrap.xml</code> (case-sensitive).</li>
+  <li>Place it in the <code>config/</code> directory alongside <code>init-cfg.txt</code>.</li>
+</ol>
+
+<p><strong>Option B: Using the XML API</strong></p>
+<div class="code-block">
+<pre><code># Generate an API key
+curl -k "https://&lt;firewall-ip&gt;/api/?type=keygen&amp;user=admin&amp;password=&lt;password&gt;"
+
+# Export the running configuration
+curl -k "https://&lt;firewall-ip&gt;/api/?type=export&amp;category=configuration&amp;key=&lt;api-key&gt;" -o bootstrap.xml</code></pre>
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<p><strong>Option C: Using the CLI</strong></p>
+<div class="code-block">
+<pre><code>scp export configuration from running-config.xml to &lt;user&gt;@&lt;destination&gt;:/path/bootstrap.xml</code></pre>
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<p><strong>Palo Alto Docs:</strong> <a href="https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/create-the-bootstrapxml-file">Create the bootstrap.xml File</a></p>
+
+<div class="callout callout-danger">
+  <div class="callout-title">Seed Config Warning</div>
+  <p>When using a configuration from another firewall as a seed, the following values will almost certainly differ if the new firewall is in a different region, availability zone, or resource group:</p>
+  <ul>
+    <li><strong>Management interface IP address</strong> (<code>ip-address</code>, <code>netmask</code>, <code>default-gateway</code>) &mdash; these are environment-specific</li>
+    <li><strong>Default routes and gateway IPs</strong> &mdash; vary by VNet/subnet</li>
+    <li><strong>Interface IP addresses</strong> &mdash; dataplane interface IPs tied to the specific subnet</li>
+    <li><strong>DNS server addresses</strong> &mdash; may differ between environments</li>
+    <li><strong>Hostname</strong> &mdash; should be unique per firewall</li>
+    <li><strong>Zone and interface mappings</strong> &mdash; verify they match the new network topology</li>
+  </ul>
+  <p>Review and update these values in the <code>bootstrap.xml</code> before placing it in the Azure File Share. Deploying with incorrect network values will result in an unreachable firewall.</p>
+</div>
+
+<h4>Upload bootstrap.xml to the File Share</h4>
+<div class="code-block">
+<pre><code>az storage file upload \
+  --share-name bootstrap \
+  --source bootstrap.xml \
+  --path config/bootstrap.xml \
+  --account-name yourstorageaccount</code></pre>
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h3>Step 7: Add Software and Content Files (Optional)</h3>
+<p>If you need to boot the firewall with a specific PAN-OS version or content update:</p>
+<ul>
+  <li><strong>Software:</strong> Place PAN-OS image files in <code>software/</code>. Include <strong>all intermediate versions</strong> between the factory image and your target version &mdash; the firewall upgrades sequentially and will fail if a version is skipped.</li>
+  <li><strong>Content:</strong> Place the content update file in <code>content/</code>. Include the minimum content version required for the target PAN-OS version. A content version mismatch causes the upgrade to fail.</li>
+  <li><strong>Plugins (optional):</strong> Place a single VM-Series plugin image in <code>plugins/</code> if needed.</li>
+</ul>
+
+  </div>
+</div>
+
+</div>
+
+<!-- ================================================================== -->
+<!-- SCM -->
+<!-- ================================================================== -->
+<div class="method-section" id="section-scm">
+
+<h2 id="scm">SCM (Strata Cloud Manager) Bootstrap</h2>
+
+<div class="collapsible">
+  <div class="collapsible-header">
+    <span class="chevron">&#9654;</span>
+    <span>Cloud — Bootstrap to Strata Cloud Manager instead of on-premises Panorama.</span>
+  </div>
+  <div class="collapsible-body">
+
+<h3>Terraform Configuration</h3>
+<div class="code-block">
+<pre><code>custom_data = base64encode(join(";", [
+  "panorama-server=cloud",
+  "dgname=scm_folder_name",
+  "dhcp-send-hostname=yes",
+  "dhcp-send-client-id=yes",
+  "dhcp-accept-server-hostname=yes",
+  "dhcp-accept-server-domain=yes",
+  "plugin-op-commands=advance-routing:enable",
+  "vm-series-auto-registration-pin-id=YOUR-PIN-ID-HERE",
+  "vm-series-auto-registration-pin-value=YOUR-PIN-VALUE-HERE",
+  "authcodes=D1234567",
+]))</code></pre>
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<div class="callout callout-note">
+  <div class="callout-title">Key Differences</div>
+  <code>panorama-server</code> = <code>"cloud"</code> (literal string, not an IP). <code>dgname</code> = SCM folder name, not a Panorama Device Group. No <code>tplname</code>, no <code>auth-key</code>, no <code>vm-auth-key</code>.
+</div>
+
+  </div>
+</div>
+
+</div>
+
+<!-- ============================================================ -->
+<!-- REFERENCE -->
+<!-- ============================================================ -->
+<h2 id="reference">Parameter Reference</h2>
+
+<h3>init-cfg.txt Parameters</h3>
+<table>
+  <tr><th>Parameter</th><th>Description</th><th>Required</th></tr>
+  <tr><td><code>type</code></td><td><code>dhcp</code> or <code>static</code></td><td>Yes</td></tr>
+  <tr><td><code>ip-address</code></td><td>Management IP (IPv4)</td><td>If static</td></tr>
+  <tr><td><code>netmask</code></td><td>Subnet mask</td><td>If static</td></tr>
+  <tr><td><code>default-gateway</code></td><td>Default gateway</td><td>If static</td></tr>
+  <tr><td><code>hostname</code></td><td>Firewall hostname</td><td>No</td></tr>
+  <tr><td><code>dns-primary</code></td><td>Primary DNS</td><td>No</td></tr>
+  <tr><td><code>dns-secondary</code></td><td>Secondary DNS</td><td>No</td></tr>
+  <tr><td><code>panorama-server</code></td><td>Panorama IP or <code>cloud</code></td><td>No</td></tr>
+  <tr><td><code>panorama-server-2</code></td><td>Secondary Panorama IP</td><td>No</td></tr>
+  <tr><td><code>tplname</code></td><td>Template Stack name</td><td>For Panorama</td></tr>
+  <tr><td><code>dgname</code></td><td>Device Group name</td><td>For Panorama</td></tr>
+  <tr><td><code>vm-auth-key</code></td><td>Manual VM auth key</td><td>Methods 2&ndash;3</td></tr>
+  <tr><td><code>auth-key</code></td><td>Plugin-generated key</td><td>Method 1</td></tr>
+  <tr><td><code>authcodes</code></td><td>License auth code</td><td>Methods 2&ndash;4, SCM</td></tr>
+  <tr><td><code>plugin-op-commands</code></td><td>Comma-separated commands</td><td>Varies</td></tr>
+  <tr><td><code>vm-series-auto-registration-pin-id</code></td><td>Registration PIN ID</td><td>Recommended</td></tr>
+  <tr><td><code>vm-series-auto-registration-pin-value</code></td><td>Registration PIN value</td><td>Recommended</td></tr>
+  <tr><td><code>dhcp-send-hostname</code></td><td>Send hostname via DHCP</td><td>No</td></tr>
+  <tr><td><code>dhcp-send-client-id</code></td><td>Send client ID via DHCP</td><td>No</td></tr>
+  <tr><td><code>dhcp-accept-server-hostname</code></td><td>Accept DHCP hostname</td><td>No</td></tr>
+  <tr><td><code>dhcp-accept-server-domain</code></td><td>Accept DHCP domain</td><td>No</td></tr>
+</table>
+
+<h3>plugin-op-commands Values</h3>
+<table>
+  <tr><th>Command</th><th>Purpose</th></tr>
+  <tr><td><code>panorama-licensing-mode-on</code></td><td>Enable Panorama licensing (Method 1 only)</td></tr>
+  <tr><td><code>advance-routing:enable</code></td><td>Advanced routing (PAN-OS 11.0+)</td></tr>
+</table>
+
+<h3>DHCP Options</h3>
+<table>
+  <tr><th>Parameter</th><th>Value</th><th>Purpose</th></tr>
+  <tr><td><code>dhcp-send-hostname</code></td><td><code>yes</code></td><td>Sends hostname in DHCP requests</td></tr>
+  <tr><td><code>dhcp-send-client-id</code></td><td><code>yes</code></td><td>Sends client ID in DHCP requests</td></tr>
+  <tr><td><code>dhcp-accept-server-hostname</code></td><td><code>yes</code></td><td>Accepts DHCP-assigned hostname</td></tr>
+  <tr><td><code>dhcp-accept-server-domain</code></td><td><code>yes</code></td><td>Accepts DHCP-assigned domain</td></tr>
+</table>
+
+<h3>Auto-Registration PIN Fields</h3>
+<p>From the Customer Support Portal: <strong>Assets &gt; VM-Series Auth Codes</strong>.</p>
+<table>
+  <tr><th>Parameter</th><th>Format</th></tr>
+  <tr><td><code>vm-series-auto-registration-pin-id</code></td><td>UUID (e.g., <code>YOUR-PIN-ID-HERE</code>)</td></tr>
+  <tr><td><code>vm-series-auto-registration-pin-value</code></td><td>32-char hex (e.g., <code>YOUR-PIN-VALUE-HERE</code>)</td></tr>
+</table>
+
+<!-- ============================================================ -->
+<h2 id="verification">Verification</h2>
+
+<p>These steps apply to all methods.</p>
+
+<h3>CLI Commands</h3>
+<div class="code-block">
+<pre><code># System status and PAN-OS version
+show system info
+
+# Running configuration
+show config running
+
+# License status
+request license info
+
+# Panorama connection
+show panorama-status
+
+# Bootstrap log details
+debug logview component bts_details</code></pre>
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h3>Panorama Verification</h3>
+<ol>
+  <li><strong>Panorama &gt; Managed Devices &gt; Summary</strong> &mdash; confirm the firewall appears.</li>
+  <li>Verify correct Device Group and Template Stack assignment.</li>
+  <li>For Method 1: check <strong>Panorama &gt; SW Firewall License &gt; License Managers</strong> for license allocation.</li>
+  <li>CLI: <code>show plugins sw_fw_license panorama-api-requests</code></li>
+</ol>
+
+<h3>Success Criteria</h3>
+<div class="callout callout-success">
+  <ul>
+    <li><code>show system info</code> shows expected hostname, PAN-OS version, operational mode</li>
+    <li><code>request license info</code> shows all subscriptions as active</li>
+    <li>Firewall appears in Panorama under correct Device Group and Template Stack</li>
+    <li>For Method 4: security policies from <code>bootstrap.xml</code> are enforced</li>
+  </ul>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="troubleshooting">Troubleshooting</h2>
+
+<h3>Common Bootstrap Errors</h3>
+<table>
+  <tr><th>Symptom</th><th>Likely Cause</th><th>Fix</th></tr>
+  <tr><td><strong>Firewall stuck at 192.168.1.1</strong></td><td>Bootstrap failed, reverted to factory defaults</td><td>Check <code>init-cfg.txt</code> syntax (no spaces around <code>=</code>), verify Azure File Share access</td></tr>
+  <tr><td><strong>Boot image error</strong></td><td>File Share not found or access key incorrect</td><td>Test access: <code>az storage file list --share-name bootstrap --account-name yourstorageaccount --output table</code></td></tr>
+  <tr><td><strong>No bootstrap config file</strong></td><td><code>init-cfg.txt</code> missing from <code>/config</code></td><td>Verify directory structure; all 5 dirs must exist</td></tr>
+  <tr><td><strong>Bad or no parameters for mandatory networking</strong></td><td>Malformed <code>init-cfg.txt</code></td><td>Check for spaces, missing <code>type</code> field, or incomplete static IP config</td></tr>
+  <tr><td><strong>Failed to install license key using authcode</strong></td><td>Invalid/expired auth code</td><td>Verify in the Customer Support Portal</td></tr>
+  <tr><td><strong>Failed content update commits</strong></td><td>Content version incompatible with PAN-OS</td><td>Use the minimum content version for your target PAN-OS version</td></tr>
+  <tr><td><strong>Firewall boots but does not appear in Panorama</strong></td><td>Network connectivity or expired VM auth key</td><td>Verify firewall can reach Panorama on port 3978; check key expiration</td></tr>
+</table>
+
+<h3>Detailed Troubleshooting Steps</h3>
+<ol>
+  <li><strong>Read the bootstrap log:</strong> <code>debug logview component bts_details</code></li>
+  <li><strong>Test Azure File Share access independently:</strong> Verify from the Azure CLI: <code>az storage file list --share-name bootstrap --account-name yourstorageaccount --output table</code></li>
+  <li><strong>Validate init-cfg.txt:</strong> Open in a hex editor to check for BOM markers or Windows line endings that may cause issues.</li>
+  <li><strong>Verify Panorama readiness:</strong> The Device Group and Template Stack must exist before the firewall attempts to register.</li>
+  <li><strong>Check boot diagnostics:</strong> In the Azure Portal, navigate to the VM and check <strong>Help &gt; Boot diagnostics</strong> for serial console output.</li>
+  <li><strong>Check VM auth key expiration:</strong> On Panorama: <code>request bootstrap vm-auth-key show</code></li>
+  <li><strong>Verify custom data:</strong> In the Azure Portal, navigate to the VM and check <strong>Settings &gt; Extensions + applications</strong> or review the custom data under <strong>Export template</strong> to confirm the bootstrap string was passed correctly.</li>
+  <li><strong>Check storage account access key:</strong> Ensure the access key in the custom data matches the current key. Keys can be rotated, which invalidates previously used keys:
+    <div class="code-block">
+    <pre><code>az storage account keys list \
+  --resource-group your-bootstrap-rg \
+  --account-name yourstorageaccount \
+  --output table</code></pre>
+    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+  </li>
+</ol>
+
+<h3 id="plugin-ip-tag-issues">Plugin IP-Tag Issues</h3>
+<p>If you have a standalone Panorama or two Panorama appliances in an HA pair with multiple plugins installed, plugins might not receive updated IP-tag information if one or more of the plugins is not configured. This occurs because Panorama will not forward IP-tag information to unconfigured plugins.</p>
+<p>This issue can also occur if one or more of the Panorama plugins is not in the <strong>Registered</strong> or <strong>Success</strong> state (the positive state differs by plugin). Ensure that your plugins are in a positive state before continuing.</p>
+
+<div class="callout callout-warning">
+  <div class="callout-title">Workaround 1: Uninstall Unconfigured Plugins</div>
+  It is recommended that you do not install a plugin that you do not plan to configure right away. Navigate to <strong>Panorama &gt; Plugins</strong>, select the unconfigured plugin, and click <strong>Uninstall</strong>.
+</div>
+
+<div class="callout callout-warning">
+  <div class="callout-title">Workaround 2: Unblock Device Push</div>
+  Execute the following command for each unconfigured plugin on each Panorama instance:
+</div>
+<div class="code-block">
+<pre><code>request plugins dau plugin-name &lt;plugin-name&gt; unblock-device-push yes</code></pre>
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+<p>To cancel this workaround:</p>
+<div class="code-block">
+<pre><code>request plugins dau plugin-name &lt;plugin-name&gt; unblock-device-push no</code></pre>
+<button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<div class="callout callout-danger">
+  <div class="callout-title">Important</div>
+  These commands are <strong>not persistent across reboots</strong> and must be re-executed after any Panorama restart. For Panorama in an HA pair, the commands must be executed on <strong>each</strong> Panorama instance.
+</div>
+<p>Without this workaround, your firewalls may lose some IP-tag information, which can affect Dynamic Address Group membership and security policy enforcement.</p>
+
+</div><!-- .article -->
+</main>
+</div><!-- .layout -->
+
+<!-- ── Back to Top Button ─────────────────────────────────────── -->
+<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">&uarr;</button>
+
+<!-- ── JavaScript ─────────────────────────────────────────────── -->
+<script src="../shared/js/pan-guides.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,719 @@
+2026-03-31 14:01:53,039 INFO   Added: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/use-panorama-based-software-firewall-license-management
+2026-03-31 14:01:53,040 INFO   Added: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/vm-series-firewall-licensing
+2026-03-31 14:01:53,040 INFO   Added: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/software-ngfw/create-a-deployment-profile-vm-series
+2026-03-31 14:01:53,040 INFO   Added: https://docs.paloaltonetworks.com/vm-series/10-1/vm-series-deployment/license-the-vm-series-firewall/software-ngfw/manage-a-deployment-profile
+2026-03-31 14:01:53,040 INFO   Added: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/set-up-the-vm-series-firewall-on-nsx/set-up-the-vm-series-firewall-on-nsx-t-east-west/deploy-the-vm-series-using-the-security-centric-workflow/create-templates-and-device-groups-nsx-t-ew-security-centric
+2026-03-31 14:01:53,040 INFO   Added: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall
+2026-03-31 14:01:53,040 INFO   Added: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/choose-a-bootstrap-method
+2026-03-31 14:01:53,040 INFO   Added: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/vm-series-firewall-bootstrap-workflow
+2026-03-31 14:01:53,040 INFO   Added: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/bootstrap-package
+2026-03-31 14:01:53,040 INFO   Added: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/bootstrap-configuration-files
+2026-03-31 14:01:53,040 INFO   Added: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/generate-the-vm-auth-key-on-panorama
+2026-03-31 14:01:53,040 INFO   Added: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/create-the-init-cfgtxt-file
+2026-03-31 14:01:53,040 INFO   Added: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/create-the-bootstrapxml-file
+2026-03-31 14:01:53,040 INFO   Added: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/prepare-the-licenses-for-bootstrapping
+2026-03-31 14:01:53,040 INFO   Added: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/prepare-the-bootstrap-package
+2026-03-31 14:01:53,040 INFO   Added: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/about-the-vm-series-firewall/vm-series-plugin
+2026-03-31 14:01:53,040 INFO   Added: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/about-the-vm-series-firewall/vm-series-plugin/configure-the-vm-series-plugin-on-the-firewall
+2026-03-31 14:01:53,040 INFO   Added: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/about-the-vm-series-firewall/vm-series-plugin/upgrade-the-vm-series-plugin
+2026-03-31 14:01:53,040 INFO   Added: https://docs.paloaltonetworks.com/panorama/11-1/panorama-admin/panorama-plugins
+2026-03-31 14:01:53,040 INFO   Added: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/bootstrap-the-vm-series-firewall-in-azure
+2026-03-31 14:01:53,040 INFO   Added: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/verify-bootstrap-completion
+2026-03-31 14:01:53,040 INFO   Added: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/bootstrap-errors
+2026-03-31 14:01:53,041 INFO   Already in manifest: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/bootstrap-errors
+2026-03-31 14:01:53,041 INFO Imported 22 new URLs from c-bootstrapping/bootstrap-source-urls
+2026-03-31 14:01:56,991 INFO   Added: https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/strata-cloud-manager-prerequisites
+2026-03-31 14:01:56,991 INFO   Added: https://docs.paloaltonetworks.com/strata-cloud-manager/aiops/about/aiops-plugin-for-panorama
+2026-03-31 14:01:56,991 INFO   Added: https://docs.paloaltonetworks.com/strata-cloud-manager/aiops/about-metrics
+2026-03-31 14:01:56,991 INFO   Added: https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/onboard-to-strata-cloud-manager
+2026-03-31 14:01:56,991 INFO   Added: https://docs.paloaltonetworks.com/ngfw/administration/certificate-management/certificate-deployment/install-device-certificate
+2026-03-31 14:01:56,991 INFO   Added: https://docs.paloaltonetworks.com/panorama/11-1/panorama-admin/manage-firewalls/install-the-device-certificate-for-managed-firewalls/install-the-device-certificate-for-a-managed-firewall
+2026-03-31 14:01:56,991 INFO   Added: https://docs.paloaltonetworks.com/strata-logging-service/activation-and-onboarding/planning/ports-and-fqdns
+2026-03-31 14:01:56,992 INFO   Added: https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/strata-cloud-manager-licenses-and-support
+2026-03-31 14:01:56,992 INFO   Already in manifest: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/software-ngfw/create-a-deployment-profile-vm-series
+2026-03-31 14:01:56,992 INFO   Already in manifest: https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/onboard-to-strata-cloud-manager
+2026-03-31 14:01:56,992 INFO   Added: https://docs.paloaltonetworks.com/common-services/device-associations/hardware-model-compatibility
+2026-03-31 14:01:56,992 INFO Imported 9 new URLs from c-docs-scm/c-scm-prereqs/SCM-Pre-Req-links.txt
+2026-03-31 14:03:36,613 INFO Added: https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/activate-strata-cloud-manager -> docs/strata-cloud-manager/getting-started/activate-strata-cloud-manager.md
+2026-03-31 14:03:36,683 INFO Added: https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/activate-strata-cloud-manager/activate-strata-cloud-manager-essentials -> docs/strata-cloud-manager/getting-started/activate-strata-cloud-manager-essentials.md
+2026-03-31 14:03:36,751 INFO Added: https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/activate-strata-cloud-manager/activate-strata-cloud-manager-pro -> docs/strata-cloud-manager/getting-started/activate-strata-cloud-manager-pro.md
+2026-03-31 14:03:36,821 INFO Added: https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/regions-for-strata-cloud-manager -> docs/strata-cloud-manager/getting-started/regions-for-strata-cloud-manager.md
+2026-03-31 14:03:36,890 INFO Added: https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/whats-supported-in-strata-cloud-manager -> docs/strata-cloud-manager/getting-started/whats-supported-in-strata-cloud-manager.md
+2026-03-31 14:03:36,962 INFO Added: https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/troubleshoot-firewall-onboarding-and-connection-issues-with-strata-cloud-manager -> docs/strata-cloud-manager/getting-started/troubleshoot-firewall-onboarding-and-connection-issues-with-strata-cloud-manager.md
+2026-03-31 14:03:37,032 INFO Added: https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/push-configuration-in-strata-cloud-manager -> docs/strata-cloud-manager/getting-started/push-configuration-in-strata-cloud-manager.md
+2026-03-31 14:03:55,451 INFO Added: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/software-ngfw-credits -> docs/vm-series/11-1/software-ngfw-credits.md
+2026-03-31 14:03:55,519 INFO Added: https://docs.paloaltonetworks.com/vm-series/11-0/vm-series-deployment/license-the-vm-series-firewall/software-ngfw/create-a-deployment-profile -> docs/vm-series/11-0/create-a-deployment-profile.md
+2026-03-31 14:03:55,590 INFO Added: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/software-ngfw/activate-the-deployment-profile -> docs/vm-series/11-1/activate-the-deployment-profile.md
+2026-03-31 14:03:55,659 INFO Added: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/software-ngfw-credits/activate-strata-cloud-manager-pro-for-vm-series -> docs/vm-series/11-1/activate-strata-cloud-manager-pro-for-vm-series.md
+2026-03-31 14:03:55,726 INFO Added: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/software-ngfw-credits/activate-strata-cloud-manager-pro-for-panorama-managed-vm-series -> docs/vm-series/11-1/activate-strata-cloud-manager-pro-for-panorama-managed-vm-series.md
+2026-03-31 14:03:55,798 INFO Added: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/create-the-init-cfg-file/init-cfg-file-components -> docs/vm-series/11-1/init-cfg-file-components.md
+2026-03-31 14:03:55,869 INFO Added: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall -> docs/vm-series/11-1/license-the-vm-series-firewall.md
+2026-03-31 14:03:55,940 INFO Added: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-performance-capacity/vm-series-performance-capacity/maximum-limits-based-on-tier-and-memory -> docs/vm-series/11-1/maximum-limits-based-on-tier-and-memory.md
+2026-03-31 14:03:56,010 INFO Added: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment -> docs/vm-series/11-1/vm-series-deployment.md
+2026-03-31 14:04:15,072 INFO Added: https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/onboard-and-activate-a-cloud-account -> docs/strata-cloud-manager/getting-started/onboard-and-activate-a-cloud-account.md
+2026-03-31 14:04:15,139 INFO Added: https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/deploy-prisma-airs-ai-runtime-and-vm-series-firewalls -> docs/strata-cloud-manager/getting-started/deploy-prisma-airs-ai-runtime-and-vm-series-firewalls.md
+2026-03-31 14:04:15,208 INFO Added: https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/discover-your-cloud-resources -> docs/strata-cloud-manager/getting-started/discover-your-cloud-resources.md
+2026-03-31 14:04:15,277 INFO Added: https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/integrate-key-management-service-for-aws -> docs/strata-cloud-manager/getting-started/integrate-key-management-service-for-aws.md
+2026-03-31 14:04:15,346 INFO Added: https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/integrate-key-management-service-for-azure -> docs/strata-cloud-manager/getting-started/integrate-key-management-service-for-azure.md
+2026-03-31 14:04:15,413 INFO Added: https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/onboard-a-firewall -> docs/strata-cloud-manager/getting-started/onboard-a-firewall.md
+2026-03-31 14:04:15,483 INFO Added: https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/cloud-management-for-ngfws-onboarding-prerequisites -> docs/strata-cloud-manager/getting-started/cloud-management-for-ngfws-onboarding-prerequisites.md
+2026-03-31 14:04:15,552 INFO Added: https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/tcp-ports-and-fqdns-required-for-cloud-management-of-ngfws -> docs/strata-cloud-manager/getting-started/tcp-ports-and-fqdns-required-for-cloud-management-of-ngfws.md
+2026-03-31 14:04:17,612 INFO Added: https://docs.paloaltonetworks.com/ngfw/administration/certificate-management/certificate-deployment/manually-install-device-certificates -> docs/ngfw/administration/manually-install-device-certificates.md
+2026-03-31 14:04:17,682 INFO Added: https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/enable-telemetry-on-devices -> docs/strata-cloud-manager/getting-started/enable-telemetry-on-devices.md
+2026-03-31 14:04:17,753 INFO Added: https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/device-telemetry-overview -> docs/strata-cloud-manager/getting-started/device-telemetry-overview.md
+2026-03-31 14:04:17,824 INFO Added: https://docs.paloaltonetworks.com/ngfw/administration/management/access-the-firewall-cli -> docs/ngfw/administration/access-the-firewall-cli.md
+2026-03-31 14:04:17,893 INFO Added: https://docs.paloaltonetworks.com/ngfw/administration/management/launch-the-firewall-web-interface -> docs/ngfw/administration/launch-the-firewall-web-interface.md
+2026-03-31 14:04:17,962 INFO Added: https://docs.paloaltonetworks.com/ngfw/administration/device-management/activate-subscription-licenses -> docs/ngfw/administration/activate-subscription-licenses.md
+2026-03-31 14:04:18,029 INFO Added: https://docs.paloaltonetworks.com/ngfw/administration/device-management/device-licenses -> docs/ngfw/administration/device-licenses.md
+2026-03-31 14:04:19,661 INFO Added: https://docs.paloaltonetworks.com/common-services/device-associations/get-started/associate-devices-with-a-tenant -> docs/common-services/device-associations/associate-devices-with-a-tenant.md
+2026-03-31 14:04:19,732 INFO Added: https://docs.paloaltonetworks.com/common-services/device-associations/get-started/associate-apps-with-devices -> docs/common-services/device-associations/associate-apps-with-devices.md
+2026-03-31 14:04:19,803 INFO Added: https://docs.paloaltonetworks.com/strata-logging-service/administration/overview -> docs/strata-logging-service/administration/overview.md
+2026-03-31 14:04:19,872 INFO Added: https://docs.paloaltonetworks.com/strata-logging-service/activation-and-onboarding/activate -> docs/strata-logging-service/activation-and-onboarding/activate.md
+2026-03-31 14:04:19,942 INFO Added: https://docs.paloaltonetworks.com/cloud-identity/cloud-identity-engine-getting-started -> docs/cloud-identity/cloud-identity-engine-getting-started/cloud-identity-engine-getting-started.md
+2026-03-31 14:04:20,011 INFO Added: https://docs.paloaltonetworks.com/cloud-identity/cloud-identity-engine-getting-started/get-started-with-the-cloud-identity-engine/activate-the-cloud-identity-engine -> docs/cloud-identity/cloud-identity-engine-getting-started/activate-the-cloud-identity-engine.md
+2026-03-31 14:04:20,080 INFO Added: https://docs.paloaltonetworks.com/common-services/subscription-and-tenant-management/manage-multitenants/add-tenants -> docs/common-services/subscription-and-tenant-management/add-tenants.md
+2026-03-31 14:04:20,152 INFO Added: https://docs.paloaltonetworks.com/common-services/subscription-and-tenant-management/manage-multitenants/what-is-a-tenant -> docs/common-services/subscription-and-tenant-management/what-is-a-tenant.md
+2026-03-31 14:04:20,220 INFO Added: https://docs.paloaltonetworks.com/common-services/identity-and-access-access-management/manage-identity-and-access/about-roles-and-permissions -> docs/common-services/identity-and-access-access-management/about-roles-and-permissions.md
+2026-03-31 14:04:20,289 INFO Added: https://docs.paloaltonetworks.com/plugins/vm-series-and-panorama-plugins-release-notes/panorama-plugin-for-aiops/panorama-cloudconnector-plugin-3-0-0 -> docs/plugins/vm-series-and-panorama-plugins-release-notes/panorama-cloudconnector-plugin-3-0-0.md
+2026-03-31 14:04:39,183 INFO [1/72] Processing...
+2026-03-31 14:04:39,183 INFO Fetching: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/use-panorama-based-software-firewall-license-management
+2026-03-31 14:04:40,490 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/vm-series/11-1/use-panorama-based-software-firewall-license-management.md (7769 chars)
+2026-03-31 14:04:40,490 INFO [2/72] Processing...
+2026-03-31 14:04:40,490 INFO Fetching: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/vm-series-firewall-licensing
+2026-03-31 14:04:41,659 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/vm-series/11-1/vm-series-firewall-licensing.md (16441 chars)
+2026-03-31 14:04:41,659 INFO [3/72] Processing...
+2026-03-31 14:04:41,659 INFO Fetching: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/software-ngfw/create-a-deployment-profile-vm-series
+2026-03-31 14:04:42,684 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/vm-series/11-1/create-a-deployment-profile-vm-series.md (6941 chars)
+2026-03-31 14:04:42,684 INFO [4/72] Processing...
+2026-03-31 14:04:42,684 INFO Fetching: https://docs.paloaltonetworks.com/vm-series/10-1/vm-series-deployment/license-the-vm-series-firewall/software-ngfw/manage-a-deployment-profile
+2026-03-31 14:04:43,789 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/vm-series/10-1/manage-a-deployment-profile.md (4901 chars)
+2026-03-31 14:04:43,789 INFO [5/72] Processing...
+2026-03-31 14:04:43,789 INFO Fetching: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/set-up-the-vm-series-firewall-on-nsx/set-up-the-vm-series-firewall-on-nsx-t-east-west/deploy-the-vm-series-using-the-security-centric-workflow/create-templates-and-device-groups-nsx-t-ew-security-centric
+2026-03-31 14:04:44,900 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/vm-series/11-1/create-templates-and-device-groups-nsx-t-ew-security-centric.md (4864 chars)
+2026-03-31 14:04:44,900 INFO [6/72] Processing...
+2026-03-31 14:04:44,900 INFO Fetching: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall
+2026-03-31 14:04:45,967 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/vm-series/11-1/bootstrap-the-vm-series-firewall.md (5076 chars)
+2026-03-31 14:04:45,967 INFO [7/72] Processing...
+2026-03-31 14:04:45,967 INFO Fetching: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/choose-a-bootstrap-method
+2026-03-31 14:04:47,006 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/vm-series/11-1/choose-a-bootstrap-method.md (13029 chars)
+2026-03-31 14:04:47,006 INFO [8/72] Processing...
+2026-03-31 14:04:47,006 INFO Fetching: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/vm-series-firewall-bootstrap-workflow
+2026-03-31 14:04:48,098 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/vm-series/11-1/vm-series-firewall-bootstrap-workflow.md (6133 chars)
+2026-03-31 14:04:48,098 INFO [9/72] Processing...
+2026-03-31 14:04:48,099 INFO Fetching: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/bootstrap-package
+2026-03-31 14:04:49,197 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/vm-series/11-1/bootstrap-package.md (6057 chars)
+2026-03-31 14:04:49,197 INFO [10/72] Processing...
+2026-03-31 14:04:49,197 INFO Fetching: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/bootstrap-configuration-files
+2026-03-31 14:04:50,584 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/vm-series/11-1/bootstrap-configuration-files.md (3976 chars)
+2026-03-31 14:04:50,584 INFO [11/72] Processing...
+2026-03-31 14:04:50,584 INFO Fetching: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/generate-the-vm-auth-key-on-panorama
+2026-03-31 14:04:51,718 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/vm-series/11-1/generate-the-vm-auth-key-on-panorama.md (2857 chars)
+2026-03-31 14:04:51,718 INFO [12/72] Processing...
+2026-03-31 14:04:51,718 INFO Fetching: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/create-the-init-cfgtxt-file
+2026-03-31 14:04:52,778 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/vm-series/11-1/create-the-init-cfgtxt-file.md (5708 chars)
+2026-03-31 14:04:52,778 INFO [13/72] Processing...
+2026-03-31 14:04:52,778 INFO Fetching: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/create-the-bootstrapxml-file
+2026-03-31 14:04:53,836 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/vm-series/11-1/create-the-bootstrapxml-file.md (955 chars)
+2026-03-31 14:04:53,837 INFO [14/72] Processing...
+2026-03-31 14:04:53,837 INFO Fetching: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/prepare-the-licenses-for-bootstrapping
+2026-03-31 14:04:54,888 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/vm-series/11-1/prepare-the-licenses-for-bootstrapping.md (3157 chars)
+2026-03-31 14:04:54,888 INFO [15/72] Processing...
+2026-03-31 14:04:54,888 INFO Fetching: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/prepare-the-bootstrap-package
+2026-03-31 14:04:56,065 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/vm-series/11-1/prepare-the-bootstrap-package.md (3747 chars)
+2026-03-31 14:04:56,065 INFO [16/72] Processing...
+2026-03-31 14:04:56,065 INFO Fetching: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/about-the-vm-series-firewall/vm-series-plugin
+2026-03-31 14:04:57,121 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/vm-series/11-1/vm-series-plugin.md (2962 chars)
+2026-03-31 14:04:57,122 INFO [17/72] Processing...
+2026-03-31 14:04:57,122 INFO Fetching: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/about-the-vm-series-firewall/vm-series-plugin/configure-the-vm-series-plugin-on-the-firewall
+2026-03-31 14:04:58,189 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/vm-series/11-1/configure-the-vm-series-plugin-on-the-firewall.md (411 chars)
+2026-03-31 14:04:58,189 INFO [18/72] Processing...
+2026-03-31 14:04:58,189 INFO Fetching: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/about-the-vm-series-firewall/vm-series-plugin/upgrade-the-vm-series-plugin
+2026-03-31 14:04:59,255 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/vm-series/11-1/upgrade-the-vm-series-plugin.md (1471 chars)
+2026-03-31 14:04:59,255 INFO [19/72] Processing...
+2026-03-31 14:04:59,255 INFO Fetching: https://docs.paloaltonetworks.com/panorama/11-1/panorama-admin/panorama-plugins
+2026-03-31 14:05:00,274 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/panorama/11-1/panorama-plugins.md (2930 chars)
+2026-03-31 14:05:00,275 INFO [20/72] Processing...
+2026-03-31 14:05:00,275 INFO Fetching: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/bootstrap-the-vm-series-firewall-in-azure
+2026-03-31 14:05:01,315 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/vm-series/11-1/bootstrap-the-vm-series-firewall-in-azure.md (5206 chars)
+2026-03-31 14:05:01,315 INFO [21/72] Processing...
+2026-03-31 14:05:01,315 INFO Fetching: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/verify-bootstrap-completion
+2026-03-31 14:05:02,360 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/vm-series/11-1/verify-bootstrap-completion.md (839 chars)
+2026-03-31 14:05:02,360 INFO [22/72] Processing...
+2026-03-31 14:05:02,360 INFO Fetching: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/bootstrap-errors
+2026-03-31 14:05:03,454 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/vm-series/11-1/bootstrap-errors.md (2407 chars)
+2026-03-31 14:05:03,454 INFO [23/72] Processing...
+2026-03-31 14:05:03,454 INFO Fetching: https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/strata-cloud-manager-prerequisites
+2026-03-31 14:05:04,298 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/strata-cloud-manager/activation-and-onboarding/strata-cloud-manager-prerequisites.md (18972 chars)
+2026-03-31 14:05:04,298 INFO [24/72] Processing...
+2026-03-31 14:05:04,299 INFO Fetching: https://docs.paloaltonetworks.com/strata-cloud-manager/aiops/about/aiops-plugin-for-panorama
+2026-03-31 14:05:05,164 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/strata-cloud-manager/aiops/aiops-plugin-for-panorama.md (7583 chars)
+2026-03-31 14:05:05,164 INFO [25/72] Processing...
+2026-03-31 14:05:05,164 INFO Fetching: https://docs.paloaltonetworks.com/strata-cloud-manager/aiops/about-metrics
+2026-03-31 14:05:05,916 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/strata-cloud-manager/aiops/about-metrics.md (5550 chars)
+2026-03-31 14:05:05,916 INFO [26/72] Processing...
+2026-03-31 14:05:05,916 INFO Fetching: https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/onboard-to-strata-cloud-manager
+2026-03-31 14:05:06,724 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/strata-cloud-manager/activation-and-onboarding/onboard-to-strata-cloud-manager.md (38762 chars)
+2026-03-31 14:05:06,724 INFO [27/72] Processing...
+2026-03-31 14:05:06,724 INFO Fetching: https://docs.paloaltonetworks.com/ngfw/administration/certificate-management/certificate-deployment/install-device-certificate
+2026-03-31 14:05:08,033 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/ngfw/administration/install-device-certificate.md (9973 chars)
+2026-03-31 14:05:08,033 INFO [28/72] Processing...
+2026-03-31 14:05:08,034 INFO Fetching: https://docs.paloaltonetworks.com/panorama/11-1/panorama-admin/manage-firewalls/install-the-device-certificate-for-managed-firewalls/install-the-device-certificate-for-a-managed-firewall
+2026-03-31 14:05:09,053 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/panorama/11-1/install-the-device-certificate-for-a-managed-firewall.md (8768 chars)
+2026-03-31 14:05:09,053 INFO [29/72] Processing...
+2026-03-31 14:05:09,053 INFO Fetching: https://docs.paloaltonetworks.com/strata-logging-service/activation-and-onboarding/planning/ports-and-fqdns
+2026-03-31 14:05:09,790 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/strata-logging-service/activation-and-onboarding/ports-and-fqdns.md (5406 chars)
+2026-03-31 14:05:09,790 INFO [30/72] Processing...
+2026-03-31 14:05:09,790 INFO Fetching: https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/strata-cloud-manager-licenses-and-support
+2026-03-31 14:05:10,586 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/strata-cloud-manager/activation-and-onboarding/strata-cloud-manager-licenses-and-support.md (18219 chars)
+2026-03-31 14:05:10,586 INFO [31/72] Processing...
+2026-03-31 14:05:10,586 INFO Fetching: https://docs.paloaltonetworks.com/common-services/device-associations/hardware-model-compatibility
+2026-03-31 14:05:11,344 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/common-services/device-associations/hardware-model-compatibility.md (3858 chars)
+2026-03-31 14:05:11,344 INFO [32/72] Processing...
+2026-03-31 14:05:11,344 INFO Fetching: https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/activate-strata-cloud-manager
+2026-03-31 14:05:11,770 ERROR Failed to fetch https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/activate-strata-cloud-manager: HTTP Error 404: Not Found
+2026-03-31 14:05:11,771 INFO [33/72] Processing...
+2026-03-31 14:05:11,771 INFO Fetching: https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/activate-strata-cloud-manager/activate-strata-cloud-manager-essentials
+2026-03-31 14:05:12,168 ERROR Failed to fetch https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/activate-strata-cloud-manager/activate-strata-cloud-manager-essentials: HTTP Error 404: Not Found
+2026-03-31 14:05:12,169 INFO [34/72] Processing...
+2026-03-31 14:05:12,169 INFO Fetching: https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/activate-strata-cloud-manager/activate-strata-cloud-manager-pro
+2026-03-31 14:05:12,551 ERROR Failed to fetch https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/activate-strata-cloud-manager/activate-strata-cloud-manager-pro: HTTP Error 404: Not Found
+2026-03-31 14:05:12,552 INFO [35/72] Processing...
+2026-03-31 14:05:12,552 INFO Fetching: https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/regions-for-strata-cloud-manager
+2026-03-31 14:05:13,004 ERROR Failed to fetch https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/regions-for-strata-cloud-manager: HTTP Error 404: Not Found
+2026-03-31 14:05:13,005 INFO [36/72] Processing...
+2026-03-31 14:05:13,006 INFO Fetching: https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/whats-supported-in-strata-cloud-manager
+2026-03-31 14:05:13,434 ERROR Failed to fetch https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/whats-supported-in-strata-cloud-manager: HTTP Error 404: Not Found
+2026-03-31 14:05:13,435 INFO [37/72] Processing...
+2026-03-31 14:05:13,436 INFO Fetching: https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/troubleshoot-firewall-onboarding-and-connection-issues-with-strata-cloud-manager
+2026-03-31 14:05:13,869 ERROR Failed to fetch https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/troubleshoot-firewall-onboarding-and-connection-issues-with-strata-cloud-manager: HTTP Error 404: Not Found
+2026-03-31 14:05:13,870 INFO [38/72] Processing...
+2026-03-31 14:05:13,870 INFO Fetching: https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/push-configuration-in-strata-cloud-manager
+2026-03-31 14:05:14,279 ERROR Failed to fetch https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/push-configuration-in-strata-cloud-manager: HTTP Error 404: Not Found
+2026-03-31 14:05:14,280 INFO [39/72] Processing...
+2026-03-31 14:05:14,280 INFO Fetching: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/software-ngfw-credits
+2026-03-31 14:05:14,706 ERROR Failed to fetch https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/software-ngfw-credits: HTTP Error 404: Not Found
+2026-03-31 14:05:14,706 INFO [40/72] Processing...
+2026-03-31 14:05:14,706 INFO Fetching: https://docs.paloaltonetworks.com/vm-series/11-0/vm-series-deployment/license-the-vm-series-firewall/software-ngfw/create-a-deployment-profile
+2026-03-31 14:05:15,101 ERROR Failed to fetch https://docs.paloaltonetworks.com/vm-series/11-0/vm-series-deployment/license-the-vm-series-firewall/software-ngfw/create-a-deployment-profile: HTTP Error 404: Not Found
+2026-03-31 14:05:15,102 INFO [41/72] Processing...
+2026-03-31 14:05:15,103 INFO Fetching: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/software-ngfw/activate-the-deployment-profile
+2026-03-31 14:05:16,223 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/vm-series/11-1/activate-the-deployment-profile.md (7049 chars)
+2026-03-31 14:05:16,223 INFO [42/72] Processing...
+2026-03-31 14:05:16,223 INFO Fetching: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/software-ngfw-credits/activate-strata-cloud-manager-pro-for-vm-series
+2026-03-31 14:05:16,609 ERROR Failed to fetch https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/software-ngfw-credits/activate-strata-cloud-manager-pro-for-vm-series: HTTP Error 404: Not Found
+2026-03-31 14:05:16,609 INFO [43/72] Processing...
+2026-03-31 14:05:16,610 INFO Fetching: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/software-ngfw-credits/activate-strata-cloud-manager-pro-for-panorama-managed-vm-series
+2026-03-31 14:05:17,014 ERROR Failed to fetch https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/software-ngfw-credits/activate-strata-cloud-manager-pro-for-panorama-managed-vm-series: HTTP Error 404: Not Found
+2026-03-31 14:05:17,014 INFO [44/72] Processing...
+2026-03-31 14:05:17,014 INFO Fetching: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/create-the-init-cfg-file/init-cfg-file-components
+2026-03-31 14:05:17,418 ERROR Failed to fetch https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/create-the-init-cfg-file/init-cfg-file-components: HTTP Error 404: Not Found
+2026-03-31 14:05:17,419 INFO [45/72] Processing...
+2026-03-31 14:05:17,420 INFO Fetching: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall
+2026-03-31 14:05:18,606 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/vm-series/11-1/license-the-vm-series-firewall.md (2397 chars)
+2026-03-31 14:05:18,606 INFO [46/72] Processing...
+2026-03-31 14:05:18,606 INFO Fetching: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-performance-capacity/vm-series-performance-capacity/maximum-limits-based-on-tier-and-memory
+2026-03-31 14:05:19,009 ERROR Failed to fetch https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-performance-capacity/vm-series-performance-capacity/maximum-limits-based-on-tier-and-memory: HTTP Error 404: Not Found
+2026-03-31 14:05:19,010 INFO [47/72] Processing...
+2026-03-31 14:05:19,010 INFO Fetching: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment
+2026-03-31 14:05:20,120 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/vm-series/11-1/vm-series-deployment.md (123261 chars)
+2026-03-31 14:05:20,120 INFO [48/72] Processing...
+2026-03-31 14:05:20,120 INFO Fetching: https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/onboard-and-activate-a-cloud-account
+2026-03-31 14:05:20,490 ERROR Failed to fetch https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/onboard-and-activate-a-cloud-account: HTTP Error 404: Not Found
+2026-03-31 14:05:20,491 INFO [49/72] Processing...
+2026-03-31 14:05:20,491 INFO Fetching: https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/deploy-prisma-airs-ai-runtime-and-vm-series-firewalls
+2026-03-31 14:05:20,903 ERROR Failed to fetch https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/deploy-prisma-airs-ai-runtime-and-vm-series-firewalls: HTTP Error 404: Not Found
+2026-03-31 14:05:20,904 INFO [50/72] Processing...
+2026-03-31 14:05:20,904 INFO Fetching: https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/discover-your-cloud-resources
+2026-03-31 14:05:21,305 ERROR Failed to fetch https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/discover-your-cloud-resources: HTTP Error 404: Not Found
+2026-03-31 14:05:21,306 INFO [51/72] Processing...
+2026-03-31 14:05:21,306 INFO Fetching: https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/integrate-key-management-service-for-aws
+2026-03-31 14:05:21,747 ERROR Failed to fetch https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/integrate-key-management-service-for-aws: HTTP Error 404: Not Found
+2026-03-31 14:05:21,748 INFO [52/72] Processing...
+2026-03-31 14:05:21,748 INFO Fetching: https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/integrate-key-management-service-for-azure
+2026-03-31 14:05:22,139 ERROR Failed to fetch https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/integrate-key-management-service-for-azure: HTTP Error 404: Not Found
+2026-03-31 14:05:22,140 INFO [53/72] Processing...
+2026-03-31 14:05:22,141 INFO Fetching: https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/onboard-a-firewall
+2026-03-31 14:05:22,573 ERROR Failed to fetch https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/onboard-a-firewall: HTTP Error 404: Not Found
+2026-03-31 14:05:22,575 INFO [54/72] Processing...
+2026-03-31 14:05:22,575 INFO Fetching: https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/cloud-management-for-ngfws-onboarding-prerequisites
+2026-03-31 14:05:22,983 ERROR Failed to fetch https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/cloud-management-for-ngfws-onboarding-prerequisites: HTTP Error 404: Not Found
+2026-03-31 14:05:22,985 INFO [55/72] Processing...
+2026-03-31 14:05:22,985 INFO Fetching: https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/tcp-ports-and-fqdns-required-for-cloud-management-of-ngfws
+2026-03-31 14:05:23,530 ERROR Failed to fetch https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/tcp-ports-and-fqdns-required-for-cloud-management-of-ngfws: HTTP Error 404: Not Found
+2026-03-31 14:05:23,531 INFO [56/72] Processing...
+2026-03-31 14:05:23,531 INFO Fetching: https://docs.paloaltonetworks.com/ngfw/administration/certificate-management/certificate-deployment/manually-install-device-certificates
+2026-03-31 14:05:23,951 ERROR Failed to fetch https://docs.paloaltonetworks.com/ngfw/administration/certificate-management/certificate-deployment/manually-install-device-certificates: HTTP Error 404: Not Found
+2026-03-31 14:05:23,953 INFO [57/72] Processing...
+2026-03-31 14:05:23,953 INFO Fetching: https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/enable-telemetry-on-devices
+2026-03-31 14:05:24,409 ERROR Failed to fetch https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/enable-telemetry-on-devices: HTTP Error 404: Not Found
+2026-03-31 14:05:24,409 INFO [58/72] Processing...
+2026-03-31 14:05:24,409 INFO Fetching: https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/device-telemetry-overview
+2026-03-31 14:05:24,962 ERROR Failed to fetch https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/device-telemetry-overview: HTTP Error 404: Not Found
+2026-03-31 14:05:24,964 INFO [59/72] Processing...
+2026-03-31 14:05:24,964 INFO Fetching: https://docs.paloaltonetworks.com/ngfw/administration/management/access-the-firewall-cli
+2026-03-31 14:05:25,364 ERROR Failed to fetch https://docs.paloaltonetworks.com/ngfw/administration/management/access-the-firewall-cli: HTTP Error 404: Not Found
+2026-03-31 14:05:25,364 INFO [60/72] Processing...
+2026-03-31 14:05:25,364 INFO Fetching: https://docs.paloaltonetworks.com/ngfw/administration/management/launch-the-firewall-web-interface
+2026-03-31 14:05:25,790 ERROR Failed to fetch https://docs.paloaltonetworks.com/ngfw/administration/management/launch-the-firewall-web-interface: HTTP Error 404: Not Found
+2026-03-31 14:05:25,790 INFO [61/72] Processing...
+2026-03-31 14:05:25,790 INFO Fetching: https://docs.paloaltonetworks.com/ngfw/administration/device-management/activate-subscription-licenses
+2026-03-31 14:05:26,209 ERROR Failed to fetch https://docs.paloaltonetworks.com/ngfw/administration/device-management/activate-subscription-licenses: HTTP Error 404: Not Found
+2026-03-31 14:05:26,209 INFO [62/72] Processing...
+2026-03-31 14:05:26,209 INFO Fetching: https://docs.paloaltonetworks.com/ngfw/administration/device-management/device-licenses
+2026-03-31 14:05:26,673 ERROR Failed to fetch https://docs.paloaltonetworks.com/ngfw/administration/device-management/device-licenses: HTTP Error 404: Not Found
+2026-03-31 14:05:26,674 INFO [63/72] Processing...
+2026-03-31 14:05:26,674 INFO Fetching: https://docs.paloaltonetworks.com/common-services/device-associations/get-started/associate-devices-with-a-tenant
+2026-03-31 14:05:27,379 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/common-services/device-associations/associate-devices-with-a-tenant.md (1579 chars)
+2026-03-31 14:05:27,380 INFO [64/72] Processing...
+2026-03-31 14:05:27,380 INFO Fetching: https://docs.paloaltonetworks.com/common-services/device-associations/get-started/associate-apps-with-devices
+2026-03-31 14:05:28,101 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/common-services/device-associations/associate-apps-with-devices.md (1579 chars)
+2026-03-31 14:05:28,101 INFO [65/72] Processing...
+2026-03-31 14:05:28,101 INFO Fetching: https://docs.paloaltonetworks.com/strata-logging-service/administration/overview
+2026-03-31 14:05:28,875 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/strata-logging-service/administration/overview.md (10874 chars)
+2026-03-31 14:05:28,876 INFO [66/72] Processing...
+2026-03-31 14:05:28,876 INFO Fetching: https://docs.paloaltonetworks.com/strata-logging-service/activation-and-onboarding/activate
+2026-03-31 14:05:29,743 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/strata-logging-service/activation-and-onboarding/activate.md (6285 chars)
+2026-03-31 14:05:29,743 INFO [67/72] Processing...
+2026-03-31 14:05:29,743 INFO Fetching: https://docs.paloaltonetworks.com/cloud-identity/cloud-identity-engine-getting-started
+2026-03-31 14:05:31,141 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/cloud-identity/cloud-identity-engine-getting-started/cloud-identity-engine-getting-started.md (3250 chars)
+2026-03-31 14:05:31,142 INFO [68/72] Processing...
+2026-03-31 14:05:31,142 INFO Fetching: https://docs.paloaltonetworks.com/cloud-identity/cloud-identity-engine-getting-started/get-started-with-the-cloud-identity-engine/activate-the-cloud-identity-engine
+2026-03-31 14:05:32,284 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/cloud-identity/cloud-identity-engine-getting-started/activate-the-cloud-identity-engine.md (3415 chars)
+2026-03-31 14:05:32,284 INFO [69/72] Processing...
+2026-03-31 14:05:32,284 INFO Fetching: https://docs.paloaltonetworks.com/common-services/subscription-and-tenant-management/manage-multitenants/add-tenants
+2026-03-31 14:05:33,439 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/common-services/subscription-and-tenant-management/add-tenants.md (4814 chars)
+2026-03-31 14:05:33,439 INFO [70/72] Processing...
+2026-03-31 14:05:33,439 INFO Fetching: https://docs.paloaltonetworks.com/common-services/subscription-and-tenant-management/manage-multitenants/what-is-a-tenant
+2026-03-31 14:05:34,417 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/common-services/subscription-and-tenant-management/what-is-a-tenant.md (2293 chars)
+2026-03-31 14:05:34,417 INFO [71/72] Processing...
+2026-03-31 14:05:34,417 INFO Fetching: https://docs.paloaltonetworks.com/common-services/identity-and-access-access-management/manage-identity-and-access/about-roles-and-permissions
+2026-03-31 14:05:35,202 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/common-services/identity-and-access-access-management/about-roles-and-permissions.md (16869 chars)
+2026-03-31 14:05:35,202 INFO [72/72] Processing...
+2026-03-31 14:05:35,202 INFO Fetching: https://docs.paloaltonetworks.com/plugins/vm-series-and-panorama-plugins-release-notes/panorama-plugin-for-aiops/panorama-cloudconnector-plugin-3-0-0
+2026-03-31 14:05:36,354 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/plugins/vm-series-and-panorama-plugins-release-notes/panorama-cloudconnector-plugin-3-0-0.md (4779 chars)
+2026-03-31 14:05:36,354 INFO Fetch complete: 44/72 successful
+2026-03-31 14:30:00,011 INFO Added: https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/overview/whats-supported -> docs/strata-cloud-manager/getting-started/whats-supported.md
+2026-03-31 14:30:00,084 INFO Added: https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/device-associations-in-stata-cloud-manager/device-associations-associate-devices -> docs/strata-cloud-manager/activation-and-onboarding/device-associations-associate-devices.md
+2026-03-31 14:30:00,154 INFO Added: https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/device-associations-in-stata-cloud-manager/device-associations-associate-product -> docs/strata-cloud-manager/activation-and-onboarding/device-associations-associate-product.md
+2026-03-31 14:30:00,227 INFO Added: https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/validate-strata-cloud-manager-onboarding -> docs/strata-cloud-manager/activation-and-onboarding/validate-strata-cloud-manager-onboarding.md
+2026-03-31 14:30:00,299 INFO Added: https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/operationalize-strata-cloud-manager -> docs/strata-cloud-manager/activation-and-onboarding/operationalize-strata-cloud-manager.md
+2026-03-31 14:30:00,370 INFO Added: https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/migrate-from-panorama-to-strata-cloud-manager -> docs/strata-cloud-manager/activation-and-onboarding/migrate-from-panorama-to-strata-cloud-manager.md
+2026-03-31 14:30:00,440 INFO Added: https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/upgrade-to-strata-cloud-manager-pro -> docs/strata-cloud-manager/activation-and-onboarding/upgrade-to-strata-cloud-manager-pro.md
+2026-03-31 14:30:00,509 INFO Added: https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/activate-strata-cloud-manager/activate-strata-cloud-manager-pro/activate-vm-series-with-software-ngfw-credits -> docs/strata-cloud-manager/activation-and-onboarding/activate-vm-series-with-software-ngfw-credits.md
+2026-03-31 14:30:00,581 INFO Added: https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/activate-strata-cloud-manager/activate-strata-cloud-manager-pro/activate-ngfw -> docs/strata-cloud-manager/activation-and-onboarding/activate-ngfw.md
+2026-03-31 14:30:00,652 INFO Added: https://docs.paloaltonetworks.com/ngfw/aiops/about-metrics/enable-telemetry -> docs/ngfw/aiops/enable-telemetry.md
+2026-03-31 14:30:00,722 INFO Added: https://docs.paloaltonetworks.com/vm-series/11-0/vm-series-deployment/license-the-vm-series-firewall/software-ngfw/create-a-deployment-profile-vm-series -> docs/vm-series/11-0/create-a-deployment-profile-vm-series.md
+2026-03-31 14:30:00,793 INFO Added: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/software-ngfw -> docs/vm-series/11-1/software-ngfw.md
+2026-03-31 14:30:07,045 INFO [1/56] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/use-panorama-based-software-firewall-license-management
+2026-03-31 14:30:07,045 INFO [2/56] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/vm-series-firewall-licensing
+2026-03-31 14:30:07,045 INFO [3/56] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/software-ngfw/create-a-deployment-profile-vm-series
+2026-03-31 14:30:07,045 INFO [4/56] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/10-1/vm-series-deployment/license-the-vm-series-firewall/software-ngfw/manage-a-deployment-profile
+2026-03-31 14:30:07,045 INFO [5/56] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/set-up-the-vm-series-firewall-on-nsx/set-up-the-vm-series-firewall-on-nsx-t-east-west/deploy-the-vm-series-using-the-security-centric-workflow/create-templates-and-device-groups-nsx-t-ew-security-centric
+2026-03-31 14:30:07,045 INFO [6/56] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall
+2026-03-31 14:30:07,045 INFO [7/56] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/choose-a-bootstrap-method
+2026-03-31 14:30:07,045 INFO [8/56] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/vm-series-firewall-bootstrap-workflow
+2026-03-31 14:30:07,045 INFO [9/56] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/bootstrap-package
+2026-03-31 14:30:07,045 INFO [10/56] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/bootstrap-configuration-files
+2026-03-31 14:30:07,045 INFO [11/56] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/generate-the-vm-auth-key-on-panorama
+2026-03-31 14:30:07,045 INFO [12/56] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/create-the-init-cfgtxt-file
+2026-03-31 14:30:07,045 INFO [13/56] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/create-the-bootstrapxml-file
+2026-03-31 14:30:07,045 INFO [14/56] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/prepare-the-licenses-for-bootstrapping
+2026-03-31 14:30:07,045 INFO [15/56] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/prepare-the-bootstrap-package
+2026-03-31 14:30:07,045 INFO [16/56] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/about-the-vm-series-firewall/vm-series-plugin
+2026-03-31 14:30:07,045 INFO [17/56] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/about-the-vm-series-firewall/vm-series-plugin/configure-the-vm-series-plugin-on-the-firewall
+2026-03-31 14:30:07,045 INFO [18/56] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/about-the-vm-series-firewall/vm-series-plugin/upgrade-the-vm-series-plugin
+2026-03-31 14:30:07,045 INFO [19/56] Skipping (already fetched): https://docs.paloaltonetworks.com/panorama/11-1/panorama-admin/panorama-plugins
+2026-03-31 14:30:07,045 INFO [20/56] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/bootstrap-the-vm-series-firewall-in-azure
+2026-03-31 14:30:07,045 INFO [21/56] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/verify-bootstrap-completion
+2026-03-31 14:30:07,045 INFO [22/56] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/bootstrap-errors
+2026-03-31 14:30:07,045 INFO [23/56] Skipping (already fetched): https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/strata-cloud-manager-prerequisites
+2026-03-31 14:30:07,045 INFO [24/56] Skipping (already fetched): https://docs.paloaltonetworks.com/strata-cloud-manager/aiops/about/aiops-plugin-for-panorama
+2026-03-31 14:30:07,045 INFO [25/56] Skipping (already fetched): https://docs.paloaltonetworks.com/strata-cloud-manager/aiops/about-metrics
+2026-03-31 14:30:07,045 INFO [26/56] Skipping (already fetched): https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/onboard-to-strata-cloud-manager
+2026-03-31 14:30:07,045 INFO [27/56] Skipping (already fetched): https://docs.paloaltonetworks.com/ngfw/administration/certificate-management/certificate-deployment/install-device-certificate
+2026-03-31 14:30:07,045 INFO [28/56] Skipping (already fetched): https://docs.paloaltonetworks.com/panorama/11-1/panorama-admin/manage-firewalls/install-the-device-certificate-for-managed-firewalls/install-the-device-certificate-for-a-managed-firewall
+2026-03-31 14:30:07,045 INFO [29/56] Skipping (already fetched): https://docs.paloaltonetworks.com/strata-logging-service/activation-and-onboarding/planning/ports-and-fqdns
+2026-03-31 14:30:07,045 INFO [30/56] Skipping (already fetched): https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/strata-cloud-manager-licenses-and-support
+2026-03-31 14:30:07,045 INFO [31/56] Skipping (already fetched): https://docs.paloaltonetworks.com/common-services/device-associations/hardware-model-compatibility
+2026-03-31 14:30:07,045 INFO [32/56] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/software-ngfw/activate-the-deployment-profile
+2026-03-31 14:30:07,045 INFO [33/56] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall
+2026-03-31 14:30:07,045 INFO [34/56] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment
+2026-03-31 14:30:07,045 INFO [35/56] Skipping (already fetched): https://docs.paloaltonetworks.com/common-services/device-associations/get-started/associate-devices-with-a-tenant
+2026-03-31 14:30:07,045 INFO [36/56] Skipping (already fetched): https://docs.paloaltonetworks.com/common-services/device-associations/get-started/associate-apps-with-devices
+2026-03-31 14:30:07,045 INFO [37/56] Skipping (already fetched): https://docs.paloaltonetworks.com/strata-logging-service/administration/overview
+2026-03-31 14:30:07,045 INFO [38/56] Skipping (already fetched): https://docs.paloaltonetworks.com/strata-logging-service/activation-and-onboarding/activate
+2026-03-31 14:30:07,045 INFO [39/56] Skipping (already fetched): https://docs.paloaltonetworks.com/cloud-identity/cloud-identity-engine-getting-started
+2026-03-31 14:30:07,045 INFO [40/56] Skipping (already fetched): https://docs.paloaltonetworks.com/cloud-identity/cloud-identity-engine-getting-started/get-started-with-the-cloud-identity-engine/activate-the-cloud-identity-engine
+2026-03-31 14:30:07,045 INFO [41/56] Skipping (already fetched): https://docs.paloaltonetworks.com/common-services/subscription-and-tenant-management/manage-multitenants/add-tenants
+2026-03-31 14:30:07,045 INFO [42/56] Skipping (already fetched): https://docs.paloaltonetworks.com/common-services/subscription-and-tenant-management/manage-multitenants/what-is-a-tenant
+2026-03-31 14:30:07,045 INFO [43/56] Skipping (already fetched): https://docs.paloaltonetworks.com/common-services/identity-and-access-access-management/manage-identity-and-access/about-roles-and-permissions
+2026-03-31 14:30:07,045 INFO [44/56] Skipping (already fetched): https://docs.paloaltonetworks.com/plugins/vm-series-and-panorama-plugins-release-notes/panorama-plugin-for-aiops/panorama-cloudconnector-plugin-3-0-0
+2026-03-31 14:30:07,045 INFO [45/56] Processing...
+2026-03-31 14:30:07,045 INFO Fetching: https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/overview/whats-supported
+2026-03-31 14:30:08,216 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/strata-cloud-manager/getting-started/whats-supported.md (21043 chars)
+2026-03-31 14:30:08,216 INFO [46/56] Processing...
+2026-03-31 14:30:08,216 INFO Fetching: https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/device-associations-in-stata-cloud-manager/device-associations-associate-devices
+2026-03-31 14:30:08,937 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/strata-cloud-manager/activation-and-onboarding/device-associations-associate-devices.md (2812 chars)
+2026-03-31 14:30:08,937 INFO [47/56] Processing...
+2026-03-31 14:30:08,937 INFO Fetching: https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/device-associations-in-stata-cloud-manager/device-associations-associate-product
+2026-03-31 14:30:09,823 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/strata-cloud-manager/activation-and-onboarding/device-associations-associate-product.md (3356 chars)
+2026-03-31 14:30:09,824 INFO [48/56] Processing...
+2026-03-31 14:30:09,824 INFO Fetching: https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/validate-strata-cloud-manager-onboarding
+2026-03-31 14:30:10,630 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/strata-cloud-manager/activation-and-onboarding/validate-strata-cloud-manager-onboarding.md (5732 chars)
+2026-03-31 14:30:10,630 INFO [49/56] Processing...
+2026-03-31 14:30:10,630 INFO Fetching: https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/operationalize-strata-cloud-manager
+2026-03-31 14:30:11,547 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/strata-cloud-manager/activation-and-onboarding/operationalize-strata-cloud-manager.md (13971 chars)
+2026-03-31 14:30:11,548 INFO [50/56] Processing...
+2026-03-31 14:30:11,548 INFO Fetching: https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/migrate-from-panorama-to-strata-cloud-manager
+2026-03-31 14:30:12,493 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/strata-cloud-manager/activation-and-onboarding/migrate-from-panorama-to-strata-cloud-manager.md (38717 chars)
+2026-03-31 14:30:12,493 INFO [51/56] Processing...
+2026-03-31 14:30:12,493 INFO Fetching: https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/upgrade-to-strata-cloud-manager-pro
+2026-03-31 14:30:13,322 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/strata-cloud-manager/activation-and-onboarding/upgrade-to-strata-cloud-manager-pro.md (3874 chars)
+2026-03-31 14:30:13,322 INFO [52/56] Processing...
+2026-03-31 14:30:13,322 INFO Fetching: https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/activate-strata-cloud-manager/activate-strata-cloud-manager-pro/activate-vm-series-with-software-ngfw-credits
+2026-03-31 14:30:14,278 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/strata-cloud-manager/activation-and-onboarding/activate-vm-series-with-software-ngfw-credits.md (2245 chars)
+2026-03-31 14:30:14,279 INFO [53/56] Processing...
+2026-03-31 14:30:14,279 INFO Fetching: https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/activate-strata-cloud-manager/activate-strata-cloud-manager-pro/activate-ngfw
+2026-03-31 14:30:15,081 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/strata-cloud-manager/activation-and-onboarding/activate-ngfw.md (5601 chars)
+2026-03-31 14:30:15,081 INFO [54/56] Processing...
+2026-03-31 14:30:15,081 INFO Fetching: https://docs.paloaltonetworks.com/ngfw/aiops/about-metrics/enable-telemetry
+2026-03-31 14:30:16,350 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/ngfw/aiops/enable-telemetry.md (5550 chars)
+2026-03-31 14:30:16,350 INFO [55/56] Processing...
+2026-03-31 14:30:16,351 INFO Fetching: https://docs.paloaltonetworks.com/vm-series/11-0/vm-series-deployment/license-the-vm-series-firewall/software-ngfw/create-a-deployment-profile-vm-series
+2026-03-31 14:30:17,818 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/vm-series/11-0/create-a-deployment-profile-vm-series.md (6941 chars)
+2026-03-31 14:30:17,818 INFO [56/56] Processing...
+2026-03-31 14:30:17,818 INFO Fetching: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/software-ngfw
+2026-03-31 14:30:19,200 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/vm-series/11-1/software-ngfw.md (9255 chars)
+2026-03-31 14:30:19,201 INFO Fetch complete: 56/56 successful
+2026-03-31 14:30:29,897 INFO Index written to /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/index.md
+2026-03-31 14:37:08,548 INFO Added: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/create-the-init-cfgtxt-file/init-cfgtxt-file-components -> docs/vm-series/11-1/init-cfgtxt-file-components.md
+2026-03-31 14:37:08,618 INFO Added: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/software-ngfw/activate-credits -> docs/vm-series/11-1/activate-credits.md
+2026-03-31 14:37:08,687 INFO Added: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/software-ngfw/maximum-limits-based-on-memory -> docs/vm-series/11-1/maximum-limits-based-on-memory.md
+2026-03-31 14:37:08,756 INFO Added: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-performance-capacity -> docs/vm-series/11-1/vm-series-performance-capacity.md
+2026-03-31 14:37:08,826 INFO [1/60] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/use-panorama-based-software-firewall-license-management
+2026-03-31 14:37:08,826 INFO [2/60] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/vm-series-firewall-licensing
+2026-03-31 14:37:08,826 INFO [3/60] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/software-ngfw/create-a-deployment-profile-vm-series
+2026-03-31 14:37:08,826 INFO [4/60] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/10-1/vm-series-deployment/license-the-vm-series-firewall/software-ngfw/manage-a-deployment-profile
+2026-03-31 14:37:08,826 INFO [5/60] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/set-up-the-vm-series-firewall-on-nsx/set-up-the-vm-series-firewall-on-nsx-t-east-west/deploy-the-vm-series-using-the-security-centric-workflow/create-templates-and-device-groups-nsx-t-ew-security-centric
+2026-03-31 14:37:08,826 INFO [6/60] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall
+2026-03-31 14:37:08,827 INFO [7/60] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/choose-a-bootstrap-method
+2026-03-31 14:37:08,827 INFO [8/60] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/vm-series-firewall-bootstrap-workflow
+2026-03-31 14:37:08,827 INFO [9/60] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/bootstrap-package
+2026-03-31 14:37:08,827 INFO [10/60] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/bootstrap-configuration-files
+2026-03-31 14:37:08,827 INFO [11/60] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/generate-the-vm-auth-key-on-panorama
+2026-03-31 14:37:08,827 INFO [12/60] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/create-the-init-cfgtxt-file
+2026-03-31 14:37:08,827 INFO [13/60] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/create-the-bootstrapxml-file
+2026-03-31 14:37:08,827 INFO [14/60] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/prepare-the-licenses-for-bootstrapping
+2026-03-31 14:37:08,827 INFO [15/60] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/prepare-the-bootstrap-package
+2026-03-31 14:37:08,827 INFO [16/60] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/about-the-vm-series-firewall/vm-series-plugin
+2026-03-31 14:37:08,827 INFO [17/60] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/about-the-vm-series-firewall/vm-series-plugin/configure-the-vm-series-plugin-on-the-firewall
+2026-03-31 14:37:08,827 INFO [18/60] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/about-the-vm-series-firewall/vm-series-plugin/upgrade-the-vm-series-plugin
+2026-03-31 14:37:08,827 INFO [19/60] Skipping (already fetched): https://docs.paloaltonetworks.com/panorama/11-1/panorama-admin/panorama-plugins
+2026-03-31 14:37:08,827 INFO [20/60] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/bootstrap-the-vm-series-firewall-in-azure
+2026-03-31 14:37:08,827 INFO [21/60] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/verify-bootstrap-completion
+2026-03-31 14:37:08,827 INFO [22/60] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/bootstrap-errors
+2026-03-31 14:37:08,827 INFO [23/60] Skipping (already fetched): https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/strata-cloud-manager-prerequisites
+2026-03-31 14:37:08,827 INFO [24/60] Skipping (already fetched): https://docs.paloaltonetworks.com/strata-cloud-manager/aiops/about/aiops-plugin-for-panorama
+2026-03-31 14:37:08,827 INFO [25/60] Skipping (already fetched): https://docs.paloaltonetworks.com/strata-cloud-manager/aiops/about-metrics
+2026-03-31 14:37:08,827 INFO [26/60] Skipping (already fetched): https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/onboard-to-strata-cloud-manager
+2026-03-31 14:37:08,827 INFO [27/60] Skipping (already fetched): https://docs.paloaltonetworks.com/ngfw/administration/certificate-management/certificate-deployment/install-device-certificate
+2026-03-31 14:37:08,827 INFO [28/60] Skipping (already fetched): https://docs.paloaltonetworks.com/panorama/11-1/panorama-admin/manage-firewalls/install-the-device-certificate-for-managed-firewalls/install-the-device-certificate-for-a-managed-firewall
+2026-03-31 14:37:08,827 INFO [29/60] Skipping (already fetched): https://docs.paloaltonetworks.com/strata-logging-service/activation-and-onboarding/planning/ports-and-fqdns
+2026-03-31 14:37:08,827 INFO [30/60] Skipping (already fetched): https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/strata-cloud-manager-licenses-and-support
+2026-03-31 14:37:08,827 INFO [31/60] Skipping (already fetched): https://docs.paloaltonetworks.com/common-services/device-associations/hardware-model-compatibility
+2026-03-31 14:37:08,827 INFO [32/60] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/software-ngfw/activate-the-deployment-profile
+2026-03-31 14:37:08,827 INFO [33/60] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall
+2026-03-31 14:37:08,827 INFO [34/60] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment
+2026-03-31 14:37:08,827 INFO [35/60] Skipping (already fetched): https://docs.paloaltonetworks.com/common-services/device-associations/get-started/associate-devices-with-a-tenant
+2026-03-31 14:37:08,827 INFO [36/60] Skipping (already fetched): https://docs.paloaltonetworks.com/common-services/device-associations/get-started/associate-apps-with-devices
+2026-03-31 14:37:08,827 INFO [37/60] Skipping (already fetched): https://docs.paloaltonetworks.com/strata-logging-service/administration/overview
+2026-03-31 14:37:08,827 INFO [38/60] Skipping (already fetched): https://docs.paloaltonetworks.com/strata-logging-service/activation-and-onboarding/activate
+2026-03-31 14:37:08,827 INFO [39/60] Skipping (already fetched): https://docs.paloaltonetworks.com/cloud-identity/cloud-identity-engine-getting-started
+2026-03-31 14:37:08,827 INFO [40/60] Skipping (already fetched): https://docs.paloaltonetworks.com/cloud-identity/cloud-identity-engine-getting-started/get-started-with-the-cloud-identity-engine/activate-the-cloud-identity-engine
+2026-03-31 14:37:08,827 INFO [41/60] Skipping (already fetched): https://docs.paloaltonetworks.com/common-services/subscription-and-tenant-management/manage-multitenants/add-tenants
+2026-03-31 14:37:08,827 INFO [42/60] Skipping (already fetched): https://docs.paloaltonetworks.com/common-services/subscription-and-tenant-management/manage-multitenants/what-is-a-tenant
+2026-03-31 14:37:08,827 INFO [43/60] Skipping (already fetched): https://docs.paloaltonetworks.com/common-services/identity-and-access-access-management/manage-identity-and-access/about-roles-and-permissions
+2026-03-31 14:37:08,827 INFO [44/60] Skipping (already fetched): https://docs.paloaltonetworks.com/plugins/vm-series-and-panorama-plugins-release-notes/panorama-plugin-for-aiops/panorama-cloudconnector-plugin-3-0-0
+2026-03-31 14:37:08,827 INFO [45/60] Skipping (already fetched): https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/overview/whats-supported
+2026-03-31 14:37:08,827 INFO [46/60] Skipping (already fetched): https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/device-associations-in-stata-cloud-manager/device-associations-associate-devices
+2026-03-31 14:37:08,827 INFO [47/60] Skipping (already fetched): https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/device-associations-in-stata-cloud-manager/device-associations-associate-product
+2026-03-31 14:37:08,827 INFO [48/60] Skipping (already fetched): https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/validate-strata-cloud-manager-onboarding
+2026-03-31 14:37:08,827 INFO [49/60] Skipping (already fetched): https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/operationalize-strata-cloud-manager
+2026-03-31 14:37:08,827 INFO [50/60] Skipping (already fetched): https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/migrate-from-panorama-to-strata-cloud-manager
+2026-03-31 14:37:08,827 INFO [51/60] Skipping (already fetched): https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/upgrade-to-strata-cloud-manager-pro
+2026-03-31 14:37:08,827 INFO [52/60] Skipping (already fetched): https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/activate-strata-cloud-manager/activate-strata-cloud-manager-pro/activate-vm-series-with-software-ngfw-credits
+2026-03-31 14:37:08,827 INFO [53/60] Skipping (already fetched): https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/activate-strata-cloud-manager/activate-strata-cloud-manager-pro/activate-ngfw
+2026-03-31 14:37:08,827 INFO [54/60] Skipping (already fetched): https://docs.paloaltonetworks.com/ngfw/aiops/about-metrics/enable-telemetry
+2026-03-31 14:37:08,827 INFO [55/60] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-0/vm-series-deployment/license-the-vm-series-firewall/software-ngfw/create-a-deployment-profile-vm-series
+2026-03-31 14:37:08,827 INFO [56/60] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/software-ngfw
+2026-03-31 14:37:08,827 INFO [57/60] Processing...
+2026-03-31 14:37:08,827 INFO Fetching: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/create-the-init-cfgtxt-file/init-cfgtxt-file-components
+2026-03-31 14:37:09,929 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/vm-series/11-1/init-cfgtxt-file-components.md (14480 chars)
+2026-03-31 14:37:09,929 INFO [58/60] Processing...
+2026-03-31 14:37:09,930 INFO Fetching: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/software-ngfw/activate-credits
+2026-03-31 14:37:11,118 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/vm-series/11-1/activate-credits.md (2449 chars)
+2026-03-31 14:37:11,118 INFO [59/60] Processing...
+2026-03-31 14:37:11,119 INFO Fetching: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/software-ngfw/maximum-limits-based-on-memory
+2026-03-31 14:37:12,499 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/vm-series/11-1/maximum-limits-based-on-memory.md (33859 chars)
+2026-03-31 14:37:12,499 INFO [60/60] Processing...
+2026-03-31 14:37:12,499 INFO Fetching: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-performance-capacity
+2026-03-31 14:37:13,453 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/vm-series/11-1/vm-series-performance-capacity.md (3624 chars)
+2026-03-31 14:37:13,453 INFO Fetch complete: 60/60 successful
+2026-03-31 14:44:51,350 INFO Added: https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/configuration-scm -> docs/strata-cloud-manager/getting-started/configuration-scm.md
+2026-03-31 14:44:51,419 INFO Added: https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/configuration-scm/operations/push-config -> docs/strata-cloud-manager/getting-started/push-config.md
+2026-03-31 14:44:51,487 INFO Added: https://docs.paloaltonetworks.com/ai-runtime-security/activation-and-onboarding/onboard-and-activate-cloud-account-in-scm -> docs/ai-runtime-security/activation-and-onboarding/onboard-and-activate-cloud-account-in-scm.md
+2026-03-31 14:44:51,556 INFO Added: https://docs.paloaltonetworks.com/ai-runtime-security/administration/deploy-prisma-airs-runtime-firewalls-with-auto-execute -> docs/ai-runtime-security/administration/deploy-prisma-airs-runtime-firewalls-with-auto-execute.md
+2026-03-31 14:44:51,625 INFO Added: https://docs.paloaltonetworks.com/ai-runtime-security/administration/discover-your-cloud-resources -> docs/ai-runtime-security/administration/discover-your-cloud-resources.md
+2026-03-31 14:44:51,694 INFO Added: https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/configuration-scm/configuration-onboarding -> docs/strata-cloud-manager/getting-started/configuration-onboarding.md
+2026-03-31 14:44:51,780 INFO Added: https://docs.paloaltonetworks.com/strata-cloud-manager/aiops/about-metrics/fqdns -> docs/strata-cloud-manager/aiops/fqdns.md
+2026-03-31 14:44:51,848 INFO [1/67] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/use-panorama-based-software-firewall-license-management
+2026-03-31 14:44:51,848 INFO [2/67] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/vm-series-firewall-licensing
+2026-03-31 14:44:51,848 INFO [3/67] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/software-ngfw/create-a-deployment-profile-vm-series
+2026-03-31 14:44:51,848 INFO [4/67] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/10-1/vm-series-deployment/license-the-vm-series-firewall/software-ngfw/manage-a-deployment-profile
+2026-03-31 14:44:51,848 INFO [5/67] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/set-up-the-vm-series-firewall-on-nsx/set-up-the-vm-series-firewall-on-nsx-t-east-west/deploy-the-vm-series-using-the-security-centric-workflow/create-templates-and-device-groups-nsx-t-ew-security-centric
+2026-03-31 14:44:51,848 INFO [6/67] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall
+2026-03-31 14:44:51,848 INFO [7/67] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/choose-a-bootstrap-method
+2026-03-31 14:44:51,848 INFO [8/67] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/vm-series-firewall-bootstrap-workflow
+2026-03-31 14:44:51,848 INFO [9/67] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/bootstrap-package
+2026-03-31 14:44:51,848 INFO [10/67] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/bootstrap-configuration-files
+2026-03-31 14:44:51,848 INFO [11/67] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/generate-the-vm-auth-key-on-panorama
+2026-03-31 14:44:51,848 INFO [12/67] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/create-the-init-cfgtxt-file
+2026-03-31 14:44:51,848 INFO [13/67] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/create-the-bootstrapxml-file
+2026-03-31 14:44:51,848 INFO [14/67] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/prepare-the-licenses-for-bootstrapping
+2026-03-31 14:44:51,848 INFO [15/67] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/prepare-the-bootstrap-package
+2026-03-31 14:44:51,848 INFO [16/67] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/about-the-vm-series-firewall/vm-series-plugin
+2026-03-31 14:44:51,848 INFO [17/67] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/about-the-vm-series-firewall/vm-series-plugin/configure-the-vm-series-plugin-on-the-firewall
+2026-03-31 14:44:51,848 INFO [18/67] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/about-the-vm-series-firewall/vm-series-plugin/upgrade-the-vm-series-plugin
+2026-03-31 14:44:51,848 INFO [19/67] Skipping (already fetched): https://docs.paloaltonetworks.com/panorama/11-1/panorama-admin/panorama-plugins
+2026-03-31 14:44:51,848 INFO [20/67] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/bootstrap-the-vm-series-firewall-in-azure
+2026-03-31 14:44:51,848 INFO [21/67] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/verify-bootstrap-completion
+2026-03-31 14:44:51,848 INFO [22/67] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/bootstrap-errors
+2026-03-31 14:44:51,848 INFO [23/67] Skipping (already fetched): https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/strata-cloud-manager-prerequisites
+2026-03-31 14:44:51,848 INFO [24/67] Skipping (already fetched): https://docs.paloaltonetworks.com/strata-cloud-manager/aiops/about/aiops-plugin-for-panorama
+2026-03-31 14:44:51,848 INFO [25/67] Skipping (already fetched): https://docs.paloaltonetworks.com/strata-cloud-manager/aiops/about-metrics
+2026-03-31 14:44:51,848 INFO [26/67] Skipping (already fetched): https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/onboard-to-strata-cloud-manager
+2026-03-31 14:44:51,848 INFO [27/67] Skipping (already fetched): https://docs.paloaltonetworks.com/ngfw/administration/certificate-management/certificate-deployment/install-device-certificate
+2026-03-31 14:44:51,848 INFO [28/67] Skipping (already fetched): https://docs.paloaltonetworks.com/panorama/11-1/panorama-admin/manage-firewalls/install-the-device-certificate-for-managed-firewalls/install-the-device-certificate-for-a-managed-firewall
+2026-03-31 14:44:51,848 INFO [29/67] Skipping (already fetched): https://docs.paloaltonetworks.com/strata-logging-service/activation-and-onboarding/planning/ports-and-fqdns
+2026-03-31 14:44:51,848 INFO [30/67] Skipping (already fetched): https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/strata-cloud-manager-licenses-and-support
+2026-03-31 14:44:51,848 INFO [31/67] Skipping (already fetched): https://docs.paloaltonetworks.com/common-services/device-associations/hardware-model-compatibility
+2026-03-31 14:44:51,848 INFO [32/67] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/software-ngfw/activate-the-deployment-profile
+2026-03-31 14:44:51,848 INFO [33/67] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall
+2026-03-31 14:44:51,848 INFO [34/67] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment
+2026-03-31 14:44:51,848 INFO [35/67] Skipping (already fetched): https://docs.paloaltonetworks.com/common-services/device-associations/get-started/associate-devices-with-a-tenant
+2026-03-31 14:44:51,848 INFO [36/67] Skipping (already fetched): https://docs.paloaltonetworks.com/common-services/device-associations/get-started/associate-apps-with-devices
+2026-03-31 14:44:51,848 INFO [37/67] Skipping (already fetched): https://docs.paloaltonetworks.com/strata-logging-service/administration/overview
+2026-03-31 14:44:51,848 INFO [38/67] Skipping (already fetched): https://docs.paloaltonetworks.com/strata-logging-service/activation-and-onboarding/activate
+2026-03-31 14:44:51,848 INFO [39/67] Skipping (already fetched): https://docs.paloaltonetworks.com/cloud-identity/cloud-identity-engine-getting-started
+2026-03-31 14:44:51,848 INFO [40/67] Skipping (already fetched): https://docs.paloaltonetworks.com/cloud-identity/cloud-identity-engine-getting-started/get-started-with-the-cloud-identity-engine/activate-the-cloud-identity-engine
+2026-03-31 14:44:51,848 INFO [41/67] Skipping (already fetched): https://docs.paloaltonetworks.com/common-services/subscription-and-tenant-management/manage-multitenants/add-tenants
+2026-03-31 14:44:51,848 INFO [42/67] Skipping (already fetched): https://docs.paloaltonetworks.com/common-services/subscription-and-tenant-management/manage-multitenants/what-is-a-tenant
+2026-03-31 14:44:51,848 INFO [43/67] Skipping (already fetched): https://docs.paloaltonetworks.com/common-services/identity-and-access-access-management/manage-identity-and-access/about-roles-and-permissions
+2026-03-31 14:44:51,848 INFO [44/67] Skipping (already fetched): https://docs.paloaltonetworks.com/plugins/vm-series-and-panorama-plugins-release-notes/panorama-plugin-for-aiops/panorama-cloudconnector-plugin-3-0-0
+2026-03-31 14:44:51,848 INFO [45/67] Skipping (already fetched): https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/overview/whats-supported
+2026-03-31 14:44:51,848 INFO [46/67] Skipping (already fetched): https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/device-associations-in-stata-cloud-manager/device-associations-associate-devices
+2026-03-31 14:44:51,848 INFO [47/67] Skipping (already fetched): https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/device-associations-in-stata-cloud-manager/device-associations-associate-product
+2026-03-31 14:44:51,848 INFO [48/67] Skipping (already fetched): https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/validate-strata-cloud-manager-onboarding
+2026-03-31 14:44:51,849 INFO [49/67] Skipping (already fetched): https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/operationalize-strata-cloud-manager
+2026-03-31 14:44:51,849 INFO [50/67] Skipping (already fetched): https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/migrate-from-panorama-to-strata-cloud-manager
+2026-03-31 14:44:51,849 INFO [51/67] Skipping (already fetched): https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/upgrade-to-strata-cloud-manager-pro
+2026-03-31 14:44:51,849 INFO [52/67] Skipping (already fetched): https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/activate-strata-cloud-manager/activate-strata-cloud-manager-pro/activate-vm-series-with-software-ngfw-credits
+2026-03-31 14:44:51,849 INFO [53/67] Skipping (already fetched): https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/activate-strata-cloud-manager/activate-strata-cloud-manager-pro/activate-ngfw
+2026-03-31 14:44:51,849 INFO [54/67] Skipping (already fetched): https://docs.paloaltonetworks.com/ngfw/aiops/about-metrics/enable-telemetry
+2026-03-31 14:44:51,849 INFO [55/67] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-0/vm-series-deployment/license-the-vm-series-firewall/software-ngfw/create-a-deployment-profile-vm-series
+2026-03-31 14:44:51,849 INFO [56/67] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/software-ngfw
+2026-03-31 14:44:51,849 INFO [57/67] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/bootstrap-the-vm-series-firewall/create-the-init-cfgtxt-file/init-cfgtxt-file-components
+2026-03-31 14:44:51,849 INFO [58/67] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/software-ngfw/activate-credits
+2026-03-31 14:44:51,849 INFO [59/67] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/software-ngfw/maximum-limits-based-on-memory
+2026-03-31 14:44:51,849 INFO [60/67] Skipping (already fetched): https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-performance-capacity
+2026-03-31 14:44:51,849 INFO [61/67] Processing...
+2026-03-31 14:44:51,849 INFO Fetching: https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/configuration-scm
+2026-03-31 14:44:52,764 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/strata-cloud-manager/getting-started/configuration-scm.md (6504 chars)
+2026-03-31 14:44:52,764 INFO [62/67] Processing...
+2026-03-31 14:44:52,764 INFO Fetching: https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/configuration-scm/operations/push-config
+2026-03-31 14:44:53,590 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/strata-cloud-manager/getting-started/push-config.md (11563 chars)
+2026-03-31 14:44:53,590 INFO [63/67] Processing...
+2026-03-31 14:44:53,590 INFO Fetching: https://docs.paloaltonetworks.com/ai-runtime-security/activation-and-onboarding/onboard-and-activate-cloud-account-in-scm
+2026-03-31 14:44:54,376 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/ai-runtime-security/activation-and-onboarding/onboard-and-activate-cloud-account-in-scm.md (4308 chars)
+2026-03-31 14:44:54,377 INFO [64/67] Processing...
+2026-03-31 14:44:54,377 INFO Fetching: https://docs.paloaltonetworks.com/ai-runtime-security/administration/deploy-prisma-airs-runtime-firewalls-with-auto-execute
+2026-03-31 14:44:55,199 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/ai-runtime-security/administration/deploy-prisma-airs-runtime-firewalls-with-auto-execute.md (19115 chars)
+2026-03-31 14:44:55,199 INFO [65/67] Processing...
+2026-03-31 14:44:55,199 INFO Fetching: https://docs.paloaltonetworks.com/ai-runtime-security/administration/discover-your-cloud-resources
+2026-03-31 14:44:56,143 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/ai-runtime-security/administration/discover-your-cloud-resources.md (14564 chars)
+2026-03-31 14:44:56,143 INFO [66/67] Processing...
+2026-03-31 14:44:56,144 INFO Fetching: https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/configuration-scm/configuration-onboarding
+2026-03-31 14:44:57,105 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/strata-cloud-manager/getting-started/configuration-onboarding.md (8869 chars)
+2026-03-31 14:44:57,105 INFO [67/67] Processing...
+2026-03-31 14:44:57,105 INFO Fetching: https://docs.paloaltonetworks.com/strata-cloud-manager/aiops/about-metrics/fqdns
+2026-03-31 14:44:57,905 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/strata-cloud-manager/aiops/fqdns.md (4237 chars)
+2026-03-31 14:44:57,905 INFO Fetch complete: 67/67 successful
+2026-03-31 14:59:13,539 INFO Already in manifest: https://docs.paloaltonetworks.com/strata-cloud-manager/aiops/about-metrics/fqdns
+2026-03-31 14:59:13,616 INFO Already in manifest: https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/validate-strata-cloud-manager-onboarding
+2026-03-31 14:59:13,688 INFO Already in manifest: https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/configuration-scm/operations/push-config
+2026-03-31 14:59:13,761 INFO Added: https://docs.paloaltonetworks.com/ai-runtime-security/activation-and-onboarding/manage-onboarded-cloud-accounts -> docs/ai-runtime-security/activation-and-onboarding/manage-onboarded-cloud-accounts.md
+2026-03-31 14:59:13,830 INFO Already in manifest: https://docs.paloaltonetworks.com/ai-runtime-security/administration/deploy-prisma-airs-runtime-firewalls-with-auto-execute
+2026-03-31 14:59:13,900 INFO Already in manifest: https://docs.paloaltonetworks.com/ai-runtime-security/administration/discover-your-cloud-resources
+2026-03-31 14:59:13,973 INFO Already in manifest: https://docs.paloaltonetworks.com/ai-runtime-security/activation-and-onboarding/onboard-and-activate-cloud-account-in-scm
+2026-03-31 14:59:14,054 INFO Added: https://docs.paloaltonetworks.com/ngfw/getting-started/onboard-your-ngfws/onboard-a-firewall -> docs/ngfw/getting-started/onboard-a-firewall.md
+2026-03-31 14:59:14,137 INFO Already in manifest: https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/strata-cloud-manager-prerequisites
+2026-03-31 14:59:14,208 INFO Already in manifest: https://docs.paloaltonetworks.com/strata-cloud-manager/aiops/about-metrics
+2026-03-31 14:59:33,231 INFO Fetching: https://docs.paloaltonetworks.com/strata-cloud-manager/aiops/about-metrics/fqdns
+2026-03-31 14:59:34,103 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/strata-cloud-manager/aiops/fqdns.md (4237 chars)
+2026-03-31 14:59:34,195 INFO Fetching: https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/validate-strata-cloud-manager-onboarding
+2026-03-31 14:59:35,023 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/strata-cloud-manager/activation-and-onboarding/validate-strata-cloud-manager-onboarding.md (5732 chars)
+2026-03-31 14:59:35,117 INFO Fetching: https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/configuration-scm/operations/push-config
+2026-03-31 14:59:35,875 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/strata-cloud-manager/getting-started/push-config.md (11563 chars)
+2026-03-31 14:59:35,971 INFO Fetching: https://docs.paloaltonetworks.com/ai-runtime-security/activation-and-onboarding/manage-onboarded-cloud-accounts
+2026-03-31 14:59:36,736 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/ai-runtime-security/activation-and-onboarding/manage-onboarded-cloud-accounts.md (3154 chars)
+2026-03-31 14:59:36,831 INFO Fetching: https://docs.paloaltonetworks.com/ai-runtime-security/administration/deploy-prisma-airs-runtime-firewalls-with-auto-execute
+2026-03-31 14:59:37,720 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/ai-runtime-security/administration/deploy-prisma-airs-runtime-firewalls-with-auto-execute.md (19115 chars)
+2026-03-31 14:59:37,816 INFO Fetching: https://docs.paloaltonetworks.com/ai-runtime-security/administration/discover-your-cloud-resources
+2026-03-31 14:59:38,587 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/ai-runtime-security/administration/discover-your-cloud-resources.md (14564 chars)
+2026-03-31 14:59:38,673 INFO Fetching: https://docs.paloaltonetworks.com/ai-runtime-security/activation-and-onboarding/onboard-and-activate-cloud-account-in-scm
+2026-03-31 14:59:39,438 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/ai-runtime-security/activation-and-onboarding/onboard-and-activate-cloud-account-in-scm.md (4308 chars)
+2026-03-31 14:59:39,522 INFO Fetching: https://docs.paloaltonetworks.com/ngfw/getting-started/onboard-your-ngfws/onboard-a-firewall
+2026-03-31 14:59:40,397 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/ngfw/getting-started/onboard-a-firewall.md (15151 chars)
+2026-03-31 14:59:40,488 INFO Fetching: https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/strata-cloud-manager-prerequisites
+2026-03-31 14:59:41,313 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/strata-cloud-manager/activation-and-onboarding/strata-cloud-manager-prerequisites.md (18972 chars)
+2026-03-31 14:59:41,406 INFO Fetching: https://docs.paloaltonetworks.com/strata-cloud-manager/aiops/about-metrics
+2026-03-31 14:59:42,233 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/strata-cloud-manager/aiops/about-metrics.md (5550 chars)
+2026-03-31 14:59:56,197 INFO Index written to /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/index.md
+2026-03-31 16:05:40,135 INFO Already in manifest: https://docs.paloaltonetworks.com/ngfw/administration/certificate-management/certificate-deployment/install-device-certificate
+2026-03-31 16:05:40,204 INFO Added: https://docs.paloaltonetworks.com/pan-os/11-1/pan-os-cli-quick-start/get-started-with-the-cli/access-the-cli -> docs/pan-os/11-1/access-the-cli.md
+2026-03-31 16:05:40,271 INFO Added: https://docs.paloaltonetworks.com/pan-os/11-1/pan-os-admin/firewall-administration/use-the-web-interface/launch-the-web-interface -> docs/pan-os/11-1/launch-the-web-interface.md
+2026-03-31 16:05:40,339 INFO Added: https://docs.paloaltonetworks.com/pan-os/11-1/pan-os-admin/subscriptions/activate-subscription-licenses -> docs/pan-os/11-1/activate-subscription-licenses.md
+2026-03-31 16:05:40,406 INFO Added: https://docs.paloaltonetworks.com/resources/licensing-registration-activation -> docs/resources/licensing-registration-activation/licensing-registration-activation.md
+2026-03-31 16:05:40,477 INFO Fetching: https://docs.paloaltonetworks.com/ngfw/administration/certificate-management/certificate-deployment/install-device-certificate
+2026-03-31 16:05:41,459 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/ngfw/administration/install-device-certificate.md (9973 chars)
+2026-03-31 16:05:41,549 INFO Fetching: https://docs.paloaltonetworks.com/pan-os/11-1/pan-os-cli-quick-start/get-started-with-the-cli/access-the-cli
+2026-03-31 16:05:42,832 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/pan-os/11-1/access-the-cli.md (6295 chars)
+2026-03-31 16:05:42,924 INFO Fetching: https://docs.paloaltonetworks.com/pan-os/11-1/pan-os-admin/firewall-administration/use-the-web-interface/launch-the-web-interface
+2026-03-31 16:05:43,660 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/pan-os/11-1/launch-the-web-interface.md (2236 chars)
+2026-03-31 16:05:43,756 INFO Fetching: https://docs.paloaltonetworks.com/pan-os/11-1/pan-os-admin/subscriptions/activate-subscription-licenses
+2026-03-31 16:05:45,240 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/pan-os/11-1/activate-subscription-licenses.md (7729 chars)
+2026-03-31 16:05:45,334 INFO Fetching: https://docs.paloaltonetworks.com/resources/licensing-registration-activation
+2026-03-31 16:05:46,239 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/resources/licensing-registration-activation/licensing-registration-activation.md (9344 chars)
+2026-03-31 16:05:46,331 INFO Index written to /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/index.md
+2026-03-31 21:52:21,804 INFO Already in manifest: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/software-ngfw/activate-the-deployment-profile
+2026-03-31 21:52:21,889 INFO Fetching: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/software-ngfw/activate-the-deployment-profile
+2026-03-31 21:52:23,069 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/vm-series/11-1/activate-the-deployment-profile.md (7049 chars)
+2026-03-31 21:53:13,216 INFO Index written to /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/index.md
+2026-03-31 21:55:39,577 INFO Already in manifest: https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/strata-cloud-manager-licenses-and-support
+2026-03-31 21:55:39,663 INFO Added: https://docs.paloaltonetworks.com/vm-series/11-0/vm-series-deployment/license-the-vm-series-firewall/software-ngfw/maximum-limits-based-on-memory -> docs/vm-series/11-0/maximum-limits-based-on-memory.md
+2026-03-31 21:55:39,749 INFO Added: https://docs.paloaltonetworks.com/vm-series/11-0/vm-series-deployment/license-the-vm-series-firewall/create-a-support-account -> docs/vm-series/11-0/create-a-support-account.md
+2026-03-31 21:55:39,834 INFO Added: https://docs.paloaltonetworks.com/vm-series/11-0/vm-series-deployment/license-the-vm-series-firewall/software-ngfw/activate-credits -> docs/vm-series/11-0/activate-credits.md
+2026-03-31 21:55:39,923 INFO Added: https://docs.paloaltonetworks.com/vm-series/11-0/vm-series-deployment/license-the-vm-series-firewall/vm-series-models -> docs/vm-series/11-0/vm-series-models.md
+2026-03-31 21:56:17,193 INFO Fetching: https://docs.paloaltonetworks.com/vm-series/11-0/vm-series-deployment/license-the-vm-series-firewall/software-ngfw/create-a-deployment-profile-vm-series
+2026-03-31 21:56:18,394 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/vm-series/11-0/create-a-deployment-profile-vm-series.md (6941 chars)
+2026-03-31 21:56:18,486 INFO Fetching: https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/strata-cloud-manager-licenses-and-support
+2026-03-31 21:56:19,589 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/strata-cloud-manager/activation-and-onboarding/strata-cloud-manager-licenses-and-support.md (18219 chars)
+2026-03-31 21:56:19,686 INFO Fetching: https://docs.paloaltonetworks.com/vm-series/11-0/vm-series-deployment/license-the-vm-series-firewall/software-ngfw/maximum-limits-based-on-memory
+2026-03-31 21:56:20,812 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/vm-series/11-0/maximum-limits-based-on-memory.md (15371 chars)
+2026-03-31 21:56:20,900 INFO Fetching: https://docs.paloaltonetworks.com/vm-series/11-0/vm-series-deployment/license-the-vm-series-firewall/create-a-support-account
+2026-03-31 21:56:21,915 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/vm-series/11-0/create-a-support-account.md (1994 chars)
+2026-03-31 21:56:22,004 INFO Fetching: https://docs.paloaltonetworks.com/vm-series/11-0/vm-series-deployment/license-the-vm-series-firewall/software-ngfw/activate-credits
+2026-03-31 21:56:23,089 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/vm-series/11-0/activate-credits.md (2449 chars)
+2026-03-31 21:56:23,184 INFO Fetching: https://docs.paloaltonetworks.com/vm-series/11-0/vm-series-deployment/license-the-vm-series-firewall/vm-series-models
+2026-03-31 21:56:24,313 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/vm-series/11-0/vm-series-models.md (6078 chars)
+2026-03-31 21:56:24,402 INFO Index written to /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/index.md
+2026-03-31 21:57:04,421 INFO Already in manifest: https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/onboard-to-strata-cloud-manager
+2026-03-31 21:57:04,504 INFO Fetching: https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/onboard-to-strata-cloud-manager
+2026-03-31 21:57:05,342 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/strata-cloud-manager/activation-and-onboarding/onboard-to-strata-cloud-manager.md (38762 chars)
+2026-03-31 21:58:40,102 INFO Already in manifest: https://docs.paloaltonetworks.com/cloud-identity/cloud-identity-engine-getting-started/get-started-with-the-cloud-identity-engine/activate-the-cloud-identity-engine
+2026-03-31 21:58:40,190 INFO Added: https://docs.paloaltonetworks.com/cloud-identity/cloud-identity-engine-getting-started/manage-the-cloud-identity-engine/cloud-identity-engine-user-context -> docs/cloud-identity/cloud-identity-engine-getting-started/cloud-identity-engine-user-context.md
+2026-03-31 21:58:40,276 INFO Added: https://docs.paloaltonetworks.com/cloud-management/administration/manage-configuration-ngfw-and-prisma-access/configuration-scope/snippets -> docs/cloud-management/administration/snippets.md
+2026-03-31 21:58:40,360 INFO Added: https://docs.paloaltonetworks.com/cloud-management/administration/workflows/workflows-ngfw-setup/folder-management -> docs/cloud-management/administration/folder-management.md
+2026-03-31 21:58:40,445 INFO Already in manifest: https://docs.paloaltonetworks.com/common-services/device-associations/get-started/associate-apps-with-devices
+2026-03-31 21:58:40,529 INFO Already in manifest: https://docs.paloaltonetworks.com/common-services/device-associations/get-started/associate-devices-with-a-tenant
+2026-03-31 21:58:40,617 INFO Added: https://docs.paloaltonetworks.com/common-services/subscription-and-tenant-management/aiops-premium-activation -> docs/common-services/subscription-and-tenant-management/aiops-premium-activation.md
+2026-03-31 21:58:40,707 INFO Added: https://docs.paloaltonetworks.com/common-services/subscription-and-tenant-management/cloud-managed-prisma-access-and-add-ons-license-activation -> docs/common-services/subscription-and-tenant-management/cloud-managed-prisma-access-and-add-ons-license-activation.md
+2026-03-31 21:58:40,793 INFO Added: https://docs.paloaltonetworks.com/ngfw/administration/onboard-devices-and-deployments/configure-the-firewall-general-settings -> docs/ngfw/administration/configure-the-firewall-general-settings.md
+2026-03-31 21:58:40,879 INFO Added: https://docs.paloaltonetworks.com/ngfw/administration/onboard-devices-and-deployments/configure-the-firewall-session-settings -> docs/ngfw/administration/configure-the-firewall-session-settings.md
+2026-03-31 21:58:40,965 INFO Added: https://docs.paloaltonetworks.com/ngfw/administration/onboard-devices-and-deployments/local-configuration-management -> docs/ngfw/administration/local-configuration-management.md
+2026-03-31 21:58:41,048 INFO Added: https://docs.paloaltonetworks.com/ngfw/networking/advanced-routing/enable-advanced-routing -> docs/ngfw/networking/enable-advanced-routing.md
+2026-03-31 21:58:41,131 INFO Added: https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/activate-strata-cloud-manager/activate-strata-cloud-manager-essentials -> docs/strata-cloud-manager/activation-and-onboarding/activate-strata-cloud-manager-essentials.md
+2026-03-31 21:58:41,215 INFO Added: https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/activate-strata-cloud-manager/activate-strata-cloud-manager-pro -> docs/strata-cloud-manager/activation-and-onboarding/activate-strata-cloud-manager-pro.md
+2026-03-31 21:58:41,304 INFO Added: https://docs.paloaltonetworks.com/cortex/cortex-data-lake/cortex-data-lake-getting-started/activate-cortex-data-lake-toc/activate-cortex-data-lake-easy -> docs/cortex/cortex-data-lake/activate-cortex-data-lake-easy.md
+2026-03-31 21:58:41,389 INFO Added: https://docs.paloaltonetworks.com/ngfw/administration/high-availability -> docs/ngfw/administration/high-availability.md
+2026-03-31 21:58:41,477 INFO Added: https://docs.paloaltonetworks.com/pan-os/10-2/pan-os-admin/certificate-management/obtain-certificates/device-certificate -> docs/pan-os/10-2/device-certificate.md
+2026-03-31 21:58:41,560 INFO Added: https://docs.paloaltonetworks.com/pan-os/10-2/pan-os-admin/getting-started/register-the-firewall -> docs/pan-os/10-2/register-the-firewall.md
+2026-03-31 21:58:41,646 INFO Added: https://docs.paloaltonetworks.com/pan-os/10-2/pan-os-admin/subscriptions/activate-subscription-licenses -> docs/pan-os/10-2/activate-subscription-licenses.md
+2026-03-31 21:58:41,737 INFO Added: https://docs.paloaltonetworks.com/pan-os/10-2/pan-os-cli-quick-start/get-started-with-the-cli/access-the-cli -> docs/pan-os/10-2/access-the-cli.md
+2026-03-31 21:58:41,824 INFO Added: https://docs.paloaltonetworks.com/pan-os/11-1/pan-os-admin/firewall-administration/reference-port-number-usage/ports-used-for-panorama -> docs/pan-os/11-1/ports-used-for-panorama.md
+2026-03-31 21:58:41,912 INFO Added: https://docs.paloaltonetworks.com/pan-os/11-1/pan-os-admin/getting-started -> docs/pan-os/11-1/getting-started.md
+2026-03-31 21:58:41,999 INFO Added: https://docs.paloaltonetworks.com/prisma-access/activation-and-onboarding/onboard-prisma-access -> docs/prisma-access/activation-and-onboarding/onboard-prisma-access.md
+2026-03-31 21:58:42,089 INFO Added: https://docs.paloaltonetworks.com/prisma-access/administration/prisma-access-overview/migrate-prisma-access-from-panorama-to-strata-cloud-manager -> docs/prisma-access/administration/migrate-prisma-access-from-panorama-to-strata-cloud-manager.md
+2026-03-31 21:58:42,174 INFO Already in manifest: https://docs.paloaltonetworks.com/strata-cloud-manager/aiops/about/aiops-plugin-for-panorama
+2026-03-31 21:58:42,260 INFO Added: https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/command-center -> docs/strata-cloud-manager/getting-started/command-center.md
+2026-03-31 21:58:42,344 INFO Added: https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/manage-configuration-ngfw-and-prisma-access -> docs/strata-cloud-manager/getting-started/manage-configuration-ngfw-and-prisma-access.md
+2026-03-31 21:58:42,432 INFO Added: https://docs.paloaltonetworks.com/strata-logging-service/activation-and-onboarding/license-overview -> docs/strata-logging-service/activation-and-onboarding/license-overview.md
+2026-03-31 21:58:42,518 INFO Already in manifest: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/software-ngfw
+2026-03-31 21:59:05,874 INFO Fetching: https://docs.paloaltonetworks.com/cloud-identity/cloud-identity-engine-getting-started/get-started-with-the-cloud-identity-engine/activate-the-cloud-identity-engine
+2026-03-31 21:59:07,130 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/cloud-identity/cloud-identity-engine-getting-started/activate-the-cloud-identity-engine.md (3415 chars)
+2026-03-31 21:59:07,224 INFO Fetching: https://docs.paloaltonetworks.com/cloud-identity/cloud-identity-engine-getting-started/manage-the-cloud-identity-engine/cloud-identity-engine-user-context
+2026-03-31 21:59:08,406 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/cloud-identity/cloud-identity-engine-getting-started/cloud-identity-engine-user-context.md (14242 chars)
+2026-03-31 21:59:08,494 INFO Fetching: https://docs.paloaltonetworks.com/cloud-management/administration/manage-configuration-ngfw-and-prisma-access/configuration-scope/snippets
+2026-03-31 21:59:10,100 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/cloud-management/administration/snippets.md (20927 chars)
+2026-03-31 21:59:10,188 INFO Fetching: https://docs.paloaltonetworks.com/cloud-management/administration/workflows/workflows-ngfw-setup/folder-management
+2026-03-31 21:59:11,658 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/cloud-management/administration/folder-management.md (7381 chars)
+2026-03-31 21:59:11,748 INFO Fetching: https://docs.paloaltonetworks.com/common-services/device-associations/get-started/associate-apps-with-devices
+2026-03-31 21:59:12,449 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/common-services/device-associations/associate-apps-with-devices.md (1579 chars)
+2026-03-31 21:59:12,539 INFO Fetching: https://docs.paloaltonetworks.com/common-services/device-associations/get-started/associate-devices-with-a-tenant
+2026-03-31 21:59:13,289 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/common-services/device-associations/associate-devices-with-a-tenant.md (1579 chars)
+2026-03-31 21:59:13,381 INFO Fetching: https://docs.paloaltonetworks.com/common-services/subscription-and-tenant-management/aiops-premium-activation
+2026-03-31 21:59:14,253 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/common-services/subscription-and-tenant-management/aiops-premium-activation.md (17805 chars)
+2026-03-31 21:59:14,346 INFO Fetching: https://docs.paloaltonetworks.com/common-services/subscription-and-tenant-management/cloud-managed-prisma-access-and-add-ons-license-activation
+2026-03-31 21:59:15,561 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/common-services/subscription-and-tenant-management/cloud-managed-prisma-access-and-add-ons-license-activation.md (4846 chars)
+2026-03-31 21:59:15,647 INFO Fetching: https://docs.paloaltonetworks.com/ngfw/administration/onboard-devices-and-deployments/configure-the-firewall-general-settings
+2026-03-31 21:59:16,991 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/ngfw/administration/configure-the-firewall-general-settings.md (6087 chars)
+2026-03-31 21:59:17,081 INFO Fetching: https://docs.paloaltonetworks.com/ngfw/administration/onboard-devices-and-deployments/configure-the-firewall-session-settings
+2026-03-31 21:59:18,267 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/ngfw/administration/configure-the-firewall-session-settings.md (3560 chars)
+2026-03-31 21:59:18,371 INFO Fetching: https://docs.paloaltonetworks.com/ngfw/administration/onboard-devices-and-deployments/local-configuration-management
+2026-03-31 21:59:19,578 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/ngfw/administration/local-configuration-management.md (4377 chars)
+2026-03-31 21:59:19,671 INFO Fetching: https://docs.paloaltonetworks.com/ngfw/networking/advanced-routing/enable-advanced-routing
+2026-03-31 21:59:20,478 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/ngfw/networking/enable-advanced-routing.md (9479 chars)
+2026-03-31 21:59:20,607 INFO Fetching: https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/activate-strata-cloud-manager/activate-strata-cloud-manager-essentials
+2026-03-31 21:59:21,357 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/strata-cloud-manager/activation-and-onboarding/activate-strata-cloud-manager-essentials.md (7246 chars)
+2026-03-31 21:59:21,449 INFO Fetching: https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/activate-strata-cloud-manager/activate-strata-cloud-manager-pro
+2026-03-31 21:59:22,295 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/strata-cloud-manager/activation-and-onboarding/activate-strata-cloud-manager-pro.md (21352 chars)
+2026-03-31 21:59:22,385 INFO Fetching: https://docs.paloaltonetworks.com/cortex/cortex-data-lake/cortex-data-lake-getting-started/activate-cortex-data-lake-toc/activate-cortex-data-lake-easy
+2026-03-31 21:59:23,975 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/cortex/cortex-data-lake/activate-cortex-data-lake-easy.md (6285 chars)
+2026-03-31 21:59:24,070 INFO Fetching: https://docs.paloaltonetworks.com/ngfw/administration/high-availability
+2026-03-31 21:59:24,899 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/ngfw/administration/high-availability.md (6932 chars)
+2026-03-31 21:59:24,986 INFO Fetching: https://docs.paloaltonetworks.com/pan-os/10-2/pan-os-admin/certificate-management/obtain-certificates/device-certificate
+2026-03-31 21:59:26,178 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/pan-os/10-2/device-certificate.md (9973 chars)
+2026-03-31 21:59:26,273 INFO Fetching: https://docs.paloaltonetworks.com/pan-os/10-2/pan-os-admin/getting-started/register-the-firewall
+2026-03-31 21:59:27,466 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/pan-os/10-2/register-the-firewall.md (10882 chars)
+2026-03-31 21:59:27,557 INFO Fetching: https://docs.paloaltonetworks.com/pan-os/10-2/pan-os-admin/subscriptions/activate-subscription-licenses
+2026-03-31 21:59:28,738 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/pan-os/10-2/activate-subscription-licenses.md (7729 chars)
+2026-03-31 21:59:28,827 INFO Fetching: https://docs.paloaltonetworks.com/pan-os/10-2/pan-os-cli-quick-start/get-started-with-the-cli/access-the-cli
+2026-03-31 21:59:30,442 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/pan-os/10-2/access-the-cli.md (6295 chars)
+2026-03-31 21:59:30,530 INFO Fetching: https://docs.paloaltonetworks.com/pan-os/11-1/pan-os-admin/firewall-administration/reference-port-number-usage/ports-used-for-panorama
+2026-03-31 21:59:31,625 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/pan-os/11-1/ports-used-for-panorama.md (5843 chars)
+2026-03-31 21:59:31,723 INFO Fetching: https://docs.paloaltonetworks.com/pan-os/11-1/pan-os-admin/getting-started
+2026-03-31 21:59:32,949 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/pan-os/11-1/getting-started.md (4788 chars)
+2026-03-31 21:59:33,042 INFO Fetching: https://docs.paloaltonetworks.com/prisma-access/activation-and-onboarding/onboard-prisma-access
+2026-03-31 21:59:33,792 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/prisma-access/activation-and-onboarding/onboard-prisma-access.md (7520 chars)
+2026-03-31 21:59:33,888 INFO Fetching: https://docs.paloaltonetworks.com/prisma-access/administration/prisma-access-overview/migrate-prisma-access-from-panorama-to-strata-cloud-manager
+2026-03-31 21:59:34,717 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/prisma-access/administration/migrate-prisma-access-from-panorama-to-strata-cloud-manager.md (15389 chars)
+2026-03-31 21:59:34,805 ERROR URL not in manifest: https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/activate-strata-cloud-manager
+2026-03-31 21:59:34,890 INFO Fetching: https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/strata-cloud-manager-licenses-and-support
+2026-03-31 21:59:35,718 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/strata-cloud-manager/activation-and-onboarding/strata-cloud-manager-licenses-and-support.md (18219 chars)
+2026-03-31 21:59:35,810 INFO Fetching: https://docs.paloaltonetworks.com/strata-cloud-manager/aiops/about/aiops-plugin-for-panorama
+2026-03-31 21:59:36,574 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/strata-cloud-manager/aiops/aiops-plugin-for-panorama.md (7583 chars)
+2026-03-31 21:59:36,672 INFO Fetching: https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/command-center
+2026-03-31 21:59:37,486 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/strata-cloud-manager/getting-started/command-center.md (30545 chars)
+2026-03-31 21:59:37,576 INFO Fetching: https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/manage-configuration-ngfw-and-prisma-access
+2026-03-31 21:59:38,783 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/strata-cloud-manager/getting-started/manage-configuration-ngfw-and-prisma-access.md (5883 chars)
+2026-03-31 21:59:38,878 INFO Fetching: https://docs.paloaltonetworks.com/strata-logging-service/activation-and-onboarding/license-overview
+2026-03-31 21:59:39,646 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/strata-logging-service/activation-and-onboarding/license-overview.md (6772 chars)
+2026-03-31 21:59:39,735 INFO Fetching: https://docs.paloaltonetworks.com/vm-series/11-0/vm-series-deployment/license-the-vm-series-firewall/software-ngfw/create-a-deployment-profile-vm-series
+2026-03-31 21:59:40,773 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/vm-series/11-0/create-a-deployment-profile-vm-series.md (6941 chars)
+2026-03-31 21:59:40,863 INFO Fetching: https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/software-ngfw
+2026-03-31 21:59:42,025 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/vm-series/11-1/software-ngfw.md (9255 chars)
+2026-03-31 21:59:42,119 INFO Index written to /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/index.md
+2026-03-31 21:59:58,057 INFO Added: https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/activate-strata-cloud-manager -> docs/strata-cloud-manager/activation-and-onboarding/activate-strata-cloud-manager.md
+2026-03-31 21:59:58,143 INFO Fetching: https://docs.paloaltonetworks.com/strata-cloud-manager/activation-and-onboarding/activate-strata-cloud-manager
+2026-03-31 21:59:59,083 INFO   Saved: /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/docs/strata-cloud-manager/activation-and-onboarding/activate-strata-cloud-manager.md (5148 chars)
+2026-03-31 21:59:59,170 INFO Index written to /Users/sjolly/Documents/code/Claude/Documentation-improvements/pan-docs-reference/index.md
