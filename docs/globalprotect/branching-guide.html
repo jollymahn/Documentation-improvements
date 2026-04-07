@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;600;700&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet">
+<title>GlobalProtect Deployment Guide &mdash; Branching</title>
+<link rel="stylesheet" href="../shared/css/pan-guides.css">
+</head>
+<body>
+
+<!-- ── Header ─────────────────────────────────────────────────── -->
+<header class="site-header">
+  <button class="hamburger" onclick="document.querySelector('.sidebar').classList.toggle('open')" aria-label="Toggle navigation">&#9776;</button>
+  <div class="logo">
+    <span class="accent">IMPLEMENTATION</span> GUIDES <span style="font-weight:400;font-size:0.85rem;margin-left:0.5rem;">GlobalProtect</span>
+  </div>
+  <nav class="header-nav">
+    <a href="../index.html">Home</a>
+    <a href="../vm-series-bootstrap/index.html">VM-Series Bootstrap</a>
+    <a href="../scm-onboarding/index.html">SCM Onboarding</a>
+    <a href="index.html" class="active">GlobalProtect</a>
+  </nav>
+</header>
+
+<!-- ── Layout ─────────────────────────────────────────────────── -->
+<div class="layout">
+
+<!-- ── Sidebar ────────────────────────────────────────────────── -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-section">
+    <div class="sidebar-section-title">Overview</div>
+    <a href="#overview" data-section="overview">Overview</a>
+    <a href="#prerequisites" data-section="prerequisites">Prerequisites</a>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-section-title">1. Infrastructure</div>
+    <a href="#infrastructure" data-section="infrastructure">Interfaces &amp; Zones</a>
+    <a href="#cert-decision" data-section="cert-decision" class="sub-item">Certificate Type</a>
+    <a href="#ssl-profile" data-section="ssl-profile" class="sub-item">SSL/TLS Profile</a>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-section-title">2. Authentication</div>
+    <a href="#auth-decision" data-section="auth-decision">Auth Method</a>
+    <a href="#auth-ldap" data-section="auth-ldap" class="sub-item">LDAP</a>
+    <a href="#auth-saml" data-section="auth-saml" class="sub-item">SAML</a>
+    <a href="#auth-radius" data-section="auth-radius" class="sub-item">RADIUS</a>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-section-title">3. Gateway</div>
+    <a href="#gateway" data-section="gateway">Gateway Config</a>
+    <a href="#tunnel-decision" data-section="tunnel-decision" class="sub-item">Tunnel Mode</a>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-section-title">4. Portal</div>
+    <a href="#portal" data-section="portal">Portal Config</a>
+    <a href="#connect-decision" data-section="connect-decision" class="sub-item">Connect Method</a>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-section-title">5. App Deployment</div>
+    <a href="#app-deployment" data-section="app-deployment">Deploy &amp; Test</a>
+    <a href="#deploy-decision" data-section="deploy-decision" class="sub-item">Deploy Method</a>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-section-title">Reference</div>
+    <a href="#troubleshooting" data-section="troubleshooting">Troubleshooting</a>
+  </div>
+</aside>
+
+<!-- ── Main Content ───────────────────────────────────────────── -->
+<main class="main-content">
+
+<div class="breadcrumb">
+  <a href="../index.html">Home</a>
+  <span class="sep">|</span>
+  <a href="index.html">GlobalProtect</a>
+  <span class="sep">|</span>
+  Branching Guide
+</div>
+
+<div class="article">
+
+<h1>GlobalProtect Deployment Guide</h1>
+<p class="subtitle">Panorama-managed deployment with decision-point navigation</p>
+
+<div class="cloud-links">
+  <a href="linear-guide.html">Linear Guide</a>
+  <a href="index.html">Guide Index</a>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="overview">Overview</h2>
+
+<p>This guide covers the same deployment as the <a href="linear-guide.html">Linear Guide</a> but is organized around decision points. Expand only the paths relevant to your environment.</p>
+
+<h3>Architecture</h3>
+<div class="code-block">
+<pre><code>                    Internet
+                       |
+              +--------+--------+
+              |   Untrust Zone  |
+              |  ethernet1/1    |
+              |  (Portal + GW)  |
+              +--------+--------+
+                       |
+              +--------+--------+
+              | Tunnel Interface |
+              |   tunnel.1      |
+              |  (VPN Zone)     |
+              +--------+--------+
+                       |
+              +--------+--------+
+              |   Trust Zone    |
+              |  ethernet1/2    |
+              | (Internal LAN)  |
+              +--------+--------+
+                       |
+                 Internal Network</code></pre>
+</div>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<ol class="checklist">
+  <li><strong>PAN-OS Firewall</strong> &mdash; running 10.1+</li>
+  <li><strong>Panorama</strong> &mdash; device group + template stack</li>
+  <li><strong>Network Connectivity</strong> &mdash; external interface reachable</li>
+  <li><strong>Authentication Source</strong> &mdash; AD/LDAP or SAML IdP</li>
+  <li><strong>DNS Record</strong> &mdash; FQDN to external IP</li>
+  <li><strong>Server Certificate</strong> &mdash; public CA or self-signed</li>
+</ol>
+
+<!-- ============================================================ -->
+<!-- SECTION 1 -->
+<!-- ============================================================ -->
+<h2 id="infrastructure">Section 1: Infrastructure and Certificates</h2>
+
+<h3>Step 1.1: Configure Interfaces</h3>
+
+<ol>
+  <li>In Panorama Template &gt; <strong>Network &gt; Interfaces &gt; Ethernet</strong></li>
+  <li>External interface (<code>ethernet1/1</code>): Layer3, zone <code>untrust</code>, assign public IP</li>
+  <li>Internal interface (<code>ethernet1/2</code>): Layer3, zone <code>trust</code>, assign internal IP</li>
+</ol>
+
+<div class="callout callout-warning">
+  <div class="callout-title">Important</div>
+  <p>Do not enable management services on the external interface.</p>
+</div>
+
+<h3>Step 1.2: Create Tunnel Interface</h3>
+
+<ol>
+  <li><strong>Network &gt; Interfaces &gt; Tunnel</strong> &gt; <strong>Add</strong></li>
+  <li>Interface <code>tunnel.1</code>, zone <code>vpn-zone</code>, optional IP <code>10.31.32.1/24</code></li>
+  <li>Enable <strong>User Identification</strong> on the VPN zone</li>
+</ol>
+
+<h3>Step 1.3: Security Policy</h3>
+
+<ol>
+  <li>Device Group &gt; <strong>Policies &gt; Security</strong></li>
+  <li>Rule: <code>Allow-VPN-to-Trust</code> &mdash; source <code>vpn-zone</code>, destination <code>trust</code>, action <code>Allow</code></li>
+</ol>
+
+<!-- Certificate Decision -->
+<h3 id="cert-decision">Decision: Certificate Type</h3>
+
+<div class="method-banner method-preferred">
+  <span class="method-badge">Recommended</span>
+  <div><strong>Public CA Certificate</strong> &mdash; no certificate warnings for end users</div>
+</div>
+
+<div class="collapsible">
+  <div class="collapsible-header">
+    <span class="chevron">&#9654;</span>
+    <span>Path A: Public CA Certificate (Recommended)</span>
+  </div>
+  <div class="collapsible-body">
+    <ol>
+      <li><strong>Device &gt; Certificate Management &gt; Certificates</strong> &gt; <strong>Generate</strong></li>
+      <li>Create CSR: name <code>gp-portal-cert</code>, CN = portal FQDN</li>
+      <li>Export CSR, submit to CA</li>
+      <li>Import signed certificate + private key + CA chain</li>
+    </ol>
+  </div>
+</div>
+
+<div class="collapsible">
+  <div class="collapsible-header">
+    <span class="chevron">&#9654;</span>
+    <span>Path B: Self-Signed Root CA (Testing)</span>
+  </div>
+  <div class="collapsible-body">
+    <ol>
+      <li>Generate root CA: name <code>GP-Root-CA</code>, check <strong>Certificate Authority</strong></li>
+      <li>Generate server cert: name <code>gp-server-cert</code>, CN = portal FQDN, signed by <code>GP-Root-CA</code></li>
+      <li>Add SAN entries (DNS type with FQDN)</li>
+    </ol>
+    <div class="callout callout-warning">
+      <div class="callout-title">Important</div>
+      <p>Deploy the root CA certificate to all endpoints or users will see warnings.</p>
+    </div>
+  </div>
+</div>
+
+<h3 id="ssl-profile">Step 1.5: Create SSL/TLS Service Profile</h3>
+
+<ol>
+  <li><strong>Device &gt; Certificate Management &gt; SSL/TLS Service Profile</strong> &gt; <strong>Add</strong></li>
+  <li>Name <code>GP-SSL-Profile</code>, select certificate, TLS 1.2&ndash;1.3</li>
+</ol>
+
+<h3>Step 1.6: Commit and Verify</h3>
+<ol>
+  <li><strong>Commit to Panorama</strong> &gt; <strong>Push to Devices</strong></li>
+  <li>Verify interfaces (green), zones, certificates (valid)</li>
+</ol>
+
+<div class="callout callout-success">
+  <div class="callout-title">Verification</div>
+  <p>Green status on interfaces, valid certificates with correct dates.</p>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 2 -->
+<!-- ============================================================ -->
+<h2 id="auth-decision">Section 2: Authentication</h2>
+
+<p>Choose the authentication method for your environment:</p>
+
+<table>
+  <thead><tr><th>Method</th><th>Best For</th><th>Requirements</th></tr></thead>
+  <tbody>
+    <tr><td><strong>LDAP</strong></td><td>Active Directory environments</td><td>AD server, service account</td></tr>
+    <tr><td><strong>SAML</strong></td><td>Cloud-first, SSO</td><td>SAML 2.0 IdP</td></tr>
+    <tr><td><strong>RADIUS</strong></td><td>Existing RADIUS infra</td><td>RADIUS server, shared secret</td></tr>
+  </tbody>
+</table>
+
+<!-- LDAP Path -->
+<div class="collapsible">
+  <div class="collapsible-header">
+    <span class="chevron">&#9654;</span>
+    <span id="auth-ldap">Path A: LDAP (Active Directory)</span>
+  </div>
+  <div class="collapsible-body">
+    <h4>Step 2A.1: LDAP Server Profile</h4>
+    <ol>
+      <li><strong>Device &gt; Server Profiles &gt; LDAP</strong> &gt; <strong>Add</strong></li>
+      <li>Name <code>AD-LDAP-Profile</code></li>
+      <li>Server: AD IP, port <code>636</code> (LDAPS), type <code>active-directory</code></li>
+      <li>Base DN: <code>DC=company,DC=com</code></li>
+      <li>Bind DN: <code>CN=svc-globalprotect,OU=Service Accounts,DC=company,DC=com</code></li>
+      <li>Check <strong>SSL</strong></li>
+    </ol>
+
+    <h4>Step 2A.2: Authentication Profile</h4>
+    <ol>
+      <li><strong>Device &gt; Authentication Profile</strong> &gt; <strong>Add</strong></li>
+      <li>Name <code>GP-Auth-Profile</code>, type <code>LDAP</code></li>
+      <li>Server Profile: <code>AD-LDAP-Profile</code></li>
+      <li>Login Attribute: <code>sAMAccountName</code>, Domain: <code>company</code></li>
+      <li>Allow List: <code>all</code></li>
+    </ol>
+
+    <h4>Step 2A.3: Group Mapping (Optional)</h4>
+    <ol>
+      <li><strong>Device &gt; User Identification &gt; Group Mapping Settings</strong> &gt; <strong>Add</strong></li>
+      <li>Server Profile: <code>AD-LDAP-Profile</code>, Domain: <code>company</code></li>
+      <li>Add desired groups to the include list</li>
+    </ol>
+  </div>
+</div>
+
+<!-- SAML Path -->
+<div class="collapsible">
+  <div class="collapsible-header">
+    <span class="chevron">&#9654;</span>
+    <span id="auth-saml">Path B: SAML</span>
+  </div>
+  <div class="collapsible-body">
+    <h4>Step 2B.1: Configure IdP</h4>
+    <p>Create SAML app on your IdP:</p>
+    <table>
+      <thead><tr><th>Setting</th><th>Value</th></tr></thead>
+      <tbody>
+        <tr><td>ACS URL</td><td><code>https://vpn.company.com:443/SAML20/SP/ACS</code></td></tr>
+        <tr><td>Entity ID</td><td><code>https://vpn.company.com:443/SAML20/SP</code></td></tr>
+        <tr><td>Name ID</td><td>Email or username</td></tr>
+      </tbody>
+    </table>
+    <p>Download the IdP Metadata XML file.</p>
+
+    <h4>Step 2B.2: Import Metadata</h4>
+    <ol>
+      <li><strong>Device &gt; Server Profiles &gt; SAML Identity Provider</strong> &gt; <strong>Import</strong></li>
+      <li>Upload metadata XML</li>
+      <li>Verify IdP ID, SSO URL, and certificate</li>
+    </ol>
+
+    <h4>Step 2B.3: Authentication Profile</h4>
+    <ol>
+      <li><strong>Device &gt; Authentication Profile</strong> &gt; <strong>Add</strong></li>
+      <li>Name <code>GP-SAML-Auth-Profile</code>, type <code>SAML</code></li>
+      <li>IdP Server Profile: imported profile</li>
+      <li>Username Attribute: per IdP config</li>
+      <li>Allow List: <code>all</code></li>
+    </ol>
+  </div>
+</div>
+
+<!-- RADIUS Path -->
+<div class="collapsible">
+  <div class="collapsible-header">
+    <span class="chevron">&#9654;</span>
+    <span id="auth-radius">Path C: RADIUS</span>
+  </div>
+  <div class="collapsible-body">
+    <h4>Step 2C.1: RADIUS Server Profile</h4>
+    <ol>
+      <li><strong>Device &gt; Server Profiles &gt; RADIUS</strong> &gt; <strong>Add</strong></li>
+      <li>Name <code>RADIUS-Profile</code>, server IP, port <code>1812</code></li>
+      <li>Shared secret, timeout <code>30</code>s, retries <code>3</code></li>
+    </ol>
+
+    <h4>Step 2C.2: Authentication Profile</h4>
+    <ol>
+      <li><strong>Device &gt; Authentication Profile</strong> &gt; <strong>Add</strong></li>
+      <li>Name <code>GP-RADIUS-Auth-Profile</code>, type <code>RADIUS</code></li>
+      <li>Server Profile: <code>RADIUS-Profile</code></li>
+      <li>Allow List: <code>all</code></li>
+    </ol>
+  </div>
+</div>
+
+<h3>Step 2.4: Commit and Verify</h3>
+<ol>
+  <li><strong>Commit to Panorama</strong> &gt; <strong>Push to Devices</strong></li>
+  <li>Verify server profile connectivity</li>
+</ol>
+
+<div class="callout callout-success">
+  <div class="callout-title">Verification</div>
+  <p>Server profile shows successful connection or valid SAML metadata.</p>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 3 -->
+<!-- ============================================================ -->
+<h2 id="gateway">Section 3: Gateway Configuration</h2>
+
+<div class="callout callout-note">
+  <div class="callout-title">PAN Docs Reference</div>
+  <p><a href="https://docs.paloaltonetworks.com/globalprotect/administration/globalprotect-gateways/configure-a-globalprotect-gateway">Configure a GlobalProtect Gateway</a></p>
+</div>
+
+<h3>Step 3.1: Add Gateway</h3>
+<ol>
+  <li><strong>Network &gt; GlobalProtect &gt; Gateways</strong> &gt; <strong>Add</strong></li>
+  <li>Name <code>GP-External-Gateway</code>, interface <code>ethernet1/1</code></li>
+  <li>SSL/TLS Profile: <code>GP-SSL-Profile</code></li>
+</ol>
+
+<h3>Step 3.2: Authentication</h3>
+<ol>
+  <li><strong>Authentication</strong> tab &gt; <strong>Add</strong>: name <code>default-auth</code>, OS <code>Any</code></li>
+  <li>Select your authentication profile</li>
+</ol>
+
+<h3>Step 3.3: Tunnel Settings</h3>
+<ol>
+  <li><strong>Agent</strong> tab &gt; <strong>Tunnel Settings</strong>: enable tunnel mode, interface <code>tunnel.1</code></li>
+  <li>Enable IPSec, login lifetime <code>30</code> days, inactivity <code>3</code> hours</li>
+</ol>
+
+<h3>Step 3.4: IP Pool and DNS</h3>
+<ol>
+  <li>IP Pool: <code>10.31.32.2-10.31.32.254</code></li>
+  <li>DNS: <code>10.0.1.10</code>, suffix <code>company.com</code></li>
+</ol>
+
+<!-- Tunnel Decision -->
+<h3 id="tunnel-decision">Decision: Tunnel Mode</h3>
+
+<div class="method-banner method-preferred">
+  <span class="method-badge">Security</span>
+  <div><strong>Full Tunnel</strong> &mdash; all traffic through VPN, maximum security</div>
+</div>
+
+<div class="method-banner method-standard">
+  <span class="method-badge">Balanced</span>
+  <div><strong>Split Tunnel</strong> &mdash; only corporate traffic through VPN, saves bandwidth</div>
+</div>
+
+<div class="collapsible">
+  <div class="collapsible-header">
+    <span class="chevron">&#9654;</span>
+    <span>Path A: Full Tunnel</span>
+  </div>
+  <div class="collapsible-body">
+    <p>Leave <strong>Access Route</strong> empty. All endpoint traffic routes through the VPN.</p>
+    <div class="callout callout-note">
+      <div class="callout-title">Note</div>
+      <p>Full tunnel increases bandwidth usage on the gateway but ensures all traffic is inspected.</p>
+    </div>
+  </div>
+</div>
+
+<div class="collapsible">
+  <div class="collapsible-header">
+    <span class="chevron">&#9654;</span>
+    <span>Path B: Route-Based Split Tunnel</span>
+  </div>
+  <div class="collapsible-body">
+    <p>Add internal networks to the <strong>Access Route</strong> list:</p>
+    <ul>
+      <li><code>10.0.0.0/8</code></li>
+      <li><code>172.16.0.0/12</code></li>
+      <li><code>192.168.0.0/16</code></li>
+    </ul>
+    <p>Only traffic matching these routes goes through the VPN.</p>
+  </div>
+</div>
+
+<div class="collapsible">
+  <div class="collapsible-header">
+    <span class="chevron">&#9654;</span>
+    <span>Path C: Domain/Application-Based Split Tunnel</span>
+  </div>
+  <div class="collapsible-body">
+    <ol>
+      <li>Under <strong>Client Settings</strong> &gt; <strong>Add</strong> &gt; name <code>default-config</code></li>
+      <li>On the <strong>Split Tunnel</strong> tab:
+        <ul>
+          <li><strong>Include</strong>: Corporate networks</li>
+          <li><strong>Exclude</strong>: Video conferencing, streaming</li>
+          <li><strong>Domain</strong>: Route specific domains through VPN</li>
+        </ul>
+      </li>
+    </ol>
+    <p>See: <a href="https://docs.paloaltonetworks.com/globalprotect/administration/globalprotect-gateways/split-tunnel-traffic-on-globalprotect-gateways/configure-a-split-tunnel-based-on-the-domain-and-application">Domain and Application Split Tunnel</a></p>
+  </div>
+</div>
+
+<h3>Step 3.6: Commit and Verify</h3>
+<ol>
+  <li><strong>Commit to Panorama</strong> &gt; <strong>Push to Devices</strong></li>
+  <li>Gateway shows green in <strong>Network &gt; GlobalProtect &gt; Gateways</strong></li>
+</ol>
+
+<div class="code-block">
+  <pre><code>show global-protect-gateway name GP-External-Gateway</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<div class="callout callout-success">
+  <div class="callout-title">Verification</div>
+  <p>Gateway status: <code>Running</code></p>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 4 -->
+<!-- ============================================================ -->
+<h2 id="portal">Section 4: Portal Configuration</h2>
+
+<div class="callout callout-note">
+  <div class="callout-title">PAN Docs Reference</div>
+  <p><a href="https://docs.paloaltonetworks.com/globalprotect/administration/globalprotect-portals/set-up-access-to-the-globalprotect-portal">Set Up Portal</a> | <a href="https://docs.paloaltonetworks.com/globalprotect/administration/globalprotect-portals/define-the-globalprotect-app-configurations">App Configurations</a></p>
+</div>
+
+<h3>Step 4.1: Add Portal</h3>
+<ol>
+  <li><strong>Network &gt; GlobalProtect &gt; Portals</strong> &gt; <strong>Add</strong></li>
+  <li>Name <code>GP-Portal</code>, interface <code>ethernet1/1</code> (same as gateway)</li>
+  <li>SSL/TLS Profile: <code>GP-SSL-Profile</code></li>
+</ol>
+
+<div class="callout callout-note">
+  <div class="callout-title">Note</div>
+  <p>Portal and gateway share the same interface and IP. GlobalProtect differentiates connections automatically.</p>
+</div>
+
+<h3>Step 4.2: Portal Authentication</h3>
+<ol>
+  <li><strong>Authentication</strong> tab &gt; <strong>Add</strong>: name <code>default-portal-auth</code>, OS <code>Any</code></li>
+  <li>Select your authentication profile</li>
+</ol>
+
+<h3>Step 4.3: Agent Settings</h3>
+<ol>
+  <li><strong>Agent</strong> tab &gt; <strong>Add</strong>: name <code>default-agent-config</code></li>
+  <li><strong>Authentication</strong>: Save credentials, enable cookie auth (24h lifetime)</li>
+  <li><strong>Config Selection</strong>: OS <code>Any</code>, User <code>Any</code></li>
+</ol>
+
+<h3>Step 4.4: Gateway List</h3>
+<ol>
+  <li><strong>External</strong> tab &gt; <strong>Add</strong>: name <code>GP-External-Gateway</code></li>
+  <li>Address: <code>vpn.company.com</code>, Priority: <code>Highest</code></li>
+</ol>
+
+<!-- Connect Method Decision -->
+<h3 id="connect-decision">Decision: Connection Method</h3>
+
+<div class="collapsible">
+  <div class="collapsible-header">
+    <span class="chevron">&#9654;</span>
+    <span>Path A: Always On (Recommended for Enterprise)</span>
+  </div>
+  <div class="collapsible-body">
+    <div class="method-banner method-preferred">
+      <span class="method-badge">Recommended</span>
+      <div>VPN connects at login and stays connected. Best security posture.</div>
+    </div>
+    <ol>
+      <li><strong>App</strong> tab: Connect Method = <code>User-Logon (Always On)</code></li>
+      <li>Disable GlobalProtect App = <code>No</code></li>
+      <li>Allow portal change = <code>No</code></li>
+    </ol>
+  </div>
+</div>
+
+<div class="collapsible">
+  <div class="collapsible-header">
+    <span class="chevron">&#9654;</span>
+    <span>Path B: On-Demand</span>
+  </div>
+  <div class="collapsible-body">
+    <p>Users manually connect when needed. More flexible, less secure.</p>
+    <ol>
+      <li><strong>App</strong> tab: Connect Method = <code>On-Demand</code></li>
+      <li>Optionally allow disable with passcode</li>
+    </ol>
+  </div>
+</div>
+
+<div class="collapsible">
+  <div class="collapsible-header">
+    <span class="chevron">&#9654;</span>
+    <span>Path C: Pre-Logon then On-Demand</span>
+  </div>
+  <div class="collapsible-body">
+    <p>Machine-level tunnel before user login, then user controls. Requires machine certificates.</p>
+    <ol>
+      <li><strong>App</strong> tab: Connect Method = <code>Pre-logon then On-Demand</code></li>
+      <li>Deploy machine certificates to endpoints</li>
+    </ol>
+    <p>See: <a href="https://docs.paloaltonetworks.com/globalprotect/administration/globalprotect-quick-configs/remote-access-vpn-with-pre-logon">Pre-Logon Configuration</a></p>
+  </div>
+</div>
+
+<h3>Step 4.6: Commit and Verify</h3>
+<ol>
+  <li><strong>Commit to Panorama</strong> &gt; <strong>Push to Devices</strong></li>
+  <li>Portal shows green in <strong>Network &gt; GlobalProtect &gt; Portals</strong></li>
+  <li>Test: <code>https://vpn.company.com</code> loads the portal login page</li>
+</ol>
+
+<div class="callout callout-success">
+  <div class="callout-title">Verification</div>
+  <p>Portal login page loads, accepts credentials, offers app download.</p>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 5 -->
+<!-- ============================================================ -->
+<h2 id="app-deployment">Section 5: App Deployment and Testing</h2>
+
+<h3 id="deploy-decision">Decision: Deployment Method</h3>
+
+<div class="collapsible">
+  <div class="collapsible-header">
+    <span class="chevron">&#9654;</span>
+    <span>Path A: Portal Download (Simplest)</span>
+  </div>
+  <div class="collapsible-body">
+    <ol>
+      <li>Navigate to <code>https://vpn.company.com</code></li>
+      <li>Log in and download the installer</li>
+      <li>Run the installer</li>
+    </ol>
+  </div>
+</div>
+
+<div class="collapsible">
+  <div class="collapsible-header">
+    <span class="chevron">&#9654;</span>
+    <span>Path B: Host on Portal (Managed)</span>
+  </div>
+  <div class="collapsible-body">
+    <ol>
+      <li>Panorama &gt; <strong>Device &gt; GlobalProtect Client</strong> &gt; <strong>Download</strong></li>
+      <li>Click <strong>Activate</strong> after download</li>
+      <li>Users are automatically offered the download from the portal</li>
+    </ol>
+  </div>
+</div>
+
+<div class="collapsible">
+  <div class="collapsible-header">
+    <span class="chevron">&#9654;</span>
+    <span>Path C: Enterprise Deployment (MDM/GPO)</span>
+  </div>
+  <div class="collapsible-body">
+    <h4>Windows (MSI)</h4>
+    <div class="code-block">
+      <pre><code>msiexec /i GlobalProtect64.msi /quiet PORTAL=vpn.company.com</code></pre>
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+
+    <h4>macOS (MDM)</h4>
+    <ul>
+      <li>Deploy <code>.pkg</code> via Jamf, Mosyle, or other MDM</li>
+      <li>Pre-approve system extension via MDM configuration profile</li>
+    </ul>
+
+    <h4>Linux</h4>
+    <div class="code-block">
+      <pre><code># Debian/Ubuntu
+sudo dpkg -i GlobalProtect_UI_deb-*.deb
+
+# RHEL/CentOS
+sudo rpm -ivh GlobalProtect_UI_rpm-*.rpm</code></pre>
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+  </div>
+</div>
+
+<h3>Step 5.3: Connect and Test</h3>
+<ol>
+  <li>Open GlobalProtect app</li>
+  <li>Portal: <code>vpn.company.com</code></li>
+  <li>Authenticate</li>
+  <li>Verify: Connected, assigned IP, gateway name</li>
+</ol>
+
+<h3>Step 5.4: End-to-End Verification</h3>
+
+<p><strong>From the endpoint:</strong></p>
+<div class="code-block">
+  <pre><code>ping 10.0.1.10                    # Internal server
+nslookup server.company.com       # DNS resolution</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<p><strong>From the firewall CLI:</strong></p>
+<div class="code-block">
+  <pre><code>show global-protect-gateway current-user gateway GP-External-Gateway</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<p><strong>In Panorama:</strong> <strong>Monitor &gt; Logs &gt; Traffic</strong> &mdash; filter source zone <code>vpn-zone</code></p>
+
+<div class="callout callout-success">
+  <div class="callout-title">Verification</div>
+  <p>App connects, gets IP from pool, accesses internal resources. Logs show correct user, zone, and policies.</p>
+</div>
+
+<!-- ============================================================ -->
+<!-- TROUBLESHOOTING -->
+<!-- ============================================================ -->
+<h2 id="troubleshooting">Troubleshooting</h2>
+
+<table>
+  <thead><tr><th>Symptom</th><th>Likely Cause</th><th>Resolution</th></tr></thead>
+  <tbody>
+    <tr><td>Cannot reach portal</td><td>DNS or firewall</td><td>Verify DNS and port 443</td></tr>
+    <tr><td>Certificate error</td><td>CN/SAN mismatch</td><td>Match cert to portal FQDN</td></tr>
+    <tr><td>Auth fails</td><td>Profile or server issue</td><td>Check server profile</td></tr>
+    <tr><td>No internal access</td><td>Routes or policies</td><td>Check access routes and rules</td></tr>
+    <tr><td>Slow VPN</td><td>Full tunnel</td><td>Consider split tunnel</td></tr>
+    <tr><td>Disconnections</td><td>Short timeout</td><td>Increase timeout values</td></tr>
+  </tbody>
+</table>
+
+<h3>CLI Commands</h3>
+<div class="code-block">
+  <pre><code># Gateway status
+show global-protect-gateway name GP-External-Gateway
+
+# Connected users
+show global-protect-gateway current-user gateway GP-External-Gateway
+
+# Portal status
+show global-protect-portal name GP-Portal
+
+# Tunnel stats
+show global-protect-gateway statistics gateway GP-External-Gateway
+
+# Debug
+debug global-protect-gateway log-level gateway GP-External-Gateway level debug</code></pre>
+  <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+</div>
+
+<h3>Log Locations</h3>
+<table>
+  <thead><tr><th>Source</th><th>Location</th></tr></thead>
+  <tbody>
+    <tr><td>Firewall System</td><td>Monitor &gt; Logs &gt; System (filter <code>globalprotect</code>)</td></tr>
+    <tr><td>Firewall Auth</td><td>Monitor &gt; Logs &gt; Authentication</td></tr>
+    <tr><td>Windows</td><td><code>C:\Program Files\Palo Alto Networks\GlobalProtect\PanGPS.log</code></td></tr>
+    <tr><td>macOS</td><td><code>/Library/Logs/PaloAltoNetworks/GlobalProtect/PanGPS.log</code></td></tr>
+    <tr><td>Linux</td><td><code>/opt/paloaltonetworks/globalprotect/PanGPS.log</code></td></tr>
+  </tbody>
+</table>
+
+</div><!-- .article -->
+</main>
+</div><!-- .layout -->
+
+<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#9650;</button>
+<button class="copy-md-btn" id="copyMdBtn">Copy as Markdown</button>
+
+<script src="../shared/js/pan-guides.js"></script>
+</body>
+</html>
