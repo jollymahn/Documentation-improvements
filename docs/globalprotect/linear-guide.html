@@ -171,6 +171,8 @@
       </li>
       <li>Click <strong>OK</strong>.</li>
     </ol>
+    <p><em>Your screen should look like this:</em></p>
+    <img src="screenshots/gp-interfaces-list.png" alt="Network Interfaces list showing configured ethernet interfaces" loading="lazy" style="max-width:100%;border:1px solid #dee2e6;border-radius:4px;margin:0.5rem 0;">
     <div class="callout callout-warning">
       <div class="callout-title">Important</div>
       <p>Do not enable management services (HTTP, HTTPS, SSH) on this interface. Management access should only be available on the dedicated management interface.</p>
@@ -219,6 +221,8 @@
       </li>
       <li>Click <strong>OK</strong>.</li>
     </ol>
+    <p><em>Your screen should look like this:</em></p>
+    <img src="screenshots/gp-tunnel-interface-add.png" alt="Tunnel interface Add dialog for tunnel.1" loading="lazy" style="max-width:100%;border:1px solid #dee2e6;border-radius:4px;margin:0.5rem 0;">
     <div class="callout callout-note">
       <div class="callout-title">Note</div>
       <p>Enable <strong>User Identification</strong> on the VPN zone if you want User-ID-based policies for VPN traffic. Go to <strong>Network &gt; Zones</strong>, select the VPN zone, and check <strong>Enable User Identification</strong>.</p>
@@ -247,6 +251,8 @@
       </li>
       <li>Position the rule appropriately in your rulebase.</li>
     </ol>
+    <p><em>Your screen should look like this:</em></p>
+    <img src="screenshots/gp-security-policy-add.png" alt="Security Policy Rule dialog with Allow-VPN-to-Trust rule" loading="lazy" style="max-width:100%;border:1px solid #dee2e6;border-radius:4px;margin:0.5rem 0;">
     <div class="callout callout-warning">
       <div class="callout-title">Important</div>
       <p>Starting with <code>any/any</code> for testing is acceptable, but tighten the rules before production deployment.</p>
@@ -300,6 +306,20 @@
       </li>
       <li>Click <strong>Generate</strong>.</li>
     </ol>
+    <div class="collapsible">
+      <div class="collapsible-header">
+        <span class="chevron">&#9654;</span>
+        <span>See screenshots</span>
+      </div>
+      <div class="collapsible-body">
+        <p><em>Certificates list page:</em></p>
+        <img src="screenshots/gp-certificates-list.png" alt="Certificate Management - Certificates list page" loading="lazy" style="max-width:100%;border:1px solid #dee2e6;border-radius:4px;margin:0.5rem 0;">
+        <p><em>Generate Root CA certificate dialog:</em></p>
+        <img src="screenshots/gp-cert-root-ca-generate.png" alt="Generate certificate dialog for Root CA" loading="lazy" style="max-width:100%;border:1px solid #dee2e6;border-radius:4px;margin:0.5rem 0;">
+        <p><em>Generate server certificate dialog:</em></p>
+        <img src="screenshots/gp-cert-server-generate.png" alt="Generate certificate dialog for server certificate" loading="lazy" style="max-width:100%;border:1px solid #dee2e6;border-radius:4px;margin:0.5rem 0;">
+      </div>
+    </div>
     <div class="callout callout-warning">
       <div class="callout-title">Important</div>
       <p>If using self-signed certificates, you must deploy the root CA certificate to all endpoints. Otherwise, users will see certificate warnings and the GlobalProtect app may fail to connect.</p>
@@ -326,6 +346,8 @@
       </li>
       <li>Click <strong>OK</strong>.</li>
     </ol>
+    <p><em>Your screen should look like this:</em></p>
+    <img src="screenshots/gp-ssl-tls-profile-add.png" alt="SSL/TLS Service Profile Add dialog" loading="lazy" style="max-width:100%;border:1px solid #dee2e6;border-radius:4px;margin:0.5rem 0;">
   </div>
 </div>
 
@@ -346,6 +368,8 @@
         </ul>
       </li>
     </ol>
+    <p><em>Your screen should look like this:</em></p>
+    <img src="screenshots/gp-zones-configured.png" alt="Network Zones page showing untrust, trust, and vpn-zone configured" loading="lazy" style="max-width:100%;border:1px solid #dee2e6;border-radius:4px;margin:0.5rem 0;">
     <div class="callout callout-success">
       <div class="callout-title">Verification</div>
       <p>You should see green status indicators on all configured interfaces and valid certificates with correct expiration dates.</p>
@@ -405,6 +429,8 @@
       </li>
       <li>Click <strong>OK</strong>.</li>
     </ol>
+    <p><em>Your screen should look like this:</em></p>
+    <img src="screenshots/gp-ldap-profile-add.png" alt="LDAP Server Profile Add dialog with AD-LDAP-Profile" loading="lazy" style="max-width:100%;border:1px solid #dee2e6;border-radius:4px;margin:0.5rem 0;">
     <div class="callout callout-note">
       <div class="callout-title">Note</div>
       <p>Use LDAPS (port 636) in production. Import the AD server's CA certificate under <strong>Device &gt; Certificate Management &gt; Certificates</strong>.</p>
@@ -425,6 +451,8 @@
       <li>On the <strong>Advanced</strong> tab, set <strong>Allow List</strong> to <code>all</code> for testing.</li>
       <li>Click <strong>OK</strong>.</li>
     </ol>
+    <p><em>Your screen should look like this:</em></p>
+    <img src="screenshots/gp-auth-profile-add.png" alt="Authentication Profile Add dialog with GP-Auth-Profile" loading="lazy" style="max-width:100%;border:1px solid #dee2e6;border-radius:4px;margin:0.5rem 0;">
 
     <h4>Step 2A.3: Enable Group Mapping (Optional)</h4>
     <ol>
@@ -439,6 +467,8 @@
       <li>On the <strong>Group Include List</strong> tab, add the groups you want to use in policies.</li>
       <li>Click <strong>OK</strong>.</li>
     </ol>
+    <p><em>Your screen should look like this:</em></p>
+    <img src="screenshots/gp-group-mapping-add.png" alt="Group Mapping Add dialog" loading="lazy" style="max-width:100%;border:1px solid #dee2e6;border-radius:4px;margin:0.5rem 0;">
   </div>
 </div>
 
@@ -477,6 +507,8 @@
       </li>
       <li>Click <strong>OK</strong>.</li>
     </ol>
+    <p><em>Your screen should look like this:</em></p>
+    <img src="screenshots/gp-saml-idp-import.png" alt="SAML Identity Provider import dialog" loading="lazy" style="max-width:100%;border:1px solid #dee2e6;border-radius:4px;margin:0.5rem 0;">
 
     <h4>Step 2B.3: Create a SAML Authentication Profile</h4>
     <ol>
@@ -550,6 +582,8 @@
         </ul>
       </li>
     </ol>
+    <p><em>Your screen should look like this:</em></p>
+    <img src="screenshots/gp-gateway-general.png" alt="GlobalProtect Gateway Configuration dialog - General tab" loading="lazy" style="max-width:100%;border:1px solid #dee2e6;border-radius:4px;margin:0.5rem 0;">
   </div>
 </div>
 
@@ -570,6 +604,8 @@
       </li>
       <li>Click <strong>OK</strong>.</li>
     </ol>
+    <p><em>Your screen should look like this:</em></p>
+    <img src="screenshots/gp-gateway-auth-tab.png" alt="GlobalProtect Gateway dialog - Authentication tab" loading="lazy" style="max-width:100%;border:1px solid #dee2e6;border-radius:4px;margin:0.5rem 0;">
   </div>
 </div>
 
@@ -596,6 +632,8 @@
         </ul>
       </li>
     </ol>
+    <p><em>Your screen should look like this:</em></p>
+    <img src="screenshots/gp-gateway-agent-tab.png" alt="GlobalProtect Gateway dialog - Agent tab with Tunnel Settings" loading="lazy" style="max-width:100%;border:1px solid #dee2e6;border-radius:4px;margin:0.5rem 0;">
   </div>
 </div>
 
@@ -646,6 +684,8 @@
       </li>
     </ol>
     <p>See: <a href="https://docs.paloaltonetworks.com/globalprotect/administration/globalprotect-gateways/split-tunnel-traffic-on-globalprotect-gateways">Split Tunnel Traffic on GlobalProtect Gateways</a></p>
+    <p><em>Your screen should look like this:</em></p>
+    <img src="screenshots/gp-gateway-client-settings.png" alt="GlobalProtect Gateway dialog - Client Settings sub-tab" loading="lazy" style="max-width:100%;border:1px solid #dee2e6;border-radius:4px;margin:0.5rem 0;">
   </div>
 </div>
 
@@ -708,6 +748,8 @@
         </ul>
       </li>
     </ol>
+    <p><em>Your screen should look like this:</em></p>
+    <img src="screenshots/gp-portal-general.png" alt="GlobalProtect Portal Add dialog - General tab with GP-Portal" loading="lazy" style="max-width:100%;border:1px solid #dee2e6;border-radius:4px;margin:0.5rem 0;">
     <div class="callout callout-note">
       <div class="callout-title">Note</div>
       <p>The portal and gateway typically share the same interface and IP address. GlobalProtect differentiates between portal and gateway connections automatically.</p>
@@ -732,6 +774,8 @@
       </li>
       <li>Click <strong>OK</strong>.</li>
     </ol>
+    <p><em>Your screen should look like this:</em></p>
+    <img src="screenshots/gp-portal-auth-tab.png" alt="GlobalProtect Portal dialog - Authentication tab" loading="lazy" style="max-width:100%;border:1px solid #dee2e6;border-radius:4px;margin:0.5rem 0;">
   </div>
 </div>
 
@@ -766,6 +810,8 @@
         </ul>
       </li>
     </ol>
+    <p><em>Your screen should look like this:</em></p>
+    <img src="screenshots/gp-portal-agent-tab.png" alt="GlobalProtect Portal dialog - Agent tab" loading="lazy" style="max-width:100%;border:1px solid #dee2e6;border-radius:4px;margin:0.5rem 0;">
   </div>
 </div>
 
@@ -884,6 +930,8 @@
       <li>Click <strong>Download</strong> next to the desired version.</li>
       <li>After download, click <strong>Activate</strong> to make it available on the portal.</li>
     </ol>
+    <p><em>Your screen should look like this:</em></p>
+    <img src="screenshots/gp-client-download.png" alt="Device GlobalProtect Client download page" loading="lazy" style="max-width:100%;border:1px solid #dee2e6;border-radius:4px;margin:0.5rem 0;">
   </div>
 </div>
 
