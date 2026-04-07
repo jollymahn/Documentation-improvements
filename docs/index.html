@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;600;700&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet">
+<title>PAN Implementation Guides</title>
+<link rel="stylesheet" href="shared/css/pan-guides.css">
+</head>
+<body>
+
+<!-- ── Header ─────────────────────────────────────────────────── -->
+<header class="site-header">
+  <div class="logo">
+    <span class="accent">IMPLEMENTATION</span> GUIDES
+  </div>
+  <nav class="header-nav">
+    <a href="index.html" class="active">Home</a>
+    <a href="vm-series-bootstrap/index.html">VM-Series Bootstrap</a>
+    <a href="scm-onboarding/index.html">SCM Onboarding</a>
+  </nav>
+</header>
+
+<!-- ── Content ─────────────────────────────────────────────────── -->
+<div class="container" style="max-width:960px;margin:0 auto;padding:calc(var(--header-height) + 2rem) 2rem 4rem;">
+
+<h1 style="color:var(--pan-navy);font-size:2rem;margin-bottom:0.5rem;">Palo Alto Networks Implementation Guides</h1>
+<p class="subtitle">Process-driven, self-contained deployment guides. Each guide walks through the complete procedure from start to finish with built-in verification at every step.</p>
+
+<h2 style="color:var(--pan-navy);margin-top:2.5rem;margin-bottom:1.25rem;padding-bottom:0.5rem;border-bottom:1px solid var(--border);">Available Guides</h2>
+
+<div class="guide-catalog">
+
+  <!-- VM-Series Bootstrap -->
+  <div class="catalog-card">
+    <div class="catalog-card-header card-aws">
+      <span class="catalog-badge">VM-Series</span>
+      <h3>VM-Series Firewall Bootstrap</h3>
+    </div>
+    <div class="catalog-card-body">
+      <p>End-to-end bootstrapping for VM-Series firewalls across AWS, Azure, and GCP. Covers four bootstrap methods: Panorama Licensing Plugin, User Data, Storage Basic, and Storage Full.</p>
+      <div class="catalog-tags">
+        <span class="tag">AWS</span>
+        <span class="tag">Azure</span>
+        <span class="tag">GCP</span>
+        <span class="tag">Panorama</span>
+        <span class="tag">Bootstrap</span>
+      </div>
+      <div class="catalog-links">
+        <a href="vm-series-bootstrap/index.html" class="catalog-link-primary">Open Guide</a>
+        <a href="vm-series-bootstrap/aws/linear-guide.html" class="catalog-link-secondary">AWS</a>
+        <a href="vm-series-bootstrap/azure/linear-guide.html" class="catalog-link-secondary">Azure</a>
+        <a href="vm-series-bootstrap/gcp/linear-guide.html" class="catalog-link-secondary">GCP</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCM Onboarding -->
+  <div class="catalog-card">
+    <div class="catalog-card-header card-scm">
+      <span class="catalog-badge">Strata Cloud Manager</span>
+      <h3>SCM Firewall Onboarding</h3>
+    </div>
+    <div class="catalog-card-body">
+      <p>Complete onboarding procedure for Strata Cloud Manager. Covers hardware compatibility, licensing, network requirements, device certificates, VM-Series prerequisites, device onboarding, and post-onboarding automation.</p>
+      <div class="catalog-tags">
+        <span class="tag">SCM</span>
+        <span class="tag">NGFW</span>
+        <span class="tag">VM-Series</span>
+        <span class="tag">Prisma Access</span>
+        <span class="tag">Onboarding</span>
+      </div>
+      <div class="catalog-links">
+        <a href="scm-onboarding/index.html" class="catalog-link-primary">Open Guide</a>
+      </div>
+    </div>
+  </div>
+
+</div><!-- .guide-catalog -->
+
+<div class="callout callout-note" style="margin-top:2.5rem;">
+  <div class="callout-title">About These Guides</div>
+  <p>These guides are <strong>process-driven</strong> and <strong>self-contained</strong> &mdash; everything you need is in one document, with verification steps after each action. Use the <strong>Copy as Markdown</strong> button on any guide page to copy the full content for use with AI assistants or your own documentation.</p>
+</div>
+
+</div>
+
+<script src="shared/js/pan-guides.js"></script>
+</body>
+</html>
