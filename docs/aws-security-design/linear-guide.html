@@ -4,710 +4,1614 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;600;700&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet">
-<title>Securing Applications in AWS &mdash; Deployment Guide</title>
+<title>Securing Applications in AWS &mdash; Combined Design with Panorama</title>
 <link rel="stylesheet" href="../shared/css/pan-guides.css">
 </head>
 <body>
 
-<!-- ── Header ─────────────────────────────────────────────────── -->
+<!-- == Header ====================================================== -->
 <header class="site-header">
   <button class="hamburger" onclick="document.querySelector('.sidebar').classList.toggle('open')" aria-label="Toggle navigation">&#9776;</button>
   <div class="logo">
-    <span class="accent">IMPLEMENTATION</span> GUIDES <span style="font-weight:400;font-size:0.85rem;margin-left:0.5rem;">AWS Security Design</span>
+    <span class="accent">IMPLEMENTATION</span> GUIDES <span style="font-weight:400;font-size:0.85rem;margin-left:0.5rem;">AWS Centralized + Panorama</span>
   </div>
   <nav class="header-nav">
     <a href="../index.html">Home</a>
     <a href="../vm-series-bootstrap/index.html">VM-Series Bootstrap</a>
     <a href="../scm-onboarding/index.html">SCM Onboarding</a>
+    <a href="../globalprotect/index.html">GlobalProtect</a>
     <a href="linear-guide.html" class="active">AWS Security</a>
   </nav>
 </header>
 
-<!-- ── Layout ─────────────────────────────────────────────────── -->
+<!-- == Layout ====================================================== -->
 <div class="layout">
 
-<!-- ── Sidebar ────────────────────────────────────────────────── -->
+<!-- == Sidebar ===================================================== -->
 <aside class="sidebar" id="sidebar">
   <div class="sidebar-section">
-    <div class="sidebar-section-title">Prerequisites</div>
-    <a href="#prereqs-common" data-section="prereqs-common">Common &mdash; Licensing</a>
-    <a href="#prereqs-panorama" data-section="prereqs-panorama">Panorama Path</a>
-    <a href="#prereqs-scm" data-section="prereqs-scm">SCM Path</a>
-    <a href="#prereqs-aws" data-section="prereqs-aws">AWS &amp; Environment</a>
+    <div class="sidebar-section-title">Overview</div>
+    <a href="#overview" data-section="overview">Architecture</a>
+    <a href="#prerequisites" data-section="prerequisites">Prerequisites</a>
   </div>
   <div class="sidebar-section">
-    <div class="sidebar-section-title">Deployment</div>
-    <a href="#panorama-deployment" data-section="panorama-deployment">Panorama Deployment</a>
-    <a href="#security-vpc" data-section="security-vpc">Security VPC &amp; GWLB</a>
-    <a href="#traffic-flows" data-section="traffic-flows">Traffic Flow Config</a>
+    <div class="sidebar-section-title">3. Panorama</div>
+    <a href="#section-3" data-section="section-3">Panorama Configuration</a>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-section-title">4. AWS</div>
+    <a href="#section-4" data-section="section-4">AWS Infrastructure</a>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-section-title">5. Inbound</div>
+    <a href="#section-5" data-section="section-5">Inbound Security</a>
   </div>
   <div class="sidebar-section">
     <div class="sidebar-section-title">Reference</div>
-    <a href="#verification" data-section="verification">Verification</a>
+    <a href="#section-6" data-section="section-6">Verification</a>
+    <a href="#section-7" data-section="section-7">Troubleshooting</a>
+    <a href="#appendices" data-section="appendices">Appendices</a>
   </div>
 </aside>
 
-<!-- ── Main Content ───────────────────────────────────────────── -->
+<!-- == Main Content ================================================ -->
 <main class="main-content">
 
 <div class="breadcrumb">
-  <a href="../index.html">Home</a>
+  <a href="../docs/index.html">Home</a>
   <span class="sep">|</span>
-  <a href="linear-guide.html">AWS Security Design</a>
+  <a href="../docs/aws-security-design/linear-guide.html">AWS Security Design</a>
   <span class="sep">|</span>
-  Linear Guide
+  Centralized + Panorama
 </div>
 
 <div class="article">
 
 <h1>Securing Applications in AWS</h1>
-<p class="subtitle">Step-by-step deployment of VM-Series firewalls on AWS with centralized management</p>
+<p class="subtitle">Combined Design with Panorama Management &mdash; Deployment Guide</p>
 
-<div class="cloud-links">
-  <a href="../vm-series-bootstrap/aws/linear-guide.html">AWS Bootstrap Guide</a>
-  <a href="../vm-series-bootstrap/azure/linear-guide.html">Azure Bootstrap Guide</a>
-  <a href="../scm-onboarding/index.html">SCM Onboarding</a>
-</div>
+<!-- ================================================================ -->
+<!-- SECTION 1: OVERVIEW                                              -->
+<!-- ================================================================ -->
+<h2 id="overview">1. Overview</h2>
 
-<!-- ============================================================ -->
-<!-- SECTION: COMMON PREREQUISITES                                 -->
-<!-- ============================================================ -->
-<h2 id="prereqs-common">Prerequisites &mdash; Common Licensing &amp; Certificates</h2>
+<p>This guide deploys Palo Alto Networks VM-Series firewalls in AWS using a <strong>combined design</strong> with <strong>Panorama management</strong>. A dedicated Security VPC with Gateway Load Balancer (GWLB) inspects all traffic &mdash; outbound, inbound, and east-west &mdash; across spoke VPCs connected via AWS Transit Gateway (TGW).</p>
 
-<p>These steps are required regardless of whether you manage firewalls with Panorama or Strata Cloud Manager. Complete these first, then follow the path for your chosen management platform.</p>
-
-<ol class="checklist">
-  <li><a href="#prereq-credit-pool"><strong>1.</strong> Software NGFW Credit Pool</a> &mdash; activated and funded</li>
-  <li><a href="#prereq-deployment-profile"><strong>2.</strong> Deployment Profile</a> &mdash; created with auth code</li>
-  <li><a href="#prereq-auth-code"><strong>3.</strong> Auth Code</a> &mdash; copied for bootstrap definitions</li>
-  <li><a href="#prereq-pin"><strong>4.</strong> Auto-Registration PIN</a> &mdash; PIN ID and PIN Value generated</li>
-</ol>
-
-<!-- Prereq 1 -->
+<!-- Architecture Summary -->
 <div class="collapsible">
   <div class="collapsible-header">
     <span class="chevron">&#9654;</span>
-    <span id="prereq-credit-pool">1. Activate Software NGFW Credits</span>
+    <span>Architecture Summary</span>
   </div>
   <div class="collapsible-body">
-    <p><strong>Palo Alto Docs:</strong> <a href="https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/software-ngfw/activate-credits">Activate Credits</a></p>
-    <p>Before creating deployment profiles or licensing firewalls, you need an active credit pool.</p>
-    <ol>
-      <li>Log in to the <a href="https://support.paloaltonetworks.com">Customer Support Portal</a>.</li>
-      <li>Navigate to <strong>Assets &gt; Software NGFW Credits</strong>.</li>
-      <li>Locate your credit pool authorization code (from your purchase order).</li>
-      <li>Click <strong>Activate</strong> and enter the auth code to fund the credit pool.</li>
-      <li>Verify the credit pool shows available credits for your desired VM-Series model and subscription tier.</li>
-    </ol>
+    <table>
+      <tr><th>Component</th><th>Role</th></tr>
+      <tr><td><strong>Security VPC</strong></td><td>Hosts VM-Series firewalls behind a GWLB. All spoke VPC traffic is routed here for inspection.</td></tr>
+      <tr><td><strong>Spoke VPCs</strong></td><td>Application workloads (e.g., <code>app01</code>, <code>app02</code>). Connected to TGW.</td></tr>
+      <tr><td><strong>Management VPC</strong></td><td>Hosts Panorama in active/standby. Connected to TGW.</td></tr>
+      <tr><td><strong>Transit Gateway (TGW)</strong></td><td>Hub connecting Security, Spoke, and Management VPCs. Two route tables: <code>security</code> and <code>spokes</code>. Appliance mode enabled on Security VPC attachment.</td></tr>
+      <tr><td><strong>Gateway Load Balancer (GWLB)</strong></td><td>Distributes traffic to VM-Series using Geneve encapsulation (UDP 6081). Cross-zone load balancing enabled.</td></tr>
+      <tr><td><strong>Panorama</strong></td><td>Centralized management for VM-Series configuration, licensing, and monitoring. Deployed in Management-Only mode.</td></tr>
+      <tr><td><strong>Strata Logging Service (SLS)</strong></td><td>Centralized log collection via Cortex Data Lake.</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- VM-Series Interface Architecture -->
+<div class="collapsible">
+  <div class="collapsible-header">
+    <span class="chevron">&#9654;</span>
+    <span>VM-Series Interface Architecture</span>
+  </div>
+  <div class="collapsible-body">
+    <p>Each VM-Series firewall has <strong>three Ethernet interfaces</strong> with traffic-type-specific subinterfaces:</p>
+    <table>
+      <tr><th>AWS ENI</th><th>PAN-OS Interface</th><th>Zone</th><th>Subnet</th><th>Purpose</th></tr>
+      <tr><td>eth0</td><td>Management</td><td>&mdash;</td><td>mgmt</td><td>SSH, HTTPS management</td></tr>
+      <tr><td>eth1</td><td>ethernet1/1</td><td><code>GWLB</code></td><td>fw (private dataplane)</td><td>GWLB health probes, untagged traffic</td></tr>
+      <tr><td>eth1 (sub)</td><td>ethernet1/1.10</td><td><code>INBOUND</code></td><td>&mdash; (logical)</td><td>GWLB endpoint mapping for inbound traffic flows</td></tr>
+      <tr><td>eth1 (sub)</td><td>ethernet1/1.11</td><td><code>APP1</code></td><td>&mdash; (logical)</td><td>Overlay-mapped traffic for APP1 spoke VPC</td></tr>
+      <tr><td>eth1 (sub)</td><td>ethernet1/1.12</td><td><code>APP2</code></td><td>&mdash; (logical)</td><td>Overlay-mapped traffic for APP2 spoke VPC</td></tr>
+      <tr><td>eth1 (sub)</td><td>ethernet1/1.13</td><td><code>APP3</code></td><td>&mdash; (logical)</td><td>Overlay-mapped traffic for APP3 spoke VPC</td></tr>
+      <tr><td>eth1 (sub)</td><td>ethernet1/1.20</td><td><code>OUTBOUND</code></td><td>&mdash; (logical)</td><td>GWLB endpoint mapping for outbound traffic flows</td></tr>
+      <tr><td>eth1 (sub)</td><td>ethernet1/1.30</td><td><code>EASTWEST</code></td><td>&mdash; (logical)</td><td>GWLB endpoint mapping for east-west traffic flows</td></tr>
+      <tr><td>eth2</td><td>ethernet1/2</td><td><code>PUBLIC-INTERNET</code></td><td>public</td><td>Outbound internet traffic, source NAT</td></tr>
+    </table>
     <div class="callout callout-note">
-      <div class="callout-title">Note</div>
-      <p>Credit pools are shared across your account. Each firewall deployment consumes credits based on the vCPU count and subscriptions defined in the deployment profile.</p>
+      <div class="callout-title">Key Concept</div>
+      <p>Each traffic flow type has its own <strong>dedicated subinterface and zone</strong> on the private dataplane interface (<code>ethernet1/1</code>). This enables granular security policies per traffic direction &mdash; inbound, outbound, and east-west are independently controlled. The parent interface (<code>ethernet1/1</code>) remains in the <code>GWLB</code> zone for health probes and untagged traffic. GWLB endpoints are mapped to the appropriate subinterface based on their traffic role.</p>
     </div>
-  </div>
-</div>
-
-<!-- Prereq 2 -->
-<div class="collapsible">
-  <div class="collapsible-header">
-    <span class="chevron">&#9654;</span>
-    <span id="prereq-deployment-profile">2. Create a Deployment Profile</span>
-  </div>
-  <div class="collapsible-body">
-    <p><strong>Palo Alto Docs:</strong> <a href="https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/software-ngfw/create-a-deployment-profile-vm-series">Create a Deployment Profile</a> | <a href="https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/software-ngfw/manage-a-deployment-profile">Manage a Deployment Profile</a></p>
-    <p>The deployment profile defines the firewall model, vCPU allocation, and subscriptions that each bootstrapped firewall will receive.</p>
-    <ol>
-      <li>In the Customer Support Portal, go to <strong>Assets &gt; Software NGFW Credits</strong>.</li>
-      <li>Select your credit pool and click <strong>Create Deployment Profile</strong>.</li>
-      <li>Configure the profile:
-        <ul>
-          <li><strong>Profile Name</strong> &mdash; descriptive name (e.g., <code>aws-gwlb-prod</code>)</li>
-          <li><strong>Firewall Model</strong> &mdash; select the VM-Series model (e.g., VM-300, VM-500)</li>
-          <li><strong>vCPU Count</strong> &mdash; number of vCPUs to allocate</li>
-          <li><strong>Subscriptions</strong> &mdash; Threat Prevention, WildFire, URL Filtering, DNS Security, etc.</li>
-          <li><strong>Token Count</strong> &mdash; number of firewalls this profile can license</li>
-        </ul>
-      </li>
-      <li>Click <strong>Create</strong>. Note the generated <strong>auth code</strong> (format: <code>D1234567</code>).</li>
-    </ol>
     <div class="callout callout-note">
-      <div class="callout-title">Note</div>
-      <p>Deployment profiles are defined by <strong>licensing tier and vCPU count</strong>, not by region, cloud, or individual firewall. Multiple firewalls with the same licensing requirements can share a single profile. Group profiles by function and vCPU count.</p>
+      <div class="callout-title">Overlay Routing Model</div>
+      <p>In the overlay combined model, additional per-spoke subinterfaces (<code>APP1</code>, <code>APP2</code>, <code>APP3</code>) provide traffic identity at the spoke VPC level. This allows security policies to be written per application rather than just per direction. In the non-overlay model, these per-spoke zones are omitted.</p>
     </div>
   </div>
 </div>
 
-<!-- Prereq 3 -->
+<!-- Traffic Flows -->
 <div class="collapsible">
   <div class="collapsible-header">
     <span class="chevron">&#9654;</span>
-    <span id="prereq-auth-code">3. Obtain the Auth Code</span>
+    <span>Traffic Flows</span>
   </div>
   <div class="collapsible-body">
-    <p><strong>Palo Alto Docs:</strong> <a href="https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/software-ngfw/manage-a-deployment-profile">Manage a Deployment Profile</a></p>
-    <p>The auth code links the deployment profile to the licensing plugin on Panorama or SCM.</p>
+    <h4>Outbound (spoke &rarr; internet)</h4>
     <ol>
-      <li>In the Customer Support Portal, go to <strong>Assets &gt; Software NGFW Credits &gt; Deployment Profiles</strong>.</li>
-      <li>Locate the deployment profile you created in the previous step.</li>
-      <li>Copy the <strong>Auth Code</strong> (format: <code>D1234567</code>).</li>
-      <li>This code is entered when creating the Bootstrap Definition on Panorama (<strong>Panorama &gt; SW Firewall License &gt; Bootstrap Definitions</strong>) or in SCM.</li>
+      <li>Spoke instance &rarr; subnet route table &rarr; TGW attachment</li>
+      <li>TGW spokes route table &rarr; Security VPC attachment (static <code>0.0.0.0/0</code>)</li>
+      <li>Security VPC TGW subnet route table &rarr; GWLB endpoint (same AZ)</li>
+      <li>GWLB endpoint &rarr; GWLB &rarr; VM-Series firewall (chosen from target group)</li>
+      <li>Firewall: receives on <code>ethernet1/1</code> &rarr; associates with <code>OUTBOUND</code> zone (subinterface <code>ethernet1/1.20</code>) &rarr; applies security policy &rarr; NAT (SNAT to <code>ethernet1/2</code> IP) &rarr; forwards out <code>ethernet1/2</code></li>
+      <li>Public subnet route table &rarr; IGW &rarr; internet</li>
     </ol>
-  </div>
-</div>
-
-<!-- Prereq 4 -->
-<div class="collapsible">
-  <div class="collapsible-header">
-    <span class="chevron">&#9654;</span>
-    <span id="prereq-pin">4. Generate Auto-Registration PIN</span>
-  </div>
-  <div class="collapsible-body">
-    <p><strong>Palo Alto Docs:</strong> <a href="https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/vm-series-models/install-a-device-certificate-on-the-vm-series-firewall">Install a Device Certificate on the VM-Series Firewall</a></p>
-    <p>The PIN ID and PIN Value allow the VM-Series firewall to automatically pull a device certificate during bootstrap.</p>
+    <h4>Inbound (internet &rarr; spoke, Combined option with GWLB)</h4>
     <ol>
-      <li>Log in to the <a href="https://support.paloaltonetworks.com">Customer Support Portal</a>.</li>
-      <li>Navigate to <strong>Products &gt; VM-Series Auth-Codes</strong>.</li>
-      <li>Click <strong>Generate OTP</strong> or <strong>Create Registration PIN</strong>.</li>
-      <li>Copy both values:
-        <ul>
-          <li><strong>PIN ID</strong> &mdash; UUID format (e.g., <code>81a75f2a-4de0-4f0e-959f-f31b5df06814</code>)</li>
-          <li><strong>PIN Value</strong> &mdash; hex string (e.g., <code>7059943c5565454db6b83cdcd305f338</code>)</li>
-        </ul>
-      </li>
+      <li>Internet &rarr; App VPC IGW &rarr; IGW edge-associated route table &rarr; GWLB endpoint (in app VPC)</li>
+      <li>GWLB endpoint &rarr; GWLB (in Security VPC via PrivateLink) &rarr; VM-Series firewall</li>
+      <li>Firewall: receives on <code>ethernet1/1</code> &rarr; associates with <code>INBOUND</code> zone (subinterface <code>ethernet1/1.10</code>) &rarr; applies security policy &rarr; returns via same GWLB endpoint</li>
+      <li>GWLB endpoint &rarr; ALB &rarr; application instances</li>
     </ol>
-    <div class="callout callout-warning">
-      <div class="callout-title">Important</div>
-      <p>Without a valid PIN, the firewall cannot fetch a device certificate and will fail to authenticate with the licensing infrastructure.</p>
-    </div>
-  </div>
-</div>
-
-<!-- ============================================================ -->
-<!-- SECTION: PANORAMA MANAGEMENT PATH                             -->
-<!-- ============================================================ -->
-<h2 id="prereqs-panorama">Prerequisites &mdash; Panorama Management Path</h2>
-
-<p>Complete these steps if you are using Panorama to manage your VM-Series firewalls.</p>
-
-<ol class="checklist">
-  <li><a href="#prereq-api-key"><strong>5.</strong> Licensing API Key</a> &mdash; set on Panorama</li>
-  <li><a href="#prereq-panorama-mode"><strong>6.</strong> Panorama Deployment Mode</a> &mdash; must be in Panorama mode for logging</li>
-  <li><a href="#prereq-device-group"><strong>7.</strong> Device Group</a> &mdash; created on Panorama</li>
-  <li><a href="#prereq-template-stack"><strong>8.</strong> Template Stack</a> &mdash; created on Panorama</li>
-  <li><a href="#prereq-backhaul"><strong>9.</strong> Backhaul Connectivity</a> &mdash; network path to Panorama established</li>
-  <li><a href="#prereq-sg"><strong>10.</strong> Panorama Security Groups</a> &mdash; ports configured</li>
-</ol>
-
-<!-- Prereq 5 -->
-<div class="collapsible">
-  <div class="collapsible-header">
-    <span class="chevron">&#9654;</span>
-    <span id="prereq-api-key">5. Set the Licensing API Key on Panorama</span>
-  </div>
-  <div class="collapsible-body">
-    <p><span class="badge" style="background:#3b82f6;color:#fff;padding:2px 8px;border-radius:3px;font-size:0.8rem;font-weight:600;">Panorama only</span></p>
-    <p><strong>Palo Alto Docs:</strong> <a href="https://docs.paloaltonetworks.com/vm-series/11-1/vm-series-deployment/license-the-vm-series-firewall/vm-series-models/licensing-api/install-a-license-deactivation-api-key">Install a License Deactivation API Key</a></p>
-    <p>The licensing API key allows Panorama to allocate and reclaim licenses from the credit pool automatically.</p>
-    <ol>
-      <li>Obtain the API key from the <a href="https://support.paloaltonetworks.com">Customer Support Portal</a> under <strong>Assets &gt; Licensing API</strong>.</li>
-      <li>SSH into Panorama and run:
-        <div class="code-block">
-          <pre><code>request license api-key set key &lt;key&gt;</code></pre>
-          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-        </div>
-      </li>
-      <li>Verify the key is set:
-        <div class="code-block">
-          <pre><code>request license api-key show</code></pre>
-          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-        </div>
-      </li>
-    </ol>
-    <div class="callout callout-note">
-      <div class="callout-title">Note</div>
-      <p>This key is required for the Panorama SW Firewall License plugin. Without it, the licensing plugin cannot allocate or reclaim licenses.</p>
-    </div>
-  </div>
-</div>
-
-<!-- Prereq 6 -->
-<div class="collapsible">
-  <div class="collapsible-header">
-    <span class="chevron">&#9654;</span>
-    <span id="prereq-panorama-mode">6. Verify Panorama Deployment Mode</span>
-  </div>
-  <div class="collapsible-body">
-    <p><span class="badge" style="background:#3b82f6;color:#fff;padding:2px 8px;border-radius:3px;font-size:0.8rem;font-weight:600;">Panorama only</span></p>
-    <p>Panorama must be running in <strong>Panorama mode</strong> to handle both policy management and log collection from managed firewalls. If Panorama is in Management Only mode, it will not collect logs.</p>
-    <div class="callout callout-note">
-      <div class="callout-title">Note</div>
-      <p><em>Detailed instructions to follow.</em></p>
-    </div>
-  </div>
-</div>
-
-<!-- Prereq 7 -->
-<div class="collapsible">
-  <div class="collapsible-header">
-    <span class="chevron">&#9654;</span>
-    <span id="prereq-device-group">7. Create a Device Group on Panorama</span>
-  </div>
-  <div class="collapsible-body">
-    <p><span class="badge" style="background:#3b82f6;color:#fff;padding:2px 8px;border-radius:3px;font-size:0.8rem;font-weight:600;">Panorama only</span></p>
-    <p><strong>Palo Alto Docs:</strong> <a href="https://docs.paloaltonetworks.com/panorama/11-1/panorama-admin/manage-firewalls/manage-device-groups">Manage Device Groups</a></p>
-    <p>The Device Group holds security policies, objects, and rules pushed to managed firewalls.</p>
-    <ol>
-      <li>Log in to Panorama and navigate to <strong>Panorama &gt; Device Groups</strong>.</li>
-      <li>Click <strong>Add</strong> and configure:
-        <ul>
-          <li><strong>Name</strong> &mdash; e.g., <code>DG-AWS-SECURITY</code> (this is the value used in <code>dgname</code>)</li>
-          <li><strong>Description</strong> &mdash; optional</li>
-        </ul>
-      </li>
-      <li>Click <strong>OK</strong>.</li>
-      <li><strong>Commit</strong> the change to Panorama (<strong>Commit &gt; Commit to Panorama</strong>).</li>
-    </ol>
-    <div class="callout callout-warning">
-      <div class="callout-title">Important</div>
-      <p>The Device Group must exist on Panorama <em>before</em> the firewall attempts to bootstrap. If the firewall cannot find its assigned Device Group, registration will fail.</p>
-    </div>
-  </div>
-</div>
-
-<!-- Prereq 8 -->
-<div class="collapsible">
-  <div class="collapsible-header">
-    <span class="chevron">&#9654;</span>
-    <span id="prereq-template-stack">8. Create a Template Stack on Panorama</span>
-  </div>
-  <div class="collapsible-body">
-    <p><span class="badge" style="background:#3b82f6;color:#fff;padding:2px 8px;border-radius:3px;font-size:0.8rem;font-weight:600;">Panorama only</span></p>
-    <p><strong>Palo Alto Docs:</strong> <a href="https://docs.paloaltonetworks.com/panorama/11-1/panorama-admin/manage-firewalls/manage-templates-and-template-stacks">Manage Templates and Template Stacks</a></p>
-    <p>The Template Stack holds network, device, and system-level configuration pushed to managed firewalls.</p>
-    <ol>
-      <li>In Panorama, navigate to <strong>Panorama &gt; Templates</strong>.</li>
-      <li>Create a base template first (if none exist): click <strong>Add</strong>, name it (e.g., <code>TPL-BASE-AWS</code>), click <strong>OK</strong>.</li>
-      <li>Click <strong>Add Stack</strong> and configure:
-        <ul>
-          <li><strong>Name</strong> &mdash; e.g., <code>STACK-AWS-SECURITY</code> (this is the value used in <code>tplname</code>)</li>
-          <li><strong>Templates</strong> &mdash; add your base template(s) to the stack</li>
-        </ul>
-      </li>
-      <li>Click <strong>OK</strong>, then <strong>Commit to Panorama</strong>.</li>
-    </ol>
-  </div>
-</div>
-
-<!-- Prereq 9 -->
-<div class="collapsible">
-  <div class="collapsible-header">
-    <span class="chevron">&#9654;</span>
-    <span id="prereq-backhaul">9. Establish Backhaul Connectivity to Panorama</span>
-  </div>
-  <div class="collapsible-body">
-    <p><span class="badge" style="background:#3b82f6;color:#fff;padding:2px 8px;border-radius:3px;font-size:0.8rem;font-weight:600;">Panorama only</span></p>
-    <p>The firewall management interfaces must have a network path to Panorama.</p>
-    <h4>If Panorama is on-premises:</h4>
+    <h4>East-West (spoke &harr; spoke)</h4>
     <ul>
-      <li><strong>AWS Direct Connect</strong> &mdash; dedicated private connection from your data center to AWS</li>
-      <li><strong>Point-to-Point VPN (IPsec)</strong> &mdash; site-to-site VPN tunnel to the VPC</li>
+      <li>Same path as outbound through TGW &rarr; GWLB &rarr; firewall</li>
+      <li>Traffic associates with <code>EASTWEST</code> zone (subinterface <code>ethernet1/1.30</code>)</li>
+      <li>Dedicated zone enables explicit east-west security policies</li>
     </ul>
-    <h4>If Panorama is in AWS:</h4>
+  </div>
+</div>
+
+<!-- ================================================================ -->
+<!-- SECTION 2: PREREQUISITES                                         -->
+<!-- ================================================================ -->
+<h2 id="prerequisites">2. Prerequisites</h2>
+
+<ol class="checklist">
+  <li><strong>PAN Licensing</strong> &mdash; Flex (preferred) or BYOL, deployment profile created</li>
+  <li><strong>Panorama</strong> &mdash; Panorama mode or Management-Only mode, deployed in AWS or on-premises</li>
+  <li><strong>Logging</strong> &mdash; Panorama mode logging or Strata Logging Service via Cortex Data Lake</li>
+  <li><strong>AWS Account</strong> &mdash; Admin privileges, SSH key pair, 4 EIPs available</li>
+</ol>
+
+<div class="collapsible">
+  <div class="collapsible-header">
+    <span class="chevron">&#9654;</span>
+    <span>2.1 Palo Alto Networks Licensing</span>
+  </div>
+  <div class="collapsible-body">
+    <p>Two licensing models are supported:</p>
+    <table>
+      <tr><th>Model</th><th>Description</th><th>Recommendation</th></tr>
+      <tr><td><strong>Software NGFW Credits (Flex)</strong></td><td>Credit-based licensing with flexible vCPU allocation. Credits are consumed from a shared pool.</td><td><span class="method-badge" style="background:#22c55e;display:inline-block;margin:0;">Preferred</span></td></tr>
+      <tr><td><strong>BYOL</strong></td><td>Traditional auth-code-based licensing tied to specific VM-Series instances.</td><td>Supported &mdash; use if existing BYOL entitlements are available</td></tr>
+    </table>
     <ul>
-      <li><strong>Transit Gateway (TGW)</strong> &mdash; attach both VPCs and configure route tables</li>
-      <li><strong>VPC Peering</strong> &mdash; direct peering between firewall VPC and Panorama VPC</li>
+      <li>Sufficient credits/licenses for planned VM-Series instances (this guide deploys 2)</li>
+      <li>Deployment profile created in the Customer Support Portal with:
+        <ul>
+          <li>Firewall type: VM-Series</li>
+          <li>vCPU mode: Flexible vCPUs (PAN-OS 10.0.4+)</li>
+          <li>Planned vCPU/Firewall: 4</li>
+          <li>Security Use Cases: Data Center/Cloud Inbound Security, Data Center/Cloud Outbound Security</li>
+        </ul>
+      </li>
     </ul>
-    <div class="callout callout-warning">
-      <div class="callout-title">Important</div>
-      <p>Verify routing end-to-end. The firewall management subnet must have a route to Panorama, and Panorama must have a return route. Test with <code>nc -zv &lt;panorama-ip&gt; 3978</code> from an instance in the firewall management subnet before deploying.</p>
-    </div>
   </div>
 </div>
 
-<!-- Prereq 10 -->
 <div class="collapsible">
   <div class="collapsible-header">
     <span class="chevron">&#9654;</span>
-    <span id="prereq-sg">10. Configure Panorama Security Groups</span>
+    <span>2.2 Panorama</span>
   </div>
   <div class="collapsible-body">
-    <p><span class="badge" style="background:#3b82f6;color:#fff;padding:2px 8px;border-radius:3px;font-size:0.8rem;font-weight:600;">Panorama only</span></p>
-    <p>For the full list of ports, see <a href="https://docs.paloaltonetworks.com/pan-os/11-0/pan-os-admin/firewall-administration/reference-port-number-usage/ports-used-for-panorama">Ports Used for Panorama</a>.</p>
-    <h4>Panorama Communication</h4>
+    <p>Panorama can be deployed in either mode and either location:</p>
     <table>
-      <tr><th>Direction</th><th>Protocol</th><th>Port</th><th>Source / Destination</th><th>Purpose</th></tr>
-      <tr><td>Outbound</td><td>TCP</td><td>3978</td><td>FW mgmt &rarr; Panorama</td><td>Device registration &amp; config sync</td></tr>
-      <tr><td>Outbound</td><td>TCP</td><td>28443</td><td>FW mgmt &rarr; Panorama</td><td>Panorama-to-device communication</td></tr>
-      <tr><td>Inbound</td><td>TCP</td><td>3978</td><td>Panorama &rarr; FW mgmt</td><td>Panorama-initiated connections</td></tr>
-      <tr><td>Inbound</td><td>TCP</td><td>28443</td><td>Panorama &rarr; FW mgmt</td><td>Panorama-initiated connections</td></tr>
+      <tr><th>Setting</th><th>Options</th></tr>
+      <tr><td><strong>Deployment Mode</strong></td><td><strong>Panorama mode</strong> (manages devices + collects logs) or <strong>Management-Only mode</strong> (manages devices only, logs via SLS)</td></tr>
+      <tr><td><strong>Location</strong></td><td><strong>AWS</strong> (dedicated Management VPC, e.g., <code>10.255.0.0/16</code>) or <strong>On-premises</strong> (connected via Direct Connect or VPN)</td></tr>
     </table>
-    <h4>Management Access</h4>
+    <ul>
+      <li>Active/standby configuration recommended for resiliency</li>
+      <li>PAN-OS version on Panorama &ge; VM-Series PAN-OS version</li>
+      <li>Network connectivity from Panorama to Security VPC (via TGW if in AWS, via Direct Connect/VPN if on-premises)</li>
+      <li>Valid Panorama serial number registered in Customer Support Portal</li>
+    </ul>
+    <div class="callout callout-note">
+      <div class="callout-title">Note</div>
+      <p>The deployment mode affects logging. If Panorama is in <strong>Management-Only mode</strong>, Strata Logging Service (SLS) must be enabled for log collection. If Panorama is in <strong>Panorama mode</strong>, it can collect logs directly.</p>
+    </div>
+  </div>
+</div>
+
+<div class="collapsible">
+  <div class="collapsible-header">
+    <span class="chevron">&#9654;</span>
+    <span>2.3 Logging</span>
+  </div>
+  <div class="collapsible-body">
+    <p>Centralized logging is required. Choose one of the following based on your Panorama deployment mode:</p>
     <table>
-      <tr><th>Direction</th><th>Protocol</th><th>Port</th><th>Source / Destination</th><th>Purpose</th></tr>
-      <tr><td>Inbound</td><td>TCP</td><td>443</td><td>Admin workstation &rarr; FW mgmt</td><td>Web UI (HTTPS)</td></tr>
-      <tr><td>Inbound</td><td>TCP</td><td>22</td><td>Admin workstation &rarr; FW mgmt</td><td>SSH access</td></tr>
+      <tr><th>Option</th><th>When to Use</th><th>Requirements</th></tr>
+      <tr><td><strong>Panorama mode logging</strong></td><td>Panorama is deployed in <strong>Panorama mode</strong> (not Management-Only)</td><td>Panorama has sufficient disk/storage for log retention</td></tr>
+      <tr><td><strong>Strata Logging Service (SLS)</strong></td><td>Panorama is in <strong>Management-Only mode</strong>, or cloud-delivered logging is preferred</td><td>SLS activated, Cortex Data Lake instance provisioned with adequate storage, region configured (e.g., United States &mdash; Americas)</td></tr>
     </table>
     <div class="callout callout-note">
       <div class="callout-title">Note</div>
-      <p>Apply these rules to every management subnet across all availability zones. Ensure Panorama-side security groups also allow inbound from firewall management subnets on ports 3978 and 28443.</p>
+      <p>SLS via Cortex Data Lake is recommended for cloud deployments as it provides scalable, cloud-delivered log storage and analytics regardless of Panorama mode.</p>
     </div>
   </div>
 </div>
 
-<!-- ============================================================ -->
-<!-- SECTION: SCM MANAGEMENT PATH                                  -->
-<!-- ============================================================ -->
-<h2 id="prereqs-scm">Prerequisites &mdash; SCM Management Path</h2>
-
-<p>Complete these steps if you are using Strata Cloud Manager to manage your VM-Series firewalls.</p>
-
-<ol class="checklist">
-  <li><a href="#prereq-scm-activate"><strong>11.</strong> Strata Cloud Manager</a> &mdash; provisioned with NGFW Management flag</li>
-  <li><a href="#prereq-sls"><strong>12.</strong> Strata Logging Service</a> &mdash; provisioned</li>
-</ol>
-
-<!-- Prereq 11 -->
 <div class="collapsible">
   <div class="collapsible-header">
     <span class="chevron">&#9654;</span>
-    <span id="prereq-scm-activate">11. Activate Strata Cloud Manager</span>
+    <span>2.4&ndash;2.5 AWS Account &amp; Software Versions</span>
   </div>
   <div class="collapsible-body">
-    <p><span class="badge" style="background:#22c55e;color:#fff;padding:2px 8px;border-radius:3px;font-size:0.8rem;font-weight:600;">SCM only</span></p>
-    <p><strong>Palo Alto Docs:</strong> <a href="https://docs.paloaltonetworks.com/strata-cloud-manager/getting-started/activate-strata-cloud-manager">Activate Strata Cloud Manager</a></p>
-    <p>Strata Cloud Manager (SCM) provides centralized cloud-delivered management for VM-Series firewalls. SCM can be used as an alternative to Panorama for managing your firewall fleet.</p>
-    <ol>
-      <li>Log in to the <a href="https://apps.paloaltonetworks.com">Palo Alto Networks Hub</a>.</li>
-      <li>Navigate to <strong>Strata Cloud Manager</strong> and complete the activation wizard.</li>
-      <li>Ensure the <strong>NGFW Management</strong> flag is enabled in SCM settings.</li>
-    </ol>
-    <div class="callout callout-warning">
-      <div class="callout-title">Warning</div>
-      <p>The NGFW Management flag enablement can take approximately <strong>2 days</strong> after initial request. Plan accordingly and do not wait until the day of deployment to request this.</p>
-    </div>
-  </div>
-</div>
-
-<!-- Prereq 12 -->
-<div class="collapsible">
-  <div class="collapsible-header">
-    <span class="chevron">&#9654;</span>
-    <span id="prereq-sls">12. Activate Strata Logging Service</span>
-  </div>
-  <div class="collapsible-body">
-    <p><span class="badge" style="background:#22c55e;color:#fff;padding:2px 8px;border-radius:3px;font-size:0.8rem;font-weight:600;">SCM only</span></p>
-    <p><strong>Palo Alto Docs:</strong> <a href="https://docs.paloaltonetworks.com/strata-logging-service/getting-started/activate">Activate Strata Logging Service</a></p>
-    <p>Strata Logging Service (SLS) centralizes log collection from VM-Series firewalls and enables cloud-delivered security analytics.</p>
-    <ol>
-      <li>In the <a href="https://apps.paloaltonetworks.com">Palo Alto Networks Hub</a>, navigate to <strong>Strata Logging Service</strong>.</li>
-      <li>Complete the activation process and note your SLS region.</li>
-      <li>Verify the service shows as <strong>Active</strong> in the Hub.</li>
-    </ol>
-  </div>
-</div>
-
-<!-- ============================================================ -->
-<!-- SECTION: AWS & ENVIRONMENT PREREQUISITES                      -->
-<!-- ============================================================ -->
-<h2 id="prereqs-aws">Prerequisites &mdash; AWS &amp; Environment</h2>
-
-<p>Prepare your AWS account, IAM permissions, marketplace subscriptions, and deployment tooling.</p>
-
-<ol class="checklist">
-  <li><a href="#prereq-aws-iam"><strong>13.</strong> AWS Account &amp; IAM</a> &mdash; console and CLI access with sufficient permissions</li>
-  <li><a href="#prereq-iam-account"><strong>14.</strong> Deployment IAM Account</a> &mdash; programmatic access for Terraform</li>
-  <li><a href="#prereq-aws-marketplace"><strong>15.</strong> AWS Marketplace Subscription</a> &mdash; accepted for your license model</li>
-  <li><a href="#prereq-aws-ami"><strong>16.</strong> VM-Series AMI</a> &mdash; identified for your region</li>
-  <li><a href="#prereq-network"><strong>17.</strong> Network Connectivity</a> &mdash; outbound to Panorama and licensing servers</li>
-  <li><a href="#prereq-env"><strong>18.</strong> Deployment Environment</a> &mdash; Terraform, Git, AWS CLI installed</li>
-  <li><a href="#prereq-state"><strong>19.</strong> Remote State Backend</a> &mdash; S3 + DynamoDB for Terraform state</li>
-</ol>
-
-<!-- Prereq 13 -->
-<div class="collapsible">
-  <div class="collapsible-header">
-    <span class="chevron">&#9654;</span>
-    <span id="prereq-aws-iam">13. AWS Account and IAM Prerequisites</span>
-  </div>
-  <div class="collapsible-body">
-    <p>Proper cloud authentication and permissions are critical for Terraform to provision resources.</p>
-    <ol>
-      <li><strong>Console &amp; CLI Authentication</strong> &mdash; Ensure you can authenticate to the AWS account via both the AWS Console and the AWS CLI.</li>
-      <li><strong>IAM Permissions</strong> &mdash; The authenticated user or role must have Admin privileges or an equivalent role capable of creating:
-        <ul>
-          <li>Virtual Private Clouds (VPCs), subnets, route tables</li>
-          <li>EC2 instances, network interfaces, Elastic IPs</li>
-          <li>Load balancers (ALB, NLB, GWLB), GWLB endpoints</li>
-          <li>IAM users, roles, and policies</li>
-          <li>S3 buckets for Terraform state</li>
-          <li>Transit Gateway and TGW attachments</li>
-        </ul>
-      </li>
-    </ol>
-  </div>
-</div>
-
-<!-- Prereq 14 -->
-<div class="collapsible">
-  <div class="collapsible-header">
-    <span class="chevron">&#9654;</span>
-    <span id="prereq-iam-account">14. Create a Deployment IAM Account</span>
-  </div>
-  <div class="collapsible-body">
-    <p>Terraform requires a dedicated programmatic account for provisioning. This account typically requires Administrator or equivalent rights for the initial deployment.</p>
-    <ol>
-      <li>In the AWS Console, navigate to <strong>IAM &gt; Users &gt; Add users</strong>.</li>
-      <li>Set a username (e.g., <code>terraform-pan-deploy</code>).</li>
-      <li>Select <strong>Programmatic access</strong> to generate an Access Key and Secret Key.</li>
-      <li>Attach the <strong>AdministratorAccess</strong> policy (or a scoped policy covering the resources listed above).</li>
-      <li><strong>Copy and securely store</strong> the Access Key ID and Secret Access Key.</li>
-    </ol>
-    <p>Configure credentials for Terraform:</p>
-    <div class="code-block">
-      <pre><code># Option 1: Environment variables (recommended for CI/CD)
-export AWS_ACCESS_KEY_ID="your-access-key"
-export AWS_SECRET_ACCESS_KEY="your-secret-key"
-export AWS_DEFAULT_REGION="us-west-2"
-
-# Option 2: AWS credentials file
-aws configure --profile pan-deploy</code></pre>
-      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-    </div>
-    <div class="callout callout-note">
-      <div class="callout-title">Note</div>
-      <p>This scope can be reviewed and reduced after a successful initial deployment. For production, consider using an IAM role attached to an EC2 instance (Instance Profile) instead of static credentials.</p>
-    </div>
-  </div>
-</div>
-
-<!-- Prereq 15 -->
-<div class="collapsible">
-  <div class="collapsible-header">
-    <span class="chevron">&#9654;</span>
-    <span id="prereq-aws-marketplace">15. Accept the AWS Marketplace Subscription</span>
-  </div>
-  <div class="collapsible-body">
-    <p>You must accept the AWS Marketplace subscription before launching VM-Series instances. This is a one-time action per AWS account per product listing.</p>
-    <h4>Via AWS Console</h4>
-    <ol>
-      <li>Navigate to the VM-Series marketplace listing for your license model:
-        <ul>
-          <li><a href="https://aws.amazon.com/marketplace/pp/prodview-ccnrlwz6ppf2g">VM-Series BYOL</a></li>
-          <li><a href="https://aws.amazon.com/marketplace/pp/prodview-ezv4dt2bfo4v2">VM-Series Bundle 1 (PAYG)</a></li>
-          <li><a href="https://aws.amazon.com/marketplace/pp/prodview-d46mpctnlm2qk">VM-Series Bundle 2 (PAYG)</a></li>
-        </ul>
-      </li>
-      <li>Click <strong>Continue to Subscribe</strong>.</li>
-      <li>Review pricing and click <strong>Accept Terms</strong>.</li>
-    </ol>
-    <h4>Via AWS CLI (check status)</h4>
-    <div class="code-block">
-      <pre><code># Check if you've already accepted the terms for BYOL
-aws ec2 describe-images \
-  --owners aws-marketplace \
-  --filters "Name=product-code,Values=6njl1pau431dv1qxipg63mvah" \
-  --query 'Images[0].ImageId' \
-  --output text \
-  --region us-west-2</code></pre>
-      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-    </div>
-    <div class="callout callout-note">
-      <div class="callout-title">Note</div>
-      <p>If the CLI returns an image ID, your subscription is active. If it returns <code>None</code> or an error, accept the terms via the console links above. AWS Marketplace subscriptions cannot be accepted via the CLI.</p>
-    </div>
-  </div>
-</div>
-
-<!-- Prereq 16 -->
-<div class="collapsible">
-  <div class="collapsible-header">
-    <span class="chevron">&#9654;</span>
-    <span id="prereq-aws-ami">16. Discover the VM-Series AMI</span>
-  </div>
-  <div class="collapsible-body">
-    <p>Find the latest VM-Series image for your target region:</p>
-    <div class="code-block">
-      <pre><code># List available VM-Series BYOL AMIs in us-west-2
-aws ec2 describe-images \
-  --owners aws-marketplace \
-  --filters "Name=product-code,Values=6njl1pau431dv1qxipg63mvah" \
-             "Name=state,Values=available" \
-  --query 'Images | sort_by(@, &amp;CreationDate) | [-5:].{Name:Name, ImageId:ImageId, Created:CreationDate}' \
-  --output table \
-  --region us-west-2
-
-# For PAYG (bundle2) images, use product code: hd44w1chf26uv4p52cdynb2o</code></pre>
-      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-    </div>
+    <h4>AWS Account &amp; Permissions</h4>
+    <ul>
+      <li>Active AWS subscription with privileges for: VPCs, subnets, IGWs, TGW, GWLB, EC2 instances, ENIs, EIPs, IAM, security groups, route tables</li>
+      <li>AWS CLI configured with appropriate credentials</li>
+      <li>SSH key pair created in the target region</li>
+      <li>4 Elastic IP addresses available in the target region</li>
+      <li>Tested in <strong>US West (Oregon)</strong> / <code>us-west-2</code></li>
+    </ul>
+    <h4>Software Versions</h4>
     <table>
-      <tr><th>License Model</th><th>Product Code</th></tr>
-      <tr><td>BYOL</td><td><code>6njl1pau431dv1qxipg63mvah</code></td></tr>
-      <tr><td>Bundle 1 (PAYG)</td><td><code>e9yfvyj3uag5uo5j2hjikv74n</code></td></tr>
-      <tr><td>Bundle 2 (PAYG)</td><td><code>hd44w1chf26uv4p52cdynb2o</code></td></tr>
+      <tr><th>Component</th><th>Version</th></tr>
+      <tr><td>PAN-OS (VM-Series)</td><td>10.2.10-h9</td></tr>
+      <tr><td>Panorama Cloud Services plugin</td><td>4.1.0-h20</td></tr>
+      <tr><td>Panorama AWS plugin</td><td>5.3.1</td></tr>
     </table>
   </div>
 </div>
 
-<!-- Prereq 17 -->
+<!-- ================================================================ -->
+<!-- SECTION 3: PANORAMA CONFIGURATION                                -->
+<!-- ================================================================ -->
+<h2 id="section-3">3. Panorama Configuration</h2>
+
+<p>Complete <strong>all</strong> Panorama configuration before deploying any AWS infrastructure. The VM-Series firewalls will bootstrap and auto-register with Panorama, pulling their configuration automatically.</p>
+
+<!-- 3.1 Templates -->
 <div class="collapsible">
   <div class="collapsible-header">
     <span class="chevron">&#9654;</span>
-    <span id="prereq-network">17. Verify Network Connectivity</span>
+    <span>3.1 Templates &mdash; Layered Model</span>
   </div>
   <div class="collapsible-body">
-    <p>The firewall management interface requires outbound access to the following:</p>
+    <p>Templates use a <strong>layered numbering model</strong> where each template serves a specific purpose. The numeric prefix controls merge priority in template stacks &mdash; lower numbers are overridden by higher numbers. Templates must be created before template stacks and device groups.</p>
     <table>
-      <tr><th>Destination</th><th>Port</th><th>Purpose</th></tr>
-      <tr><td>Panorama management IP</td><td>TCP 3978, 28443</td><td>Device registration and management</td></tr>
-      <tr><td><code>updates.paloaltonetworks.com</code></td><td>TCP 443</td><td>License activation and device certificate retrieval</td></tr>
-      <tr><td>DNS resolver</td><td>UDP 53</td><td>DNS resolution</td></tr>
-      <tr><td>Strata Logging Service endpoint</td><td>TCP 443</td><td>Log forwarding (if using SLS)</td></tr>
+      <tr><th>#</th><th>Template</th><th>Purpose</th></tr>
+      <tr><td>1</td><td><code>1-TPL-AWS-REGIONAL-USW2</code></td><td>Regional settings &mdash; TACACS+, RADIUS, log collectors specific to us-west-2</td></tr>
+      <tr><td>2</td><td><code>2-TPL-AWS-GLOBAL-COMMON-BASELINE</code></td><td>Global baseline &mdash; DNS, NTP, time zone, banners, Panorama servers, logging, Cortex Data Lake</td></tr>
+      <tr><td>3</td><td><code>3-TPL-AWS-ADMINS-BASELINE</code></td><td>Admin accounts &mdash; local admin users, SSH keys, authentication profiles</td></tr>
+      <tr><td>4</td><td><code>4-TPL-AWS-GWLB-OVRLY-COMBINED</code></td><td>Network settings &mdash; interfaces, zones, virtual router, static routes, management profiles</td></tr>
+    </table>
+    <div class="callout callout-note">
+      <div class="callout-title">Naming Convention</div>
+      <p><code>&lt;priority&gt;-TPL-&lt;cloud&gt;-&lt;scope&gt;</code> &mdash; the numeric prefix ensures consistent merge order. Template 4 varies based on routing model (overlay vs non-overlay) &mdash; see the routing model discussion below.</p>
+    </div>
+
+    <h4>Overlay Routing vs Non-Overlay Routing</h4>
+    <p>The network template (position 4) differs based on your chosen routing model. This is the most important architectural decision in the deployment &mdash; it affects how outbound internet traffic egresses the environment and how much operational control you have over NAT.</p>
+    <p><strong>Overlay routing</strong> uses the firewall&rsquo;s public interface (<code>ethernet1/2</code>) for outbound internet traffic. The firewall performs source NAT on <code>ethernet1/2</code>, and the associated EIP provides the public IP. This gives you full control over NAT, egress IPs, and outbound security policy &mdash; all traffic is inspected and NATed by the firewall.</p>
+    <p><strong>Non-overlay routing</strong> uses AWS NAT Gateways for outbound internet traffic. Traffic is inspected by the firewall but returns to the VPC via GWLB, and the NAT Gateway handles the actual internet egress. This simplifies the firewall configuration (no public interface routing needed) but adds NAT Gateway cost and removes direct control over egress IPs.</p>
+    <p><strong>Quick Reference &mdash; Requirements at a Glance:</strong></p>
+    <table>
+      <tr><th>Model</th><th>Static Routes</th><th>Variables</th><th>NAT Policy</th><th>NAT GW</th><th>Outbound Endpoint</th><th>Public Interface</th><th>EIP</th><th>Stack per AZ</th><th>Complexity</th><th>Cost Model</th></tr>
+      <tr><td>Non-Overlay</td><td>No</td><td>No</td><td>Yes (mgmt + egress)</td><td>Yes</td><td>No</td><td>No</td><td>No</td><td>No</td><td>Simple</td><td>Per NAT GW</td></tr>
+      <tr><td>Overlay</td><td>Yes</td><td>Yes</td><td>Yes (mgmt only)</td><td>Optional</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Advanced</td><td>Egress IGW (FW NAT)</td></tr>
+    </table>
+    <p><strong>Detailed Comparison:</strong></p>
+    <table>
+      <tr><th></th><th>Non-Overlay</th><th>Overlay (Recommended)</th></tr>
+      <tr><td><strong>Template</strong></td><td><code>4-TPL-AWS-GWLB-NON-OVRLY-BASELINE</code></td><td><code>4-TPL-AWS-GWLB-OVRLY-COMBINED</code></td></tr>
+      <tr><td><strong>Static routes required</strong></td><td>No</td><td>Yes</td></tr>
+      <tr><td><strong>Variables required</strong></td><td>No</td><td>Yes (<code>$INTERNAL-GW</code>, <code>$EXTERNAL-GW</code>)</td></tr>
+      <tr><td><strong>NAT policy required</strong></td><td>No</td><td>Yes (DIPP on <code>ethernet1/2</code>)</td></tr>
+      <tr><td><strong>NAT Gateway required</strong></td><td>Yes &mdash; for management interface <strong>and</strong> egress</td><td>Yes &mdash; for management interface only</td></tr>
+      <tr><td><strong>Outbound endpoint required</strong></td><td>Yes</td><td>Optional &mdash; for traffic segmentation</td></tr>
+      <tr><td><strong>Public interface required</strong></td><td>No (recommended to keep &mdash; see note below)</td><td>Yes (<code>ethernet1/2</code>)</td></tr>
+      <tr><td><strong>EIP required</strong></td><td>No</td><td>Yes (per firewall public interface)</td></tr>
+      <tr><td><strong>Template stack per AZ</strong></td><td>No</td><td>Yes</td></tr>
+      <tr><td><strong>Zones</strong></td><td>5 base zones (per-spoke zones can be added)</td><td>5 base zones + per-spoke zones (<code>APP1</code>, <code>APP2</code>, <code>APP3</code>)</td></tr>
+      <tr><td><strong>Configuration complexity</strong></td><td>Simple</td><td>Advanced</td></tr>
+      <tr><td><strong>Cost</strong></td><td>Per NAT Gateway &mdash; data processing charges per GB of egress</td><td>Egress via IGW &mdash; NAT on each firewall interface (no per-GB charge)</td></tr>
     </table>
     <div class="callout callout-warning">
       <div class="callout-title">Important</div>
-      <p>If the management subnet is private (no IGW), ensure a NAT Gateway or VPC endpoint is available for outbound HTTPS to <code>updates.paloaltonetworks.com</code>. Without this, license activation and device certificate retrieval will fail.</p>
-    </div>
-  </div>
-</div>
-
-<!-- Prereq 18 -->
-<div class="collapsible">
-  <div class="collapsible-header">
-    <span class="chevron">&#9654;</span>
-    <span id="prereq-env">18. Set Up the Deployment Environment</span>
-  </div>
-  <div class="collapsible-body">
-    <p>Install the required tooling on your deployment machine.</p>
-    <h4>Required Tools</h4>
-    <table>
-      <tr><th>Tool</th><th>Purpose</th><th>Install</th></tr>
-      <tr><td>Terraform CLI</td><td>Infrastructure provisioning</td><td><a href="https://www.terraform.io/downloads">terraform.io/downloads</a></td></tr>
-      <tr><td>Git</td><td>Source code management</td><td><a href="https://git-scm.com/downloads">git-scm.com</a></td></tr>
-      <tr><td>AWS CLI</td><td>AWS service management</td><td><a href="https://aws.amazon.com/cli/">aws.amazon.com/cli</a></td></tr>
-      <tr><td>Code editor</td><td>Configuration editing</td><td><a href="https://code.visualstudio.com/">VS Code</a> (recommended)</td></tr>
-    </table>
-    <h4>AWS CloudShell (Easiest Method)</h4>
-    <p>CloudShell automatically assumes the IAM permissions of the authenticated console user.</p>
-    <ol>
-      <li>Open CloudShell from the AWS Console.</li>
-      <li>Install Terraform:
-        <div class="code-block">
-          <pre><code>sudo yum install -y yum-utils
-sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
-sudo yum -y install terraform</code></pre>
-          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-        </div>
-      </li>
-      <li>Clone your Terraform repository:
-        <div class="code-block">
-          <pre><code>git clone https://your-repo-url.git
-cd your-repo-directory</code></pre>
-          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-        </div>
-      </li>
-    </ol>
-    <h4>Local or Bastion Host</h4>
-    <ol>
-      <li>Install Terraform, Git, and AWS CLI using the links above.</li>
-      <li>Configure AWS credentials (see <a href="#prereq-iam-account">step 14</a>).</li>
-      <li>Verify connectivity:
-        <div class="code-block">
-          <pre><code>aws sts get-caller-identity
-terraform -v</code></pre>
-          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-        </div>
-      </li>
-    </ol>
-  </div>
-</div>
-
-<!-- Prereq 19 -->
-<div class="collapsible">
-  <div class="collapsible-header">
-    <span class="chevron">&#9654;</span>
-    <span id="prereq-state">19. Configure Remote State Backend</span>
-  </div>
-  <div class="collapsible-body">
-    <p>A remote state backend is critical for team collaboration and state locking. For AWS, use an S3 bucket with a DynamoDB table.</p>
-    <h4>Create the Backend Resources</h4>
-    <ol>
-      <li>Create an S3 bucket with versioning:
-        <div class="code-block">
-          <pre><code>aws s3api create-bucket \
-  --bucket pan-tf-state-bucket \
-  --region us-west-2 \
-  --create-bucket-configuration LocationConstraint=us-west-2
-
-aws s3api put-bucket-versioning \
-  --bucket pan-tf-state-bucket \
-  --versioning-configuration Status=Enabled</code></pre>
-          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-        </div>
-      </li>
-      <li>Create a DynamoDB table for state locking:
-        <div class="code-block">
-          <pre><code>aws dynamodb create-table \
-  --table-name pan-tf-statelocks \
-  --attribute-definitions AttributeName=LockID,AttributeType=S \
-  --key-schema AttributeName=LockID,KeyType=HASH \
-  --billing-mode PAY_PER_REQUEST \
-  --region us-west-2</code></pre>
-          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-        </div>
-      </li>
-    </ol>
-    <h4>Add Backend Configuration</h4>
-    <p>Create or update <code>backend.tf</code>:</p>
-    <div class="code-block">
-      <pre><code>terraform {
-  backend "s3" {
-    bucket         = "pan-tf-state-bucket"
-    key            = "pan-vmseries/aws/terraform.tfstate"
-    region         = "us-west-2"
-    dynamodb_table = "pan-tf-statelocks"
-    encrypt        = true
-  }
-}</code></pre>
-      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+      <p>Even in a non-overlay deployment, it is <strong>strongly recommended</strong> to keep <code>ethernet1/2</code> and the public subnet provisioned on each firewall. If the decision is made later to migrate to overlay routing, having the interface and subnet already in place avoids redeploying the firewalls and restructuring the VPC. The additional cost of an unused subnet and ENI is negligible compared to a redeployment.</p>
     </div>
     <div class="callout callout-note">
       <div class="callout-title">Note</div>
-      <p>The S3 bucket and DynamoDB table must exist before running <code>terraform init</code>. Replace the bucket name, key path, and region with your organization&rsquo;s values.</p>
+      <p>Per-spoke zones (<code>APP1</code>, <code>APP2</code>, <code>APP3</code>) can be used with <strong>either</strong> routing model. The zoning architecture is independent of the overlay/non-overlay decision. Per-spoke zones provide granular policy control regardless of how outbound NAT is handled.</p>
+    </div>
+    <div class="callout callout-note">
+      <div class="callout-title">Note</div>
+      <p>This guide uses the <strong>overlay combined</strong> model (<code>4-TPL-AWS-GWLB-OVRLY-COMBINED</code>) as the primary configuration. The AWS infrastructure deployment steps differ slightly between models &mdash; this will be covered in Section 4.</p>
+    </div>
+
+    <h4>3.1.1 Regional Template &mdash; <code>1-TPL-AWS-REGIONAL-USW2</code></h4>
+    <p>Regional settings specific to the us-west-2 deployment. Configure regional RADIUS/TACACS+ server profiles and log collector addresses here.</p>
+    <table>
+      <tr><th>Setting</th><th>Value</th></tr>
+      <tr><td>Description</td><td><code>US-WEST-REGIONAL-TEMPLATE-FOR-REGIONAL-TACACS-AND-LOG-COLLECTORS</code></td></tr>
+    </table>
+
+    <h4>3.1.2 Global Baseline Template &mdash; <code>2-TPL-AWS-GLOBAL-COMMON-BASELINE</code></h4>
+    <p>Common settings shared across all AWS VM-Series deployments regardless of region.</p>
+    <table>
+      <tr><th>Category</th><th>Setting</th><th>Value</th></tr>
+      <tr><td>Services</td><td>Primary DNS Server</td><td><code>8.8.8.8</code></td></tr>
+      <tr><td>Services</td><td>Secondary DNS Server</td><td><code>8.8.4.4</code></td></tr>
+      <tr><td>NTP</td><td>Primary / Secondary</td><td><code>0.pool.ntp.org</code> / <code>1.pool.ntp.org</code></td></tr>
+      <tr><td>General</td><td>Time Zone</td><td>UTC</td></tr>
+      <tr><td>General</td><td>Login Banner</td><td>Custom login warning banner</td></tr>
+      <tr><td>General</td><td>Domain</td><td><code>variable.com</code> (adjust to your domain)</td></tr>
+      <tr><td>Panorama Servers</td><td>Primary</td><td><code>10.255.247.51</code> (adjust to your Panorama IP)</td></tr>
+      <tr><td>Panorama Servers</td><td>Secondary</td><td><code>10.255.247.151</code> (adjust to your Panorama IP)</td></tr>
+      <tr><td>Content-ID</td><td>X-Forwarded-For Headers</td><td>Checked</td></tr>
+      <tr><td>Log Settings</td><td>System / Configuration / User-ID / IP-Tag</td><td>Forward to Panorama</td></tr>
+      <tr><td>WildFire</td><td>Report Benign / Grayware Files</td><td>Enabled</td></tr>
+      <tr><td>Cortex Data Lake</td><td>Enable</td><td>Checked, Enhanced App Logging, Americas</td></tr>
+    </table>
+
+    <h4>3.1.3 Admin Accounts Template &mdash; <code>3-TPL-AWS-ADMINS-BASELINE</code></h4>
+    <p>Local administrator accounts and authentication. Separating admin accounts into their own template allows different admin sets per deployment without modifying the baseline.</p>
+    <table>
+      <tr><th>Setting</th><th>Value</th></tr>
+      <tr><td>Description</td><td><code>ADMIN ACCOUNTS, LDAP, RADIUS</code></td></tr>
+    </table>
+    <p>Configure local admin users with superuser role or custom RBAC role, SSH public key authentication (recommended), and strong passwords.</p>
+
+    <h4>3.1.4 Network Template</h4>
+    <p>The network template name depends on your routing model:</p>
+    <ul>
+      <li><strong>Non-overlay:</strong> <code>4-TPL-AWS-GWLB-NON-OVRLY-BASELINE</code></li>
+      <li><strong>Overlay:</strong> <code>4-TPL-AWS-GWLB-OVRLY-COMBINED</code></li>
+    </ul>
+    <p>This template contains all network-layer configuration: management profiles, virtual router, zones, interfaces, and (for overlay) static routes. The configuration order matters &mdash; create objects in the sequence below so that dependencies are available when needed.</p>
+
+    <h5>Common Configuration (Both Models)</h5>
+    <p>The following steps are identical regardless of routing model.</p>
+
+    <p><strong>Step 1: Management Profiles</strong></p>
+    <p>Create interface management profiles for health checks and diagnostics. These must exist before they can be assigned to interfaces.</p>
+    <table>
+      <tr><th>Profile Name</th><th>Services</th><th>Permitted IPs</th></tr>
+      <tr><td><code>AWS-HEALTH-CHECKS</code></td><td>HTTP, HTTPS</td><td>GWLB subnet for all AZs (e.g., <code>10.103.0.48/28</code>, <code>10.103.1.48/28</code>, <code>10.103.2.48/28</code>, <code>10.103.3.48/28</code>)</td></tr>
+      <tr><td><code>PUBLIC-PING</code></td><td>Ping</td><td>Trusted admin IPs</td></tr>
+      <tr><td><code>INTERNAL-PING</code></td><td>Ping</td><td><code>10.0.0.0/8</code>, <code>172.16.0.0/12</code>, <code>192.168.0.0/16</code></td></tr>
+    </table>
+    <p>Navigate to <strong>Network &gt; Network Profiles &gt; Interface Mgmt &gt; Add</strong> for each profile.</p>
+    <div class="callout callout-note">
+      <div class="callout-title">Note</div>
+      <p>The permitted IPs for <code>AWS-HEALTH-CHECKS</code> are the GWLB subnets &mdash; one per AZ. The GWLB sends health probes to the firewall's <code>ethernet1/1</code> interface, so the management profile must allow those source IPs. Adjust these CIDRs to match your GWLB subnet allocation if using custom subnetting.</p>
+    </div>
+
+    <p><strong>Step 2: Virtual Router</strong></p>
+    <p>Create the virtual router without any static routes. For overlay routing, routes are added after interfaces are configured.</p>
+    <table>
+      <tr><th>Setting</th><th>Value</th></tr>
+      <tr><td>Name</td><td><code>AWS-VR</code></td></tr>
+    </table>
+    <p>Navigate to <strong>Network &gt; Virtual Routers &gt; Add</strong>. Leave the static routes empty.</p>
+
+    <p><strong>Step 3: Zones</strong></p>
+    <p>Create all zones before configuring interfaces. Zones must exist so they can be selected during interface configuration.</p>
+    <table>
+      <tr><th>Zone</th><th>Type</th><th>Traffic Type</th></tr>
+      <tr><td><code>GWLB</code></td><td>Layer3</td><td>Health probes from GWLB subnets, untagged traffic</td></tr>
+      <tr><td><code>INBOUND</code></td><td>Layer3</td><td>Inbound traffic from internet &rarr; spoke VPCs</td></tr>
+      <tr><td><code>APP1</code></td><td>Layer3</td><td>Overlay-mapped traffic for APP1 spoke VPC</td></tr>
+      <tr><td><code>APP2</code></td><td>Layer3</td><td>Overlay-mapped traffic for APP2 spoke VPC</td></tr>
+      <tr><td><code>APP3</code></td><td>Layer3</td><td>Overlay-mapped traffic for APP3 spoke VPC</td></tr>
+      <tr><td><code>OUTBOUND</code></td><td>Layer3</td><td>Outbound traffic from spoke VPCs &rarr; internet</td></tr>
+      <tr><td><code>EASTWEST</code></td><td>Layer3</td><td>Inter-VPC traffic (spoke &harr; spoke)</td></tr>
+      <tr><td><code>PUBLIC-INTERNET</code></td><td>Layer3</td><td>Internet-facing interface for outbound NAT</td></tr>
+    </table>
+    <p>Navigate to <strong>Network &gt; Zones &gt; Add</strong> for each zone.</p>
+    <div class="callout callout-note">
+      <div class="callout-title">Note</div>
+      <p>Per-spoke zones (<code>APP1</code>, <code>APP2</code>, <code>APP3</code>) can be used with either routing model for granular policy control. If not needed, they can be omitted &mdash; traffic is then classified by direction only (INBOUND/OUTBOUND/EASTWEST).</p>
+    </div>
+
+    <hr>
+    <p>Complete <strong>one</strong> of the following sections based on your chosen routing model:</p>
+
+    <!-- Non-Overlay Routing -->
+    <div class="collapsible">
+      <div class="collapsible-header">
+        <span class="chevron">&#9654;</span>
+        <span>Non-Overlay: Interfaces and Routing</span>
+      </div>
+      <div class="collapsible-body">
+        <p><strong>Template:</strong> <code>4-TPL-AWS-GWLB-NON-OVRLY-BASELINE</code></p>
+        <p>Configure interfaces in order: parent interface first, then subinterfaces. In non-overlay mode, <code>ethernet1/1</code> uses the DHCP-provided default route for all traffic &mdash; the AWS NAT Gateway handles internet egress.</p>
+
+        <p><strong><code>ethernet1/1</code> (private dataplane):</strong></p>
+        <table>
+          <tr><th>Setting</th><th>Value</th></tr>
+          <tr><td>Interface Type</td><td>Layer3</td></tr>
+          <tr><td>Zone</td><td><code>GWLB</code></td></tr>
+          <tr><td>Virtual Router</td><td><code>AWS-VR</code></td></tr>
+          <tr><td>IPv4 Type</td><td>DHCP Client</td></tr>
+          <tr><td>Enable</td><td>Checked</td></tr>
+          <tr><td>Automatically create default route</td><td><strong>Checked</strong></td></tr>
+          <tr><td>Management Profile</td><td><code>AWS-HEALTH-CHECKS</code></td></tr>
+        </table>
+        <p><em>Your screen should look like this:</em></p>
+        <img src="source-docs/non-overlay-eth1:1.png" alt="ethernet1/1 non-overlay configuration — DHCP with auto default route checked" loading="lazy">
+        <div class="callout callout-warning">
+          <div class="callout-title">Key Difference</div>
+          <p>In non-overlay mode, the &ldquo;Automatically create default route pointing to default gateway provided by server&rdquo; box is <strong>checked</strong> on <code>ethernet1/1</code>. This DHCP-provided default route directs all traffic to the VPC router, which forwards internet-bound traffic to the NAT Gateway.</p>
+        </div>
+
+        <p><strong><code>ethernet1/2</code> (public dataplane &mdash; recommended to keep provisioned):</strong></p>
+        <table>
+          <tr><th>Setting</th><th>Value</th></tr>
+          <tr><td>Interface Type</td><td>Layer3</td></tr>
+          <tr><td>Zone</td><td><code>PUBLIC-INTERNET</code></td></tr>
+          <tr><td>Virtual Router</td><td><code>AWS-VR</code></td></tr>
+          <tr><td>IPv4 Type</td><td>DHCP Client</td></tr>
+          <tr><td>Enable</td><td>Checked</td></tr>
+          <tr><td>Automatically create default route</td><td><strong>Checked</strong></td></tr>
+          <tr><td>Management Profile</td><td>None</td></tr>
+        </table>
+        <div class="callout callout-note">
+          <div class="callout-title">Note</div>
+          <p>Even though non-overlay does not use <code>ethernet1/2</code> for outbound NAT, it is recommended to keep it provisioned to future-proof for overlay migration.</p>
+        </div>
+
+        <p><strong>Subinterfaces:</strong></p>
+        <p>All subinterfaces use DHCP with &ldquo;Automatically create default route&rdquo; <strong>cleared</strong>.</p>
+        <table>
+          <tr><th>Interface</th><th>VLAN Tag</th><th>Zone</th><th>Virtual Router</th><th>DHCP</th><th>Auto Default Route</th></tr>
+          <tr><td><code>ethernet1/1.10</code></td><td>10</td><td><code>INBOUND</code></td><td><code>AWS-VR</code></td><td>Yes</td><td><strong>No</strong> (cleared)</td></tr>
+          <tr><td><code>ethernet1/1.11</code></td><td>11</td><td><code>APP1</code></td><td><code>AWS-VR</code></td><td>Yes</td><td><strong>No</strong> (cleared)</td></tr>
+          <tr><td><code>ethernet1/1.12</code></td><td>12</td><td><code>APP2</code></td><td><code>AWS-VR</code></td><td>Yes</td><td><strong>No</strong> (cleared)</td></tr>
+          <tr><td><code>ethernet1/1.13</code></td><td>13</td><td><code>APP3</code></td><td><code>AWS-VR</code></td><td>Yes</td><td><strong>No</strong> (cleared)</td></tr>
+          <tr><td><code>ethernet1/1.20</code></td><td>20</td><td><code>OUTBOUND</code></td><td><code>AWS-VR</code></td><td>Yes</td><td><strong>No</strong> (cleared)</td></tr>
+          <tr><td><code>ethernet1/1.30</code></td><td>30</td><td><code>EASTWEST</code></td><td><code>AWS-VR</code></td><td>Yes</td><td><strong>No</strong> (cleared)</td></tr>
+        </table>
+        <div class="callout callout-note">
+          <div class="callout-title">Note</div>
+          <p>No static routes are needed. The DHCP default route on <code>ethernet1/1</code> handles all routing. The network template configuration is complete.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Overlay Routing -->
+    <div class="collapsible">
+      <div class="collapsible-header">
+        <span class="chevron">&#9654;</span>
+        <span>Overlay: Interfaces, Routing, and Static Routes</span>
+      </div>
+      <div class="collapsible-body">
+        <p><strong>Template:</strong> <code>4-TPL-AWS-GWLB-OVRLY-COMBINED</code></p>
+        <p>Configure interfaces in order: parent interfaces first, then subinterfaces. In overlay mode, <code>ethernet1/1</code> does <strong>not</strong> use the DHCP default route &mdash; explicit static routes control all traffic forwarding.</p>
+
+        <p><strong><code>ethernet1/1</code> (private dataplane):</strong></p>
+        <table>
+          <tr><th>Setting</th><th>Value</th></tr>
+          <tr><td>Interface Type</td><td>Layer3</td></tr>
+          <tr><td>Zone</td><td><code>GWLB</code></td></tr>
+          <tr><td>Virtual Router</td><td><code>AWS-VR</code></td></tr>
+          <tr><td>IPv4 Type</td><td>DHCP Client</td></tr>
+          <tr><td>Enable</td><td>Checked</td></tr>
+          <tr><td>Automatically create default route</td><td><strong>Cleared</strong></td></tr>
+          <tr><td>Management Profile</td><td><code>AWS-HEALTH-CHECKS</code></td></tr>
+        </table>
+        <div class="callout callout-warning">
+          <div class="callout-title">Key Difference</div>
+          <p>In overlay mode, the &ldquo;Automatically create default route&rdquo; box is <strong>cleared</strong> on <code>ethernet1/1</code>. Static routes (configured below) explicitly control traffic forwarding instead.</p>
+        </div>
+
+        <p><strong><code>ethernet1/2</code> (public dataplane):</strong></p>
+        <table>
+          <tr><th>Setting</th><th>Value</th></tr>
+          <tr><td>Interface Type</td><td>Layer3</td></tr>
+          <tr><td>Zone</td><td><code>PUBLIC-INTERNET</code></td></tr>
+          <tr><td>Virtual Router</td><td><code>AWS-VR</code></td></tr>
+          <tr><td>IPv4 Type</td><td>DHCP Client</td></tr>
+          <tr><td>Enable</td><td>Checked</td></tr>
+          <tr><td>Automatically create default route</td><td><strong>Checked</strong></td></tr>
+          <tr><td>Management Profile</td><td>None</td></tr>
+        </table>
+
+        <p><strong>Subinterfaces:</strong></p>
+        <p>All subinterfaces use DHCP with &ldquo;Automatically create default route&rdquo; <strong>cleared</strong>.</p>
+        <table>
+          <tr><th>Interface</th><th>VLAN Tag</th><th>Zone</th><th>Virtual Router</th><th>DHCP</th><th>Auto Default Route</th></tr>
+          <tr><td><code>ethernet1/1.10</code></td><td>10</td><td><code>INBOUND</code></td><td><code>AWS-VR</code></td><td>Yes</td><td><strong>No</strong> (cleared)</td></tr>
+          <tr><td><code>ethernet1/1.11</code></td><td>11</td><td><code>APP1</code></td><td><code>AWS-VR</code></td><td>Yes</td><td><strong>No</strong> (cleared)</td></tr>
+          <tr><td><code>ethernet1/1.12</code></td><td>12</td><td><code>APP2</code></td><td><code>AWS-VR</code></td><td>Yes</td><td><strong>No</strong> (cleared)</td></tr>
+          <tr><td><code>ethernet1/1.13</code></td><td>13</td><td><code>APP3</code></td><td><code>AWS-VR</code></td><td>Yes</td><td><strong>No</strong> (cleared)</td></tr>
+          <tr><td><code>ethernet1/1.20</code></td><td>20</td><td><code>OUTBOUND</code></td><td><code>AWS-VR</code></td><td>Yes</td><td><strong>No</strong> (cleared)</td></tr>
+          <tr><td><code>ethernet1/1.30</code></td><td>30</td><td><code>EASTWEST</code></td><td><code>AWS-VR</code></td><td>Yes</td><td><strong>No</strong> (cleared)</td></tr>
+        </table>
+
+        <p><strong>Static Routes:</strong></p>
+        <p>Return to the virtual router <code>AWS-VR</code> and add static routes using <strong>template variables</strong> for the next-hop gateways (overridden per template stack):</p>
+        <table>
+          <tr><th>Route Name</th><th>Destination</th><th>Interface</th><th>Next Hop</th></tr>
+          <tr><td><code>RFC-1918-10</code></td><td><code>10.0.0.0/8</code></td><td><code>ethernet1/1</code></td><td><code>$INTERNAL-GW</code></td></tr>
+          <tr><td><code>RFC-1918-172</code></td><td><code>172.16.0.0/12</code></td><td><code>ethernet1/1</code></td><td><code>$INTERNAL-GW</code></td></tr>
+          <tr><td><code>RFC-1918-192</code></td><td><code>192.168.0.0/16</code></td><td><code>ethernet1/1</code></td><td><code>$INTERNAL-GW</code></td></tr>
+          <tr><td><code>DEFAULT</code></td><td><code>0.0.0.0/0</code></td><td><code>ethernet1/2</code></td><td><code>$EXTERNAL-GW</code></td></tr>
+        </table>
+        <p>Navigate to <strong>Network &gt; Virtual Routers &gt; AWS-VR &gt; Static Routes &gt; Add</strong> for each route.</p>
+
+        <p><strong>Template Variables:</strong></p>
+        <table>
+          <tr><th>Variable</th><th>Type</th><th>Default Value</th><th>Purpose</th></tr>
+          <tr><td><code>$INTERNAL-GW</code></td><td>IP Netmask</td><td><code>1.1.1.1</code></td><td>Private dataplane subnet gateway (overridden per AZ in template stack)</td></tr>
+          <tr><td><code>$EXTERNAL-GW</code></td><td>IP Netmask</td><td><code>1.1.1.1</code></td><td>Public dataplane subnet gateway (overridden per AZ in template stack)</td></tr>
+        </table>
+        <p>To create variables: when entering the next hop, select <strong>New Variable</strong>, name it <code>$INTERNAL-GW</code> or <code>$EXTERNAL-GW</code>, Type = IP Netmask, set default value.</p>
+        <div class="callout callout-note">
+          <div class="callout-title">Note</div>
+          <p>The RFC 1918 summary routes direct all private traffic through the private dataplane interface (<code>ethernet1/1</code>) toward the TGW. The default route directs internet-bound traffic through the public interface (<code>ethernet1/2</code>). Variable defaults are placeholders &mdash; actual gateway IPs are set per-AZ in the template stacks.</p>
+        </div>
+      </div>
+    </div>
+
+    <p>Commit to Panorama after configuring all templates.</p>
+    <div class="callout callout-note">
+      <div class="callout-title">Note</div>
+      <p>Zone protection profiles are provided by the <strong>Iron Skillet</strong> best-practice template and do not need to be manually configured here.</p>
     </div>
   </div>
 </div>
 
-<!-- ============================================================ -->
-<!-- PLACEHOLDER: DEPLOYMENT SECTIONS                              -->
-<!-- ============================================================ -->
-<h2 id="panorama-deployment">Panorama Deployment</h2>
-<div class="callout callout-note">
-  <div class="callout-title">Coming Soon</div>
-  <p>This section will cover deploying Panorama in AWS, including HA pair configuration across availability zones, SLS integration, and AWS plugin setup.</p>
+<!-- 3.2 Template Stacks -->
+<div class="collapsible">
+  <div class="collapsible-header">
+    <span class="chevron">&#9654;</span>
+    <span>3.2 Template Stacks</span>
+  </div>
+  <div class="collapsible-body">
+    <p>Create one template stack per availability zone, combining all 4 templates and overriding the gateway variables with AZ-specific IPs:</p>
+    <table>
+      <tr><th>Template Stack</th><th>Description</th><th>Included Templates (priority order)</th><th>Variable Overrides</th></tr>
+      <tr><td><code>STK-AWS-PRD-USW2-AZ-A</code></td><td>AWS-COMBINED-AZ-A</td><td><code>1-TPL-AWS-REGIONAL-USW2</code>, <code>2-TPL-AWS-GLOBAL-COMMON-BASELINE</code>, <code>3-TPL-AWS-ADMINS-BASELINE</code>, <code>4-TPL-AWS-GWLB-OVRLY-COMBINED</code></td><td><code>$INTERNAL-GW</code> = <code>10.103.0.65</code>, <code>$EXTERNAL-GW</code> = <code>10.103.0.97</code></td></tr>
+      <tr><td><code>STK-AWS-PRD-USW2-AZ-B</code></td><td>AWS-COMBINED-AZ-B</td><td>(same 4 templates)</td><td><code>$INTERNAL-GW</code> = <code>10.103.1.65</code>, <code>$EXTERNAL-GW</code> = <code>10.103.1.97</code></td></tr>
+    </table>
+    <div class="callout callout-note">
+      <div class="callout-title">Naming Convention</div>
+      <p><code>STK-&lt;cloud&gt;-&lt;env&gt;-&lt;region&gt;-&lt;AZ&gt;</code> &mdash; the <code>STK-</code> prefix identifies template stacks. <code>PRD</code> = production (use <code>DEV</code>, <code>STG</code> for other environments).</p>
+    </div>
+    <h4>Steps</h4>
+    <ol>
+      <li>Navigate to <strong>Panorama &gt; Templates &gt; Add Stack</strong></li>
+      <li>Name: <code>STK-AWS-PRD-USW2-AZ-A</code></li>
+      <li>Add all 4 templates in priority order (1 through 4)</li>
+      <li>Click the stack name &gt; <strong>Variables</strong> tab:
+        <ul>
+          <li><code>$INTERNAL-GW</code> &gt; Override Value = <code>10.103.0.65</code></li>
+          <li><code>$EXTERNAL-GW</code> &gt; Override Value = <code>10.103.0.97</code></li>
+        </ul>
+      </li>
+      <li>Repeat for <code>STK-AWS-PRD-USW2-AZ-B</code>:
+        <ul>
+          <li><code>$INTERNAL-GW</code> = <code>10.103.1.65</code></li>
+          <li><code>$EXTERNAL-GW</code> = <code>10.103.1.97</code></li>
+        </ul>
+      </li>
+      <li>Commit to Panorama</li>
+    </ol>
+    <div class="callout callout-note">
+      <div class="callout-title">Note</div>
+      <p>The <code>$INTERNAL-GW</code> values correspond to the default gateway of the <code>security-fw</code> (private dataplane) subnet in each AZ. The <code>$EXTERNAL-GW</code> values correspond to the default gateway of the <code>security-public</code> subnet in each AZ. For custom subnetting, adjust these to match your actual subnet gateways.</p>
+    </div>
+  </div>
 </div>
 
-<h2 id="security-vpc">Security VPC &amp; GWLB</h2>
-<div class="callout callout-note">
-  <div class="callout-title">Coming Soon</div>
-  <p>This section will cover creating the centralized security VPC, deploying VM-Series firewalls behind a Gateway Load Balancer, and configuring GWLB endpoints in spoke VPCs.</p>
+<!-- 3.3 Device Groups -->
+<div class="collapsible">
+  <div class="collapsible-header">
+    <span class="chevron">&#9654;</span>
+    <span>3.3 Device Groups</span>
+  </div>
+  <div class="collapsible-body">
+    <p>Create a hierarchical device group structure. The parent group provides a common baseline; child groups are scoped by function and region.</p>
+    <table>
+      <tr><th>Device Group</th><th>Parent</th><th>Purpose</th></tr>
+      <tr><td><code>DG-AWS</code></td><td><code>Shared</code></td><td>Top-level AWS group &mdash; holds log forwarding profile and shared objects</td></tr>
+      <tr><td><code>DG-AWS-USW2</code></td><td><code>DG-AWS</code></td><td>Region/function-specific &mdash; security policies, NAT, DAGs for us-west-2 centralized security</td></tr>
+    </table>
+    <div class="callout callout-note">
+      <div class="callout-title">Naming Convention</div>
+      <p><code>DG-&lt;cloud&gt;-&lt;function&gt;-&lt;region&gt;</code> &mdash; the <code>DG-</code> prefix identifies device groups at a glance. Enables clear separation when managing multiple deployments across regions or functions (e.g., <code>DG-AWS-Security-USE1</code>, <code>DG-AWS-WebApps-USW2</code>).</p>
+    </div>
+    <h4>Steps</h4>
+    <ol>
+      <li>Navigate to <strong>Panorama &gt; Device Groups &gt; Add</strong></li>
+      <li>Create <code>DG-AWS</code> with Parent Device Group = <code>Shared</code></li>
+      <li>Commit to Panorama</li>
+      <li>Create <code>DG-AWS-USW2</code> with:
+        <ul>
+          <li>Parent Device Group = <code>DG-AWS</code></li>
+          <li>Reference Templates = <code>4-TPL-AWS-GWLB-OVRLY-COMBINED</code></li>
+        </ul>
+      </li>
+    </ol>
+    <div class="callout callout-note">
+      <div class="callout-title">What are Reference Templates?</div>
+      <p>A Reference Template is a template that is <em>associated with a device group</em> rather than a template stack. It does not push configuration to firewalls &mdash; instead, it makes the template's network objects (zones, interfaces, virtual routers) available for use when building policies in that device group. Without a reference template, the policy editor cannot see or autocomplete zone names, interface names, or other network-layer objects defined in your templates.</p>
+      <p><strong>Where to apply:</strong> Assign the reference template to the <em>child</em> device group where you write security and NAT policies (e.g., <code>DG-AWS-USW2</code>), not the parent. Always use the <strong>template stack</strong> (e.g., <code>STK-AWS-PRD-USW2-AZ-A</code>) as the reference template rather than an individual template &mdash; the stack encompasses all layers in the hierarchy and ensures the policy editor has visibility into every zone, interface, and network object regardless of which template defines it.</p>
+    </div>
+  </div>
 </div>
 
-<h2 id="traffic-flows">Traffic Flow Configuration</h2>
-<div class="callout callout-note">
-  <div class="callout-title">Coming Soon</div>
-  <p>This section will cover configuring outbound, inbound, and east-west traffic inspection through the security VPC.</p>
+<!-- 3.4 Log Forwarding Profile -->
+<div class="collapsible">
+  <div class="collapsible-header">
+    <span class="chevron">&#9654;</span>
+    <span>3.4 Log Forwarding Profile</span>
+  </div>
+  <div class="collapsible-body">
+    <p>Create a log forwarding profile in the <code>DG-AWS</code> device group:</p>
+    <table>
+      <tr><th>Setting</th><th>Value</th></tr>
+      <tr><td>Name</td><td><code>default</code></td></tr>
+      <tr><td>Device Group</td><td><code>DG-AWS</code></td></tr>
+      <tr><td>Enhanced application logging to Cortex Data Lake</td><td>Checked</td></tr>
+    </table>
+    <p>Navigate to <strong>Objects &gt; Log Forwarding</strong> (in <code>DG-AWS</code> context).</p>
+
+    <div class="callout callout-note">
+      <div class="callout-title">Why the name <code>default</code> matters</div>
+      <p>The name <code>default</code> (all lowercase, case-sensitive) is a <strong>functional keyword</strong> in Panorama &mdash; not just a friendly label. When a Log Forwarding Profile named exactly <code>default</code> exists in a device group, Panorama <strong>automatically assigns it to every new security rule</strong> created in that device group or its children. This eliminates the most common logging gap: an admin forgetting to attach a profile to a rule, leaving traffic invisible to the SOC.</p>
+
+      <table>
+        <tr><th>Feature</th><th>Profile named <code>Internal-SIEM</code></th><th>Profile named <code>default</code></th></tr>
+        <tr><td>Manual selection</td><td>Required for every new rule</td><td>Not required (auto-populated)</td></tr>
+        <tr><td>Risk of missing logs</td><td>High (human error)</td><td>Low (automatic coverage)</td></tr>
+        <tr><td>Best use case</td><td>Rules requiring unique destinations</td><td>Standard corporate logging policy</td></tr>
+      </table>
+
+      <p><strong>Important considerations:</strong></p>
+      <ul>
+        <li><strong>Case-sensitive</strong> &mdash; the profile must be named exactly <code>default</code> in lowercase</li>
+        <li><strong>Manual override</strong> &mdash; if you manually select a different profile on a rule, Panorama honors your selection; <code>default</code> only fills the empty slot on new rules</li>
+        <li><strong>Not retroactive</strong> &mdash; renaming a profile to <code>default</code> does not attach it to existing rules created without a profile; it only applies to new rule creation</li>
+        <li><strong>Placement</strong> &mdash; create the <code>default</code> profile at the highest applicable parent device group (e.g., <code>DG-AWS</code>) so all child device groups inherit automatic coverage</li>
+      </ul>
+    </div>
+
+    <div class="callout callout-success">
+      <div class="callout-title">Pro Tip: Clone the IoT Logging Profile</div>
+      <p>If you have an IoT subscription, Panorama provides a predefined logging profile with enhanced IoT fields. You can <strong>clone this IoT profile and rename the clone to <code>default</code></strong> &mdash; this gives you the automatic assignment behavior while retaining the enriched IoT logging fields across your entire policy set.</p>
+    </div>
+  </div>
 </div>
 
-<h2 id="verification">Verification</h2>
-<div class="callout callout-note">
-  <div class="callout-title">Coming Soon</div>
-  <p>This section will cover end-to-end verification of the deployment, including traffic flow testing and Panorama management validation.</p>
+<!-- 3.5 Security Policies -->
+<div class="collapsible">
+  <div class="collapsible-header">
+    <span class="chevron">&#9654;</span>
+    <span>3.5 Security Policies</span>
+  </div>
+  <div class="collapsible-body">
+    <p>Configure all security policies as <strong>Pre Rules</strong> in the <code>DG-AWS-USW2</code> device group.</p>
+
+    <h4>3.5.1 Health Check Policy</h4>
+    <table>
+      <tr><th>Setting</th><th>Value</th></tr>
+      <tr><td>Name</td><td><code>Health check</code></td></tr>
+      <tr><td>Source Zone</td><td><code>GWLB</code></td></tr>
+      <tr><td>Source Addresses</td><td>GWLB subnet for all AZs (e.g., <code>10.103.0.48/28</code>, <code>10.103.1.48/28</code>, <code>10.103.2.48/28</code>, <code>10.103.3.48/28</code>)</td></tr>
+      <tr><td>Destination Zone</td><td><code>GWLB</code></td></tr>
+      <tr><td>Destination Addresses</td><td>Dataplane subnet for all AZs (e.g., <code>10.103.0.64/28</code>, <code>10.103.1.64/28</code>)</td></tr>
+      <tr><td>Application</td><td><code>ssl</code>, <code>web-browsing</code></td></tr>
+      <tr><td>Service</td><td><code>service-http</code>, <code>service-https</code></td></tr>
+      <tr><td>Action</td><td>Allow</td></tr>
+      <tr><td>Log Forwarding</td><td>None</td></tr>
+    </table>
+    <div class="callout callout-note">
+      <div class="callout-title">Note</div>
+      <p>The source addresses are the GWLB subnets (one per AZ) and the destination addresses are the private dataplane subnets where the VM-Series <code>ethernet1/1</code> interfaces reside. Adjust these CIDRs to match your actual subnet allocation.</p>
+      <p><strong>Pro Tip:</strong> The GWLB subnet source addresses can also be configured as a Dynamic Address Group (DAG) using the AWS plugin, which automatically learns the GWLB subnet CIDRs. This is especially useful in environments where subnets may change or scale across AZs, eliminating the need to manually update static address objects.</p>
+    </div>
+
+    <h4>3.5.2 Outbound Security Policy</h4>
+    <table>
+      <tr><th>Setting</th><th>Value</th></tr>
+      <tr><td>Name</td><td><code>outbound-internet</code></td></tr>
+      <tr><td>Source Zone</td><td><code>OUTBOUND</code></td></tr>
+      <tr><td>Source Addresses</td><td><code>app01-vpc</code>, <code>app02-vpc</code> (DAGs)</td></tr>
+      <tr><td>Destination Zone</td><td><code>PUBLIC-INTERNET</code></td></tr>
+      <tr><td>Applications</td><td><code>yum</code>, <code>ntp</code> (expand as needed)</td></tr>
+      <tr><td>Action</td><td>Allow</td></tr>
+      <tr><td>Log Forwarding</td><td><code>default</code></td></tr>
+    </table>
+    <div class="callout callout-note">
+      <div class="callout-title">Note</div>
+      <p>This policy is for an <strong>overlay routing</strong> configuration where outbound traffic exits via the <code>PUBLIC-INTERNET</code> zone (<code>ethernet1/2</code>). If <strong>non-overlay routing</strong> is configured, the destination zone would be <code>OUTBOUND</code> instead, since traffic returns to AWS for NAT Gateway egress rather than being NAT'd on the firewall.</p>
+    </div>
+
+    <h4>3.5.3 East-West Security Policy</h4>
+    <table>
+      <tr><th>Setting</th><th>Value</th></tr>
+      <tr><td>Name</td><td><code>app01-to-app02</code></td></tr>
+      <tr><td>Source Zone</td><td><code>EASTWEST</code></td></tr>
+      <tr><td>Source Addresses</td><td><code>app01-vpc</code> (DAG)</td></tr>
+      <tr><td>Destination Zone</td><td><code>EASTWEST</code></td></tr>
+      <tr><td>Destination Addresses</td><td><code>app02-vpc</code> (DAG)</td></tr>
+      <tr><td>Applications</td><td><code>web-browsing</code></td></tr>
+      <tr><td>Action</td><td>Allow</td></tr>
+      <tr><td>Log Forwarding</td><td><code>default</code></td></tr>
+    </table>
+
+    <h4>3.5.4 Override Default Intra-Zone Rule</h4>
+    <p>Because east-west traffic is intra-zone (<code>EASTWEST</code> &rarr; <code>EASTWEST</code>), the default intra-zone Allow rule must be overridden:</p>
+    <ol>
+      <li>Navigate to <strong>Policies &gt; Security &gt; Default Rules</strong></li>
+      <li>Select <code>intrazone-default</code> &gt; Click <strong>Override</strong></li>
+      <li>Set Action to <strong>Deny</strong></li>
+    </ol>
+    <div class="callout callout-danger">
+      <div class="callout-title">Critical &mdash; Why This Matters in Cloud Architectures</div>
+      <p>By default, PAN-OS <strong>allows</strong> all intra-zone traffic without requiring an explicit security policy. In traditional on-premises deployments this is often acceptable, but in cloud architectures like GWLB-based designs <strong>all traffic is intra-zone</strong> &mdash; east-west traffic between spoke VPCs enters and exits through the same <code>EASTWEST</code> zone on the same subinterface. Without this override, the default intra-zone Allow rule silently passes all east-west traffic with no policy evaluation, no logging, and no application visibility.</p>
+      <p>Overriding the intra-zone default to <strong>Deny</strong> forces all traffic &mdash; even between sources and destinations in the same zone &mdash; to match an explicit security policy. This means:</p>
+      <ul>
+        <li>Every traffic flow must have a rule that permits it (zero-trust enforcement)</li>
+        <li>All permitted traffic is logged and inspected by the threat prevention engine</li>
+        <li>No traffic passes unnoticed through the implicit allow</li>
+      </ul>
+      <p><strong>This is not optional in cloud deployments.</strong> Without this override, your east-west security policies in Section 3.5.3 would never be evaluated &mdash; the default intra-zone Allow rule matches first and permits everything.</p>
+    </div>
+  </div>
+</div>
+
+<!-- 3.6 NAT Policies -->
+<div class="collapsible">
+  <div class="collapsible-header">
+    <span class="chevron">&#9654;</span>
+    <span>3.6 NAT Policies</span>
+  </div>
+  <div class="collapsible-body">
+    <div class="callout callout-note">
+      <div class="callout-title">Note</div>
+      <p>NAT policies are only required for <strong>overlay routing</strong> deployments where the firewall performs source NAT on <code>ethernet1/2</code> for outbound internet traffic. In <strong>non-overlay routing</strong> deployments, the AWS NAT Gateway handles egress NAT &mdash; no firewall NAT policies are needed.</p>
+    </div>
+    <p>Configure as <strong>Pre Rules</strong> in the <code>DG-AWS-USW2</code> device group.</p>
+    <h4>Outbound Source NAT</h4>
+    <table>
+      <tr><th>Setting</th><th>Value</th></tr>
+      <tr><td>Name</td><td><code>outbound-internet</code></td></tr>
+      <tr><td>Source Zone</td><td><code>OUTBOUND</code></td></tr>
+      <tr><td>Destination Zone</td><td><code>PUBLIC-INTERNET</code></td></tr>
+      <tr><td>Source Address Translation</td><td>Dynamic IP and Port</td></tr>
+      <tr><td>Address Type</td><td>Interface Address</td></tr>
+      <tr><td>Interface</td><td><code>ethernet1/2</code></td></tr>
+    </table>
+    <div class="callout callout-note">
+      <div class="callout-title">Note</div>
+      <p>This translates the source IP of outbound traffic to the firewall's public interface IP. The IGW then translates this to the associated EIP.</p>
+    </div>
+  </div>
+</div>
+
+<!-- 3.7 AWS Plugin and DAGs -->
+<div class="collapsible">
+  <div class="collapsible-header">
+    <span class="chevron">&#9654;</span>
+    <span>3.7 AWS Plugin &amp; Dynamic Address Groups</span>
+  </div>
+  <div class="collapsible-body">
+    <h4>3.7.1 AWS Plugin Configuration (Optional)</h4>
+    <div class="callout callout-warning">
+      <div class="callout-title">Optional &mdash; Requires Further Documentation</div>
+      <p>The AWS plugin configuration is <strong>optional</strong> and requires further documentation beyond the scope of this guide. The plugin enables Panorama to dynamically monitor AWS resources and populate Dynamic Address Groups (DAGs) based on EC2 tags, but it requires additional IAM role configuration, network connectivity from Panorama to AWS APIs, and plugin installation/licensing that are not fully covered here. The configuration below is provided as a starting reference.</p>
+    </div>
+    <p>Configure the Panorama AWS plugin for dynamic VM monitoring:</p>
+    <table>
+      <tr><th>Setting</th><th>Value</th></tr>
+      <tr><td>Enable Monitoring</td><td>Checked</td></tr>
+      <tr><td>Notify Group Name</td><td><code>AWS</code></td></tr>
+      <tr><td>Notify Group</td><td><code>DG-AWS-USW2</code> device group</td></tr>
+      <tr><td>Monitoring Name</td><td><code>AWS</code></td></tr>
+      <tr><td>IAM Role</td><td><code>PanoramaReadOnly</code></td></tr>
+      <tr><td>AWS Regions</td><td><code>us-west-2</code></td></tr>
+      <tr><td>VPC IDs</td><td><code>app01</code>, <code>app02</code>, <code>management</code></td></tr>
+    </table>
+
+    <h4>3.7.2 Dynamic Address Groups</h4>
+    <p>Dynamic Address Groups (DAGs) populate their membership automatically based on <strong>tags</strong> assigned to address objects. This is not the same as the AWS plugin's dynamic monitoring &mdash; DAGs work by matching static tags that you apply to address objects in Panorama. When you tag an address object, it is automatically included in every DAG that matches that tag.</p>
+
+    <div class="callout callout-note">
+      <div class="callout-title">Note</div>
+      <p>DAGs require a baseline set of <strong>address objects</strong> with appropriate <strong>tags</strong> to function. The address objects and tags referenced below must be created first. Baseline address object and tag configuration will be documented in a future section.</p>
+    </div>
+
+    <h5>Address Objects (Prerequisites)</h5>
+    <p>The following address objects must exist with the indicated tags:</p>
+    <table>
+      <tr><th>Address Object</th><th>Value</th><th>Tag</th><th>Description</th></tr>
+      <tr><td><code>N-10.103.0.48-28</code></td><td><code>10.103.0.48/28</code></td><td><code>AWS-HEALTH-GWLB</code></td><td>GWLB subnet AZ-A</td></tr>
+      <tr><td><code>N-10.103.1.48-28</code></td><td><code>10.103.1.48/28</code></td><td><code>AWS-HEALTH-GWLB</code></td><td>GWLB subnet AZ-B</td></tr>
+      <tr><td><code>N-10.103.2.48-28</code></td><td><code>10.103.2.48/28</code></td><td><code>AWS-HEALTH-GWLB</code></td><td>GWLB subnet AZ-C</td></tr>
+      <tr><td><code>N-10.103.3.48-28</code></td><td><code>10.103.3.48/28</code></td><td><code>AWS-HEALTH-GWLB</code></td><td>GWLB subnet AZ-D</td></tr>
+      <tr><td><code>N-10.103.0.64-28</code></td><td><code>10.103.0.64/28</code></td><td><code>AWS-FW-DATA-PRIVATE</code></td><td>Firewall private subnet AZ-A</td></tr>
+      <tr><td><code>N-10.103.1.64-28</code></td><td><code>10.103.1.64/28</code></td><td><code>AWS-FW-DATA-PRIVATE</code></td><td>Firewall private subnet AZ-B</td></tr>
+      <tr><td><code>N-10.104.0.0-22</code></td><td><code>10.104.0.0/22</code></td><td><code>AWS-WEB-FARM-APP1</code></td><td>APP1 VPC</td></tr>
+      <tr><td><code>N-10.105.0.0-22</code></td><td><code>10.105.0.0/22</code></td><td><code>APP2</code></td><td>APP2 VPC</td></tr>
+      <tr><td><code>N-10.106.0.0-22</code></td><td><code>10.106.0.0/22</code></td><td><code>APP3</code></td><td>APP3 VPC</td></tr>
+    </table>
+
+    <h5>Dynamic Address Groups</h5>
+    <p>Create DAGs in the <code>DG-AWS</code> device group. Each DAG uses a tag match filter &mdash; any address object with the matching tag is automatically included:</p>
+    <table>
+      <tr><th>Name</th><th>Match Filter</th><th>Tag</th><th>Purpose</th></tr>
+      <tr><td><code>GRP-AWS-GWLB-HEALTH-PROBE-SUBNETS</code></td><td><code>'AWS-HEALTH-GWLB'</code></td><td><code>AWS-HEALTH-GWLB</code></td><td>All GWLB subnets &mdash; use as source address in health check policy</td></tr>
+      <tr><td><code>GRP-FIREWALL-PRIVATE-SUBNETS</code></td><td><code>'AWS-FW-DATA-PRIVATE'</code></td><td><code>AWS-FW-DATA-PRIVATE</code></td><td>All firewall private dataplane subnets &mdash; use as destination in health check policy</td></tr>
+    </table>
+    <p>Navigate to <strong>Objects &gt; Address Groups &gt; Add</strong> for each. Select <strong>Type = Dynamic</strong> and enter the match filter.</p>
+
+    <div class="callout callout-success">
+      <div class="callout-title">Pro Tip</div>
+      <p>As you expand to additional AZs, simply create a new address object with the appropriate tag and it is automatically included in the DAG &mdash; no policy changes required. This is the power of tag-based DAGs over static address groups.</p>
+    </div>
+
+    <p>Commit to Panorama.</p>
+  </div>
+</div>
+
+<!-- 3.8 Bootstrap Configuration -->
+<div class="collapsible">
+  <div class="collapsible-header">
+    <span class="chevron">&#9654;</span>
+    <span>3.8 Bootstrap Configuration</span>
+  </div>
+  <div class="collapsible-body">
+    <p>The VM-Series firewalls in this deployment use <strong>user-data bootstrap</strong> to automatically register with Panorama, receive their configuration, and enable GWLB integration on first boot. This is the recommended bootstrap method for Panorama-managed deployments.</p>
+    <p>For a comprehensive guide to all VM-Series bootstrap methods, prerequisites, and troubleshooting, refer to the <strong><a href="../docs/vm-series-bootstrap/aws/linear-guide.html">VM-Series Bootstrap Guide &mdash; AWS</a></strong>. That guide covers four bootstrap methods ranked by preference:</p>
+    <ol>
+      <li><strong>Panorama Licensing Plugin</strong> &mdash; auto-scaling, production deployments</li>
+      <li><strong>Simple Bootstrap (user-data)</strong> &mdash; used in this deployment</li>
+      <li><strong>Storage Basic Bootstrap</strong> &mdash; init-cfg + authcode via S3</li>
+      <li><strong>Storage Full Bootstrap</strong> &mdash; full bootstrap.xml via S3</li>
+    </ol>
+
+    <h4>3.8.1 Generate VM Auth Key</h4>
+    <p>The VM auth key allows VM-Series firewalls to authenticate and register with Panorama during bootstrap. Generate this key on the Panorama CLI:</p>
+    <div class="code-block">
+      <pre><code>request bootstrap vm-auth-key generate lifetime 8760</code></pre>
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <p>Example output:</p>
+    <div class="code-block">
+      <pre><code>VM auth key 123456789012345 generated. Expires at: 2025/04/09 14:15:56</code></pre>
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+    <ul>
+      <li>Lifetime range: 1&ndash;8760 hours (1 year max)</li>
+      <li><strong>Save this key</strong> &mdash; needed for the VM-Series user-data in Section 4.5</li>
+      <li>Panorama will not register VM-Series firewalls without a valid auth key</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 3.9 Final Commit -->
+<div class="collapsible">
+  <div class="collapsible-header">
+    <span class="chevron">&#9654;</span>
+    <span>3.9 Final Panorama Commit</span>
+  </div>
+  <div class="collapsible-body">
+    <p>Commit all configuration to Panorama. No push to devices needed yet &mdash; there are no registered devices. Configuration will be pushed automatically when VM-Series instances bootstrap and connect.</p>
+  </div>
+</div>
+
+<!-- ================================================================ -->
+<!-- SECTION 4: AWS INFRASTRUCTURE                                    -->
+<!-- ================================================================ -->
+<h2 id="section-4">4. AWS Infrastructure</h2>
+
+<p>All AWS infrastructure is deployed after Panorama configuration is complete. The VM-Series firewalls will bootstrap from Panorama on first boot.</p>
+
+<!-- 4.1 Spoke VPCs -->
+<div class="collapsible">
+  <div class="collapsible-header">
+    <span class="chevron">&#9654;</span>
+    <span>4.1 Spoke VPCs</span>
+  </div>
+  <div class="collapsible-body">
+    <h4>4.1.1 Create Spoke VPCs</h4>
+    <table>
+      <tr><th>VPC Name</th><th>IPv4 CIDR Block</th><th>Purpose</th></tr>
+      <tr><td><code>app01</code></td><td><code>10.104.0.0/16</code></td><td>Application servers</td></tr>
+      <tr><td><code>app02</code></td><td><code>10.105.0.0/16</code></td><td>Application servers</td></tr>
+    </table>
+    <ul>
+      <li>Select <strong>VPC Only</strong></li>
+      <li>Enable <strong>DNS Hostnames</strong> (Actions &gt; Edit DNS Hostnames)</li>
+    </ul>
+
+    <h4>4.1.2 Spoke VPC Subnets</h4>
+    <table>
+      <tr><th>Subnet Name</th><th>VPC</th><th>AZ</th><th>IPv4 CIDR</th></tr>
+      <tr><td><code>app01-instances-2a</code></td><td>app01</td><td>us-west-2a</td><td><code>10.104.0.0/24</code></td></tr>
+      <tr><td><code>app01-tgw-2a</code></td><td>app01</td><td>us-west-2a</td><td><code>10.104.1.0/24</code></td></tr>
+      <tr><td><code>app01-instances-2b</code></td><td>app01</td><td>us-west-2b</td><td><code>10.104.128.0/24</code></td></tr>
+      <tr><td><code>app01-tgw-2b</code></td><td>app01</td><td>us-west-2b</td><td><code>10.104.129.0/24</code></td></tr>
+      <tr><td><code>app02-instances-2a</code></td><td>app02</td><td>us-west-2a</td><td><code>10.105.0.0/24</code></td></tr>
+      <tr><td><code>app02-tgw-2a</code></td><td>app02</td><td>us-west-2a</td><td><code>10.105.1.0/24</code></td></tr>
+      <tr><td><code>app02-instances-2b</code></td><td>app02</td><td>us-west-2b</td><td><code>10.105.128.0/24</code></td></tr>
+      <tr><td><code>app02-tgw-2b</code></td><td>app02</td><td>us-west-2b</td><td><code>10.105.129.0/24</code></td></tr>
+    </table>
+
+    <h4>4.1.3 Security Groups &amp; Route Tables</h4>
+    <table>
+      <tr><th>Security Group</th><th>VPC</th><th>Inbound Rule</th></tr>
+      <tr><td><code>app01-instances</code></td><td>app01</td><td>All traffic from <code>10.0.0.0/8</code></td></tr>
+      <tr><td><code>app02-instances</code></td><td>app02</td><td>All traffic from <code>10.0.0.0/8</code></td></tr>
+    </table>
+    <table>
+      <tr><th>Route Table</th><th>Destination</th><th>Target</th><th>Subnets</th></tr>
+      <tr><td><code>app01-instances</code></td><td><code>0.0.0.0/0</code></td><td>TGW</td><td><code>app01-instances-2a</code>, <code>app01-instances-2b</code></td></tr>
+      <tr><td><code>app02-instances</code></td><td><code>0.0.0.0/0</code></td><td>TGW</td><td><code>app02-instances-2a</code>, <code>app02-instances-2b</code></td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- 4.2 Transit Gateway -->
+<div class="collapsible">
+  <div class="collapsible-header">
+    <span class="chevron">&#9654;</span>
+    <span>4.2 Transit Gateway</span>
+  </div>
+  <div class="collapsible-body">
+    <h4>4.2.1 Create TGW</h4>
+    <table>
+      <tr><th>Setting</th><th>Value</th></tr>
+      <tr><td>Name tag</td><td><code>TGW</code></td></tr>
+      <tr><td>Amazon side ASN</td><td><code>64512</code></td></tr>
+      <tr><td>DNS support</td><td>Enabled</td></tr>
+      <tr><td>VPN ECMP support</td><td>Enabled</td></tr>
+      <tr><td>Default route table association</td><td><strong>Disabled</strong></td></tr>
+      <tr><td>Default route table propagation</td><td><strong>Disabled</strong></td></tr>
+    </table>
+
+    <h4>4.2.2 Route Tables</h4>
+    <p>Create: <code>security</code> and <code>spokes</code></p>
+
+    <h4>4.2.3 Attachments</h4>
+    <table>
+      <tr><th>Attachment</th><th>VPC</th><th>Subnet 1</th><th>Subnet 2</th></tr>
+      <tr><td><code>app01</code></td><td>app01</td><td><code>app01-tgw-2a</code></td><td><code>app01-tgw-2b</code></td></tr>
+      <tr><td><code>app02</code></td><td>app02</td><td><code>app02-tgw-2a</code></td><td><code>app02-tgw-2b</code></td></tr>
+      <tr><td><code>management</code></td><td>management</td><td><code>management-2a</code></td><td><code>management-2b</code></td></tr>
+    </table>
+
+    <h4>4.2.4 Route Table Associations and Propagations</h4>
+    <p><strong>Spokes route table:</strong> Associate <code>app01</code>, <code>app02</code>, <code>management</code></p>
+    <p><strong>Security route table:</strong> Propagate <code>app01</code>, <code>app02</code>, <code>management</code></p>
+  </div>
+</div>
+
+<!-- 4.3 Security VPC -->
+<div class="collapsible">
+  <div class="collapsible-header">
+    <span class="chevron">&#9654;</span>
+    <span>4.3 Security VPC</span>
+  </div>
+  <div class="collapsible-body">
+    <h4>4.3.1 Create the VPC</h4>
+    <table>
+      <tr><th>Setting</th><th>Value</th></tr>
+      <tr><td>Name tag</td><td><code>security</code></td></tr>
+      <tr><td>IPv4 CIDR block</td><td><code>10.103.0.0/21</code></td></tr>
+      <tr><td>DNS Hostnames</td><td>Enabled</td></tr>
+    </table>
+
+    <h4>4.3.2 Subnets</h4>
+    <p>The Security VPC uses a <code>/21</code> CIDR subdivided into <code>/28</code> subnets. Each AZ gets the same 8 subnet types at consistent offsets, with the 3rd octet incrementing per AZ (<code>.0.x</code> for AZ-A, <code>.1.x</code> for AZ-B, etc.).</p>
+    <table>
+      <tr><th>Subnet Name</th><th>AZ</th><th>IPv4 CIDR</th><th>Purpose</th></tr>
+      <tr><td><code>security-tgw-2a</code></td><td>us-west-2a</td><td><code>10.103.0.0/28</code></td><td>TGW attachment</td></tr>
+      <tr><td><code>security-gwlbe-outbound-2a</code></td><td>us-west-2a</td><td><code>10.103.0.16/28</code></td><td>GWLB endpoints &mdash; outbound</td></tr>
+      <tr><td><code>security-gwlbe-eastwest-2a</code></td><td>us-west-2a</td><td><code>10.103.0.32/28</code></td><td>GWLB endpoints &mdash; east-west</td></tr>
+      <tr><td><code>security-gwlb-2a</code></td><td>us-west-2a</td><td><code>10.103.0.48/28</code></td><td>GWLB</td></tr>
+      <tr><td><code>security-fw-2a</code></td><td>us-west-2a</td><td><code>10.103.0.64/28</code></td><td>Private dataplane (ethernet1/1)</td></tr>
+      <tr><td><code>security-mgmt-2a</code></td><td>us-west-2a</td><td><code>10.103.0.80/28</code></td><td>VM-Series management</td></tr>
+      <tr><td><code>security-public-2a</code></td><td>us-west-2a</td><td><code>10.103.0.96/28</code></td><td>Public dataplane (ethernet1/2)</td></tr>
+      <tr><td><code>security-natgw-2a</code></td><td>us-west-2a</td><td><code>10.103.0.112/28</code></td><td>NAT Gateway</td></tr>
+      <tr><td><code>security-tgw-2b</code></td><td>us-west-2b</td><td><code>10.103.1.0/28</code></td><td>TGW attachment</td></tr>
+      <tr><td><code>security-gwlbe-outbound-2b</code></td><td>us-west-2b</td><td><code>10.103.1.16/28</code></td><td>GWLB endpoints &mdash; outbound</td></tr>
+      <tr><td><code>security-gwlbe-eastwest-2b</code></td><td>us-west-2b</td><td><code>10.103.1.32/28</code></td><td>GWLB endpoints &mdash; east-west</td></tr>
+      <tr><td><code>security-gwlb-2b</code></td><td>us-west-2b</td><td><code>10.103.1.48/28</code></td><td>GWLB</td></tr>
+      <tr><td><code>security-fw-2b</code></td><td>us-west-2b</td><td><code>10.103.1.64/28</code></td><td>Private dataplane</td></tr>
+      <tr><td><code>security-mgmt-2b</code></td><td>us-west-2b</td><td><code>10.103.1.80/28</code></td><td>VM-Series management</td></tr>
+      <tr><td><code>security-public-2b</code></td><td>us-west-2b</td><td><code>10.103.1.96/28</code></td><td>Public dataplane</td></tr>
+      <tr><td><code>security-natgw-2b</code></td><td>us-west-2b</td><td><code>10.103.1.112/28</code></td><td>NAT Gateway</td></tr>
+      <tr><td><code>security-gwlb-2c</code></td><td>us-west-2c</td><td><code>10.103.2.48/28</code></td><td>GWLB (additional AZ)</td></tr>
+      <tr><td><code>security-gwlb-2d</code></td><td>us-west-2d</td><td><code>10.103.3.48/28</code></td><td>GWLB (additional AZ)</td></tr>
+    </table>
+    <div class="callout callout-note">
+      <div class="callout-title">Note</div>
+      <p>The GWLB spans 4 AZs for resiliency, but VM-Series firewalls are deployed in 2 AZs (<code>2a</code> and <code>2b</code>). The <code>/21</code> supports up to 8 AZs with this subnetting pattern. GWLB endpoints are split into separate outbound and east-west subnets for traffic isolation. NAT Gateway subnets are only required for non-overlay routing deployments.</p>
+    </div>
+
+    <h4>4.3.3 Internet Gateway</h4>
+    <p>Name: <code>security</code> &mdash; Attach to VPC: <code>security</code></p>
+
+    <h4>4.3.4 TGW Attachment for Security VPC</h4>
+    <table>
+      <tr><th>Setting</th><th>Value</th></tr>
+      <tr><td>Transit Gateway</td><td><code>TGW</code></td></tr>
+      <tr><td>Attachment name</td><td><code>security</code></td></tr>
+      <tr><td>Subnets</td><td><code>security-tgw-2a</code>, <code>security-tgw-2b</code></td></tr>
+    </table>
+    <p><strong>Enable appliance mode</strong> (required for symmetric routing):</p>
+    <div class="code-block">
+      <pre><code>aws ec2 modify-transit-gateway-vpc-attachment \
+  --transit-gateway-attachment-id &lt;ATTACHMENT_ID&gt; \
+  --options ApplianceModeSupport=enable</code></pre>
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+
+    <h4>4.3.5 TGW Route Table Updates</h4>
+    <p><strong>Security route table:</strong> Associate + Propagate <code>security</code> attachment</p>
+    <p><strong>Spokes route table:</strong> Propagate <code>security</code>, add static <code>0.0.0.0/0</code> &rarr; <code>security</code> attachment</p>
+
+    <h4>4.3.6 Gateway Load Balancer</h4>
+    <table>
+      <tr><th>Setting</th><th>Value</th></tr>
+      <tr><td>Name</td><td><code>security</code></td></tr>
+      <tr><td>Subnets</td><td>All 4 AZs (<code>security-gwlb-2a</code> through <code>2d</code>)</td></tr>
+      <tr><td>Cross-zone load balancing</td><td><strong>Enabled</strong></td></tr>
+    </table>
+    <p><strong>Target Group:</strong></p>
+    <table>
+      <tr><th>Setting</th><th>Value</th></tr>
+      <tr><td>Name</td><td><code>VM-Series</code></td></tr>
+      <tr><td>Target type</td><td><strong>IP addresses</strong></td></tr>
+      <tr><td>Health check protocol</td><td><strong>HTTPS</strong></td></tr>
+      <tr><td>Health check path</td><td><code>/php/login.php</code></td></tr>
+      <tr><td>Health check port</td><td><code>443</code></td></tr>
+    </table>
+
+    <h4>4.3.7&ndash;4.3.8 GWLB Endpoint Service &amp; Endpoints</h4>
+    <p>Create endpoint service <code>security-GWLB</code> pointing to the GWLB. Copy the <strong>Service name</strong>.</p>
+    <table>
+      <tr><th>Endpoint</th><th>AZ</th><th>Subnet</th><th>Tag</th></tr>
+      <tr><td>Endpoint 1</td><td>us-west-2a</td><td><code>security-gwlbe-2a</code></td><td><code>security-2a</code></td></tr>
+      <tr><td>Endpoint 2</td><td>us-west-2b</td><td><code>security-gwlbe-2b</code></td><td><code>security-2b</code></td></tr>
+    </table>
+
+    <h4>4.3.9 Route Tables</h4>
+    <table>
+      <tr><th>Route Table</th><th>Destination</th><th>Target</th><th>Subnets</th></tr>
+      <tr><td><code>security-public</code></td><td><code>0.0.0.0/0</code></td><td>IGW</td><td><code>security-public-2a</code>, <code>2b</code></td></tr>
+      <tr><td><code>security-mgmt</code></td><td><code>0.0.0.0/0</code></td><td>IGW</td><td><code>security-mgmt-2a</code>, <code>2b</code></td></tr>
+      <tr><td><code>security-mgmt</code></td><td><code>10.255.0.0/16</code></td><td>TGW</td><td>(same)</td></tr>
+      <tr><td><code>security-tgw-2a</code></td><td><code>0.0.0.0/0</code></td><td>GWLBe <code>security-2a</code></td><td><code>security-tgw-2a</code></td></tr>
+      <tr><td><code>security-tgw-2b</code></td><td><code>0.0.0.0/0</code></td><td>GWLBe <code>security-2b</code></td><td><code>security-tgw-2b</code></td></tr>
+      <tr><td><code>security-gwlbe</code></td><td><code>0.0.0.0/0</code></td><td>TGW</td><td><code>security-gwlbe-2a</code>, <code>2b</code></td></tr>
+    </table>
+
+    <h4>4.3.10 Security Groups</h4>
+    <p><strong><code>security-firewall-mgmt</code></strong> &mdash; SSH (22) and HTTPS (443) from trusted admin IPs</p>
+    <p><strong><code>security-firewall-private</code></strong> &mdash; All traffic from <code>10.0.0.0/8</code>, <code>172.16.0.0/12</code>, <code>192.168.0.0/16</code></p>
+    <p><strong><code>security-firewall-public</code></strong> &mdash; No inbound rules (added later for inbound security)</p>
+  </div>
+</div>
+
+<!-- 4.4 Management VPC -->
+<div class="collapsible">
+  <div class="collapsible-header">
+    <span class="chevron">&#9654;</span>
+    <span>4.4 Management VPC Route Updates</span>
+  </div>
+  <div class="collapsible-body">
+    <p>Add a route for spoke VPC traffic via TGW:</p>
+    <table>
+      <tr><th>Route Table</th><th>Destination</th><th>Target</th></tr>
+      <tr><td>Management VPC route table</td><td><code>10.0.0.0/8</code></td><td>TGW</td></tr>
+    </table>
+    <p>Add inbound rule to Panorama security group: All traffic from <code>10.0.0.0/8</code></p>
+  </div>
+</div>
+
+<!-- 4.5 VM-Series Deployment -->
+<div class="collapsible">
+  <div class="collapsible-header">
+    <span class="chevron">&#9654;</span>
+    <span>4.5 VM-Series Deployment</span>
+  </div>
+  <div class="collapsible-body">
+    <h4>4.5.1 Deployment Profile</h4>
+    <p>Create in the Customer Support Portal (Assets &gt; Software NGFW Credits):</p>
+    <table>
+      <tr><th>Setting</th><th>Value</th></tr>
+      <tr><td>Firewall type</td><td>VM-Series</td></tr>
+      <tr><td>vCPU mode</td><td>Flexible vCPUs</td></tr>
+      <tr><td>Profile Name</td><td><code>AWS VM-Series</code></td></tr>
+      <tr><td>Number of Firewalls</td><td>2</td></tr>
+      <tr><td>Planned vCPU/Firewall</td><td>4</td></tr>
+    </table>
+    <p>Capture the <strong>AUTH CODE</strong> after creation.</p>
+
+    <h4>4.5.2 AMI Lookup</h4>
+    <div class="code-block">
+      <pre><code>aws ec2 describe-images \
+  --filters "Name=product-code,Values=6njl1pau431dv1qxipg63mvah" \
+  "Name=name,Values=PA-VM-AWS*10.2.10*" \
+  --region us-west-2 --output json</code></pre>
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+
+    <h4>4.5.3 Launch VM-Series Instances</h4>
+    <table>
+      <tr><th>Parameter</th><th>vmseries-a</th><th>vmseries-b</th></tr>
+      <tr><td>Instance type</td><td><code>m5.xlarge</code></td><td><code>m5.xlarge</code></td></tr>
+      <tr><td>Subnet</td><td><code>security-mgmt-2a</code></td><td><code>security-mgmt-2b</code></td></tr>
+      <tr><td>Security Group</td><td><code>security-firewall-mgmt</code></td><td>(same)</td></tr>
+      <tr><td>Primary IP</td><td><code>10.103.0.90</code></td><td><code>10.103.1.90</code></td></tr>
+      <tr><td>Template Stack</td><td><code>STK-AWS-PRD-USW2-AZ-A</code></td><td><code>STK-AWS-PRD-USW2-AZ-B</code></td></tr>
+    </table>
+
+    <p><strong>User Data (bootstrap) for vmseries-a:</strong></p>
+    <div class="code-block">
+      <pre><code>type=dhcp-client
+panorama-server=10.255.0.4
+panorama-server-2=10.255.1.4
+tplname=STK-AWS-PRD-USW2-AZ-A
+dgname=DG-AWS-USW2
+dns-primary=169.254.169.253
+authcodes=&lt;AUTH_CODE&gt;
+vm-auth-key=&lt;VM_AUTH_KEY&gt;
+plugin-op-commands=aws-gwlb-inspect:enable,aws-gwlb-associate-vpce:&lt;VPCE_ID_2A&gt;@ethernet1/1.20,aws-gwlb-associate-vpce:&lt;VPCE_ID_2B&gt;@ethernet1/1.30,aws-gwlb-overlay-routing:enable
+dhcp-accept-server-hostname=yes
+dhcp-accept-server-domain=yes</code></pre>
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+
+    <div class="callout callout-warning">
+      <div class="callout-title">Caution</div>
+      <p>User Data is case-sensitive. <code>tplname</code> and <code>dgname</code> must exactly match the template stack and device group names configured in Panorama.</p>
+    </div>
+
+    <div class="callout callout-note">
+      <div class="callout-title">GWLB Endpoint Mapping</div>
+      <p>Each GWLB endpoint serves a specific traffic direction. Outbound endpoints map to <code>ethernet1/1.20</code> (<code>OUTBOUND</code> zone) and east-west endpoints map to <code>ethernet1/1.30</code> (<code>EASTWEST</code> zone). Inbound endpoints (in app VPCs, Combined option) map to <code>ethernet1/1.10</code> (<code>INBOUND</code> zone) &mdash; see Section 5.1.</p>
+    </div>
+
+    <h4>4.5.4&ndash;4.5.6 ENIs, Attach, EIPs</h4>
+    <table>
+      <tr><th>ENI Name</th><th>Subnet</th><th>IP Address</th><th>Security Group</th></tr>
+      <tr><td><code>vmseries-a-public</code></td><td><code>security-public-2a</code></td><td><code>10.103.0.106</code></td><td><code>security-firewall-public</code></td></tr>
+      <tr><td><code>vmseries-a-private</code></td><td><code>security-fw-2a</code></td><td><code>10.103.0.74</code></td><td><code>security-firewall-private</code></td></tr>
+      <tr><td><code>vmseries-b-public</code></td><td><code>security-public-2b</code></td><td><code>10.103.1.106</code></td><td><code>security-firewall-public</code></td></tr>
+      <tr><td><code>vmseries-b-private</code></td><td><code>security-fw-2b</code></td><td><code>10.103.1.74</code></td><td><code>security-firewall-private</code></td></tr>
+    </table>
+    <p><strong>Disable Source/Dest Check</strong> on each ENI. Attach: private &rarr; eth1, public &rarr; eth2.</p>
+    <p><strong>Elastic IPs:</strong> Allocate and associate to mgmt and public ENIs for each firewall.</p>
+
+    <h4>4.5.7 Validate Panorama Registration</h4>
+    <div class="callout callout-warning">
+      <div class="callout-title">Important</div>
+      <p>You must install a <strong>device certificate</strong> on each newly deployed VM-Series firewall to connect to Panorama. Use the firewall's web interface with a one-time password from the Customer Support Portal.</p>
+    </div>
+    <ol>
+      <li>Navigate to <strong>Panorama &gt; Managed Devices &gt; Summary</strong></li>
+      <li>Verify both firewalls show Connected / In Sync with correct template stacks</li>
+      <li>Refresh licenses: <strong>Panorama &gt; Device Deployment &gt; Licenses &gt; Refresh</strong></li>
+    </ol>
+
+    <h4>4.5.8 Register VM-Series as GWLB Targets</h4>
+    <p>Register private dataplane IPs in the <code>VM-Series</code> target group:</p>
+    <table>
+      <tr><th>Target IP</th><th>Description</th></tr>
+      <tr><td><code>10.103.0.74</code></td><td>vmseries-a private dataplane</td></tr>
+      <tr><td><code>10.103.1.74</code></td><td>vmseries-b private dataplane</td></tr>
+    </table>
+    <p><strong>Verify GWLB association:</strong></p>
+    <div class="code-block">
+      <pre><code>admin@ip-10-103-0-90&gt; show plugins vm_series aws gwlb
+
+GWLB enabled    :    True
+Overlay Routing :    True
+==================================================
+VPC endpoint              Interface
+==================================================
+vpce-xxxxxxxxxxxxxxxxx    ethernet1/1.20
+vpce-yyyyyyyyyyyyyyyyy    ethernet1/1.30</code></pre>
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================ -->
+<!-- SECTION 5: INBOUND SECURITY                                      -->
+<!-- ================================================================ -->
+<h2 id="section-5">5. Inbound Security</h2>
+
+<p>Two options for inbound traffic inspection. Choose based on your requirements.</p>
+
+<!-- 5.1 Option A -->
+<div class="collapsible">
+  <div class="collapsible-header">
+    <span class="chevron">&#9654;</span>
+    <span>5.1 Option A: Combined Inbound Security with GWLB (Recommended)</span>
+  </div>
+  <div class="collapsible-body">
+    <div class="method-banner method-preferred">
+      <span class="method-badge">Preferred</span>
+      <span>Uses the existing GWLB with distributed GWLB endpoints in application VPCs. Traffic is transparently inspected &mdash; <strong>no NAT required</strong>. Does <strong>not</strong> use Transit Gateway for inbound traffic.</span>
+    </div>
+
+    <h4>5.1.1&ndash;5.1.2 App VPC IGW &amp; Subnets</h4>
+    <p>Create IGW named <code>app01</code>, attach to <code>app01</code> VPC.</p>
+    <table>
+      <tr><th>Subnet Name</th><th>VPC</th><th>AZ</th><th>CIDR</th></tr>
+      <tr><td><code>app01-alb-2a</code></td><td>app01</td><td>us-west-2a</td><td><code>10.104.2.0/24</code></td></tr>
+      <tr><td><code>app01-gwlbe-2a</code></td><td>app01</td><td>us-west-2a</td><td><code>10.104.3.0/24</code></td></tr>
+      <tr><td><code>app01-alb-2b</code></td><td>app01</td><td>us-west-2b</td><td><code>10.104.130.0/24</code></td></tr>
+      <tr><td><code>app01-gwlbe-2b</code></td><td>app01</td><td>us-west-2b</td><td><code>10.104.131.0/24</code></td></tr>
+    </table>
+
+    <h4>5.1.3&ndash;5.1.4 ALB &amp; GWLB Endpoints in App VPC</h4>
+    <p>Create internet-facing ALB in <code>app01</code> VPC. Create GWLB endpoints using the same endpoint service from the Security VPC.</p>
+
+    <h4>5.1.5 App VPC Route Tables</h4>
+    <table>
+      <tr><th>Route Table</th><th>Destination</th><th>Target</th><th>Association</th></tr>
+      <tr><td><code>app01-alb-2a</code></td><td><code>0.0.0.0/0</code></td><td>GWLBe <code>app01-2a</code></td><td><code>app01-alb-2a</code></td></tr>
+      <tr><td><code>app01-alb-2b</code></td><td><code>0.0.0.0/0</code></td><td>GWLBe <code>app01-2b</code></td><td><code>app01-alb-2b</code></td></tr>
+      <tr><td><code>app01-gwlbe</code></td><td><code>0.0.0.0/0</code></td><td>IGW</td><td><code>app01-gwlbe-2a</code>, <code>2b</code></td></tr>
+      <tr><td><code>app01-igw</code></td><td><code>10.104.2.0/24</code></td><td>GWLBe <code>app01-2a</code></td><td><strong>Edge association</strong> with IGW</td></tr>
+      <tr><td><code>app01-igw</code></td><td><code>10.104.130.0/24</code></td><td>GWLBe <code>app01-2b</code></td><td>(same)</td></tr>
+    </table>
+    <div class="callout callout-danger">
+      <div class="callout-title">Critical</div>
+      <p><code>app01-igw</code> is applied as an <strong>edge association</strong> to the IGW, not a subnet association. This forces inbound internet traffic through GWLB endpoints for inspection.</p>
+    </div>
+
+    <h4>5.1.6 Verify Inbound Subinterface</h4>
+    <p>The <code>INBOUND</code> zone on subinterface <code>ethernet1/1.10</code> was already configured in Section 3.1.4. No additional configuration needed.</p>
+
+    <h4>5.1.7 Map GWLB Endpoints to Subinterface</h4>
+    <p>SSH to each VM-Series firewall and run:</p>
+    <div class="code-block">
+      <pre><code>request plugins vm_series aws gwlb associate vpc-endpoint &lt;APP01_VPCE_2A&gt; interface ethernet1/1.10
+request plugins vm_series aws gwlb associate vpc-endpoint &lt;APP01_VPCE_2B&gt; interface ethernet1/1.10</code></pre>
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+
+    <h4>5.1.8 Inbound Security Policy</h4>
+    <table>
+      <tr><th>Setting</th><th>Value</th></tr>
+      <tr><td>Name</td><td><code>inbound-example-application</code></td></tr>
+      <tr><td>Source Zone</td><td><code>INBOUND</code></td></tr>
+      <tr><td>Destination Zone</td><td><code>INBOUND</code></td></tr>
+      <tr><td>Destination Address</td><td><code>app01-vpc</code> (DAG)</td></tr>
+      <tr><td>Application</td><td><code>web-browsing</code></td></tr>
+      <tr><td>Action</td><td>Allow</td></tr>
+      <tr><td>Log Forwarding</td><td><code>default</code></td></tr>
+    </table>
+    <div class="callout callout-note">
+      <div class="callout-title">Note</div>
+      <p>Inbound traffic with the Combined option is <strong>intra-zone</strong> (enters and exits <code>ethernet1/1.10</code> in the <code>INBOUND</code> zone). This is why the default intra-zone rule was overridden to Deny in Section 3.5.4.</p>
+    </div>
+  </div>
+</div>
+
+<!-- 5.2 Option B -->
+<div class="collapsible">
+  <div class="collapsible-header">
+    <span class="chevron">&#9654;</span>
+    <span>5.2 Option B: Centralized Inbound Security with ALB</span>
+  </div>
+  <div class="collapsible-body">
+    <div class="method-banner method-standard">
+      <span class="method-badge">Alternative</span>
+      <span>Uses a public-facing ALB in the <strong>Security VPC</strong>. Traffic routes through TGW to reach app VPCs. Requires SNAT + DNAT on the firewall.</span>
+    </div>
+
+    <h4>5.2.1 Public ALB in Security VPC</h4>
+    <table>
+      <tr><th>Setting</th><th>Value</th></tr>
+      <tr><td>Name</td><td><code>ExampleApplication-ALB</code></td></tr>
+      <tr><td>Scheme</td><td>Internet-facing</td></tr>
+      <tr><td>VPC</td><td><code>security</code></td></tr>
+      <tr><td>Subnets</td><td><code>security-public-2a</code>, <code>security-public-2b</code></td></tr>
+      <tr><td>Target Group</td><td><code>inbound-vm-series</code> (IP addresses)</td></tr>
+      <tr><td>Target IPs</td><td><code>10.103.0.106</code>, <code>10.103.1.106</code> (public interface IPs)</td></tr>
+    </table>
+
+    <h4>5.2.2&ndash;5.2.3 Security Group &amp; Route Table</h4>
+    <p>Add HTTP inbound rule to <code>security-firewall-public</code>.</p>
+    <p>Add RFC 1918 routes to <code>security-fw</code> route table pointing to TGW.</p>
+
+    <h4>5.2.4 Inbound NAT Policy</h4>
+    <table>
+      <tr><th>Setting</th><th>Value</th></tr>
+      <tr><td>Name</td><td><code>inbound-example-application</code></td></tr>
+      <tr><td>Source Zone</td><td><code>PUBLIC-INTERNET</code></td></tr>
+      <tr><td>Destination Zone</td><td><code>PUBLIC-INTERNET</code></td></tr>
+      <tr><td>Destination Interface</td><td><code>ethernet1/2</code></td></tr>
+      <tr><td>Source Translation</td><td>Dynamic IP and Port, Interface: <code>ethernet1/1</code></td></tr>
+      <tr><td>Destination Translation</td><td>Dynamic IP &rarr; FQDN <code>internal-ALB</code></td></tr>
+    </table>
+
+    <h4>5.2.5 Inbound Security Policy</h4>
+    <table>
+      <tr><th>Setting</th><th>Value</th></tr>
+      <tr><td>Name</td><td><code>inbound-example-application</code></td></tr>
+      <tr><td>Source Zone</td><td><code>PUBLIC-INTERNET</code></td></tr>
+      <tr><td>Destination Zone</td><td><code>GWLB</code></td></tr>
+      <tr><td>Destination Address</td><td><code>app01-vpc</code> (DAG)</td></tr>
+      <tr><td>Application</td><td><code>web-browsing</code></td></tr>
+      <tr><td>Action</td><td>Allow</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ================================================================ -->
+<!-- SECTION 6: VERIFICATION                                          -->
+<!-- ================================================================ -->
+<h2 id="section-6">6. Verification</h2>
+
+<div class="collapsible">
+  <div class="collapsible-header">
+    <span class="chevron">&#9654;</span>
+    <span>6.1 Panorama Verification</span>
+  </div>
+  <div class="collapsible-body">
+    <ol>
+      <li><strong>Panorama &gt; Managed Devices &gt; Summary</strong> &mdash; both firewalls Connected, In Sync</li>
+      <li><strong>Panorama &gt; Device Deployment &gt; Licenses &gt; Refresh</strong> &mdash; licenses active</li>
+      <li><strong>Monitor &gt; Traffic</strong> &mdash; verify logs flowing from VM-Series</li>
+    </ol>
+  </div>
+</div>
+
+<div class="collapsible">
+  <div class="collapsible-header">
+    <span class="chevron">&#9654;</span>
+    <span>6.2 VM-Series CLI Verification</span>
+  </div>
+  <div class="collapsible-body">
+    <div class="code-block">
+      <pre><code># System and bootstrap status
+show system info
+show bootstrap status
+
+# Interface status
+show interface all
+
+# GWLB and Geneve
+show plugins vm_series aws gwlb
+show plugins vm_series aws gwlb overlay-routing
+
+# Sessions
+show session info
+show session all
+
+# Routing
+show routing route
+show routing fib virtual-router AWS-VR</code></pre>
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+  </div>
+</div>
+
+<div class="collapsible">
+  <div class="collapsible-header">
+    <span class="chevron">&#9654;</span>
+    <span>6.3 GWLB Health Check Verification</span>
+  </div>
+  <div class="collapsible-body">
+    <ol>
+      <li><strong>EC2 &gt; Target Groups &gt; VM-Series</strong></li>
+      <li>Verify both targets show <strong>healthy</strong></li>
+      <li>If unhealthy: check <code>security-firewall-private</code> SG allows HTTPS from GWLB subnets</li>
+    </ol>
+  </div>
+</div>
+
+<div class="collapsible">
+  <div class="collapsible-header">
+    <span class="chevron">&#9654;</span>
+    <span>6.4 Traffic Flow Tests</span>
+  </div>
+  <div class="collapsible-body">
+    <table>
+      <tr><th>Test</th><th>Method</th><th>Expected Session Zones</th></tr>
+      <tr><td><strong>Outbound</strong></td><td>From spoke instance: <code>curl -I https://www.paloaltonetworks.com</code></td><td><code>OUTBOUND</code> &rarr; <code>PUBLIC-INTERNET</code></td></tr>
+      <tr><td><strong>East-West</strong></td><td>From app01 instance, connect to app02 instance</td><td><code>EASTWEST</code> &rarr; <code>EASTWEST</code></td></tr>
+      <tr><td><strong>Inbound (Combined)</strong></td><td>From external host, connect to ALB DNS name</td><td><code>INBOUND</code> &rarr; <code>INBOUND</code></td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- ================================================================ -->
+<!-- SECTION 7: TROUBLESHOOTING                                       -->
+<!-- ================================================================ -->
+<h2 id="section-7">7. Troubleshooting</h2>
+
+<div class="collapsible">
+  <div class="collapsible-header">
+    <span class="chevron">&#9654;</span>
+    <span>7.1 Bootstrap Issues</span>
+  </div>
+  <div class="collapsible-body">
+    <table>
+      <tr><th>Symptom</th><th>Cause</th><th>Resolution</th></tr>
+      <tr><td>VM-Series not registering with Panorama</td><td>Incorrect Panorama IP, auth key, or template/DG name in user data</td><td>Verify user-data parameters exactly match Panorama config (case-sensitive)</td></tr>
+      <tr><td>Device shows &ldquo;Not Connected&rdquo;</td><td>Network connectivity issue</td><td>Verify mgmt SG, routing from mgmt subnet to Panorama via TGW</td></tr>
+      <tr><td>Device registered but no config</td><td>Wrong <code>tplname</code> or <code>dgname</code></td><td>Must exactly match (case-sensitive) &mdash; cannot be fixed without redeploying</td></tr>
+      <tr><td>Device certificate not installed</td><td>Missing step</td><td>Install via firewall web UI using one-time password from CSP</td></tr>
+    </table>
+  </div>
+</div>
+
+<div class="collapsible">
+  <div class="collapsible-header">
+    <span class="chevron">&#9654;</span>
+    <span>7.2 GWLB / Geneve Issues</span>
+  </div>
+  <div class="collapsible-body">
+    <table>
+      <tr><th>Symptom</th><th>Cause</th><th>Resolution</th></tr>
+      <tr><td>Target unhealthy in GWLB target group</td><td>Health check failing</td><td>Verify <code>security-firewall-private</code> SG allows HTTPS from GWLB subnets</td></tr>
+      <tr><td>Asymmetric routing</td><td>Appliance mode not enabled</td><td>Run <code>aws ec2 modify-transit-gateway-vpc-attachment</code> with <code>ApplianceModeSupport=enable</code></td></tr>
+      <tr><td>No sessions on firewall</td><td>Geneve not enabled</td><td>Check <code>show plugins vm_series aws gwlb</code> &mdash; GWLB enabled and Overlay Routing should be True</td></tr>
+      <tr><td>GWLB endpoints not mapped</td><td>Missing plugin-op-commands in user data</td><td>Redeploy with correct <code>aws-gwlb-associate-vpce</code> commands</td></tr>
+    </table>
+  </div>
+</div>
+
+<div class="collapsible">
+  <div class="collapsible-header">
+    <span class="chevron">&#9654;</span>
+    <span>7.3 CLI Troubleshooting Commands</span>
+  </div>
+  <div class="collapsible-body">
+    <div class="code-block">
+      <pre><code># Bootstrap
+show bootstrap status
+show log bootstrap
+
+# GWLB
+show plugins vm_series aws gwlb
+show plugins vm_series aws gwlb overlay-routing
+show plugins vm_series aws gwlb statistics
+
+# Sessions
+show session all
+show session all filter source &lt;ip&gt;
+show session info
+
+# Interfaces
+show interface all
+show arp all
+
+# Routing
+show routing route
+show routing fib virtual-router AWS-VR
+
+# System
+show system info | match panorama
+show system resources
+show running resource-monitor</code></pre>
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================ -->
+<!-- APPENDICES                                                       -->
+<!-- ================================================================ -->
+<h2 id="appendices">Appendices</h2>
+
+<div class="collapsible">
+  <div class="collapsible-header">
+    <span class="chevron">&#9654;</span>
+    <span>Appendix A: Port Requirements</span>
+  </div>
+  <div class="collapsible-body">
+    <table>
+      <tr><th>Source</th><th>Destination</th><th>Port</th><th>Protocol</th><th>Purpose</th></tr>
+      <tr><td>Panorama</td><td>VM-Series mgmt</td><td>3978</td><td>TCP</td><td>Device management</td></tr>
+      <tr><td>VM-Series mgmt</td><td>Panorama</td><td>3978</td><td>TCP</td><td>Device management</td></tr>
+      <tr><td>VM-Series mgmt</td><td>Panorama/SLS</td><td>28443</td><td>TCP</td><td>Log forwarding</td></tr>
+      <tr><td>VM-Series mgmt</td><td>CSP</td><td>443</td><td>TCP</td><td>Licensing</td></tr>
+      <tr><td>VM-Series mgmt</td><td>Updates server</td><td>443</td><td>TCP</td><td>Content/software updates</td></tr>
+      <tr><td>GWLB subnets</td><td>VM-Series private</td><td>443</td><td>TCP</td><td>Health checks (HTTPS)</td></tr>
+      <tr><td>GWLB</td><td>VM-Series private</td><td>6081</td><td>UDP</td><td>Geneve encapsulation</td></tr>
+      <tr><td>Admin</td><td>VM-Series mgmt</td><td>22, 443</td><td>TCP</td><td>SSH and HTTPS management</td></tr>
+    </table>
+  </div>
+</div>
+
+<div class="collapsible">
+  <div class="collapsible-header">
+    <span class="chevron">&#9654;</span>
+    <span>Appendix B: AWS Resource Summary</span>
+  </div>
+  <div class="collapsible-body">
+    <table>
+      <tr><th>Resource</th><th>Qty</th><th>Notes</th></tr>
+      <tr><td>VPCs</td><td>3+</td><td>Security + Management + N spoke VPCs</td></tr>
+      <tr><td>Security VPC Subnets</td><td>14</td><td>6 types &times; 2 AZs + 2 extra GWLB AZs</td></tr>
+      <tr><td>Internet Gateway</td><td>1+</td><td>Security VPC + 1 per app VPC with inbound</td></tr>
+      <tr><td>Transit Gateway</td><td>1</td><td>Connects all VPCs</td></tr>
+      <tr><td>TGW Attachments</td><td>3+</td><td>Security + Management + N spoke VPCs</td></tr>
+      <tr><td>TGW Route Tables</td><td>2</td><td>security + spokes</td></tr>
+      <tr><td>GWLB</td><td>1</td><td>Spans 4 AZs, cross-zone enabled</td></tr>
+      <tr><td>GWLB Endpoints (Security VPC)</td><td>2</td><td>One per AZ in gwlbe subnets</td></tr>
+      <tr><td>GWLB Endpoints (per App VPC)</td><td>2</td><td>One per AZ (Combined inbound only)</td></tr>
+      <tr><td>VM-Series Instances</td><td>2</td><td>One per AZ</td></tr>
+      <tr><td>ENIs per VM-Series</td><td>3</td><td>mgmt + private + public</td></tr>
+      <tr><td>Elastic IPs</td><td>4</td><td>2 mgmt + 2 public (mgmt optional)</td></tr>
+      <tr><td>Security Groups</td><td>3+</td><td>mgmt, private, public + per-app VPC</td></tr>
+    </table>
+  </div>
+</div>
+
+<div class="collapsible">
+  <div class="collapsible-header">
+    <span class="chevron">&#9654;</span>
+    <span>Appendix C: Named Objects Reference</span>
+  </div>
+  <div class="collapsible-body">
+    <h4>Panorama Objects</h4>
+    <table>
+      <tr><th>Object Type</th><th>Name</th><th>Parent/Context</th></tr>
+      <tr><td>Device Group</td><td><code>DG-AWS</code></td><td>Shared</td></tr>
+      <tr><td>Device Group</td><td><code>DG-AWS-USW2</code></td><td>DG-AWS</td></tr>
+      <tr><td>Template</td><td><code>1-TPL-AWS-REGIONAL-USW2</code></td><td>Regional settings</td></tr>
+      <tr><td>Template</td><td><code>2-TPL-AWS-GLOBAL-COMMON-BASELINE</code></td><td>Global baseline</td></tr>
+      <tr><td>Template</td><td><code>3-TPL-AWS-ADMINS-BASELINE</code></td><td>Admin accounts</td></tr>
+      <tr><td>Template</td><td><code>4-TPL-AWS-GWLB-OVRLY-COMBINED</code></td><td>Network settings (overlay)</td></tr>
+      <tr><td>Template Stack</td><td><code>STK-AWS-PRD-USW2-AZ-A</code></td><td>All 4 templates</td></tr>
+      <tr><td>Template Stack</td><td><code>STK-AWS-PRD-USW2-AZ-B</code></td><td>All 4 templates</td></tr>
+      <tr><td>Log Forwarding</td><td><code>default</code></td><td>DG-AWS</td></tr>
+      <tr><td>Mgmt Profile</td><td><code>AWS-HEALTH-CHECKS</code></td><td>4-TPL-AWS-GWLB-OVRLY-COMBINED</td></tr>
+      <tr><td>Mgmt Profile</td><td><code>PUBLIC-PING</code></td><td>4-TPL-AWS-GWLB-OVRLY-COMBINED</td></tr>
+      <tr><td>Mgmt Profile</td><td><code>INTERNAL-PING</code></td><td>4-TPL-AWS-GWLB-OVRLY-COMBINED</td></tr>
+      <tr><td>Zone</td><td><code>GWLB</code></td><td>ethernet1/1</td></tr>
+      <tr><td>Zone</td><td><code>PUBLIC-INTERNET</code></td><td>ethernet1/2</td></tr>
+      <tr><td>Zone</td><td><code>INBOUND</code></td><td>ethernet1/1.10</td></tr>
+      <tr><td>Zone</td><td><code>APP1</code></td><td>ethernet1/1.11</td></tr>
+      <tr><td>Zone</td><td><code>APP2</code></td><td>ethernet1/1.12</td></tr>
+      <tr><td>Zone</td><td><code>APP3</code></td><td>ethernet1/1.13</td></tr>
+      <tr><td>Zone</td><td><code>OUTBOUND</code></td><td>ethernet1/1.20</td></tr>
+      <tr><td>Zone</td><td><code>EASTWEST</code></td><td>ethernet1/1.30</td></tr>
+      <tr><td>Zone Protection</td><td><code>TEST-ZPP</code></td><td>4-TPL-AWS-GWLB-OVRLY-COMBINED</td></tr>
+      <tr><td>Virtual Router</td><td><code>AWS-VR</code></td><td>&mdash;</td></tr>
+      <tr><td>DAG</td><td><code>app01-vpc</code></td><td>DG-AWS-USW2</td></tr>
+      <tr><td>DAG</td><td><code>app02-vpc</code></td><td>DG-AWS-USW2</td></tr>
+      <tr><td>DAG</td><td><code>management-vpc</code></td><td>DG-AWS-USW2</td></tr>
+      <tr><td>Variable</td><td><code>$INTERNAL-GW</code></td><td>Template-level</td></tr>
+      <tr><td>Variable</td><td><code>$EXTERNAL-GW</code></td><td>Template-level</td></tr>
+    </table>
+
+    <h4>AWS Objects</h4>
+    <table>
+      <tr><th>Object Type</th><th>Name</th></tr>
+      <tr><td>VPCs</td><td><code>security</code>, <code>app01</code>, <code>app02</code>, <code>management</code></td></tr>
+      <tr><td>TGW</td><td><code>TGW</code></td></tr>
+      <tr><td>TGW Route Tables</td><td><code>security</code>, <code>spokes</code></td></tr>
+      <tr><td>GWLB</td><td><code>security</code></td></tr>
+      <tr><td>GWLB Target Group</td><td><code>VM-Series</code></td></tr>
+      <tr><td>GWLB Endpoint Service</td><td><code>security-GWLB</code></td></tr>
+      <tr><td>Security Groups</td><td><code>security-firewall-mgmt</code>, <code>security-firewall-private</code>, <code>security-firewall-public</code></td></tr>
+    </table>
+  </div>
 </div>
 
 </div><!-- .article -->
 </main>
 </div><!-- .layout -->
 
-<!-- ── Back to top ────────────────────────────────────────────── -->
+<!-- == Back to top ================================================= -->
 <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#9650;</button>
 
 <script src="../shared/js/pan-guides.js"></script>
